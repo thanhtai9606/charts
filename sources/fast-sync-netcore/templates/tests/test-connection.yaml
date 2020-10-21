@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "fast-sync-netcore.fullname" . }}-test-connection"
+  labels:
+    {{- include "fast-sync-netcore.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "fast-sync-netcore.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never

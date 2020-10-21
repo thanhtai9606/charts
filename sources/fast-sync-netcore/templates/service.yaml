@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "fast-sync-netcore.fullname" . }}
+  labels:
+    {{- include "fast-sync-netcore.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "fast-sync-netcore.selectorLabels" . | nindent 4 }}
