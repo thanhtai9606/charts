@@ -3,89 +3,89 @@ entries:
   auth-api:
   - apiVersion: v2
     appVersion: 3.1.0
-    created: "2020-10-21T11:14:44.854081935+07:00"
+    created: "2020-10-21T11:22:51.730910611+07:00"
     description: A Helm chart for Kubernetes
     digest: 1f4820ae1f235bae6225c18b70fa2c45ad15c089a5543d1cfdee600717846d15
     name: auth-api
     type: application
     urls:
-    - auth-api-0.1.0.tgz
+    - releases/auth-api-0.1.0.tgz
     version: 0.1.0
   consumer-api:
   - apiVersion: v2
     appVersion: 3.1.0
-    created: "2020-10-21T11:14:44.854497812+07:00"
+    created: "2020-10-21T11:22:51.731275161+07:00"
     description: A Helm chart for Kubernetes
     digest: 42c3d99af40b502054c31408137c62bb70de5c86585992fb1736a6a707212689
     name: consumer-api
     type: application
     urls:
-    - consumer-api-0.1.0.tgz
+    - releases/consumer-api-0.1.0.tgz
     version: 0.1.0
   fast-sync-netcore:
   - apiVersion: v2
     appVersion: 3.1.0
-    created: "2020-10-21T11:14:44.855168616+07:00"
+    created: "2020-10-21T11:22:51.731665628+07:00"
     description: A Helm chart for Kubernetes
     digest: d3e0c0323e2595cbec1120492ef9b0f03472d93bab655f395236cdd2111cd6e4
     name: fast-sync-netcore
     type: application
     urls:
-    - fast-sync-netcore-0.1.0.tgz
+    - releases/fast-sync-netcore-0.1.0.tgz
     version: 0.1.0
   fast-sync-node:
   - apiVersion: v2
     appVersion: 10.0.0
-    created: "2020-10-21T11:14:44.855955112+07:00"
+    created: "2020-10-21T11:22:51.732065537+07:00"
     description: A Helm chart for Kubernetes
     digest: 4d845390efd004d24975f50a731dd30d3668b6a6c4fe1fc144d2030260f03f7e
     name: fast-sync-node
     type: application
     urls:
-    - fast-sync-node-0.1.0.tgz
+    - releases/fast-sync-node-0.1.0.tgz
     version: 0.1.0
   inventory-api:
   - apiVersion: v2
     appVersion: 3.1.0
-    created: "2020-10-21T11:14:44.856715892+07:00"
+    created: "2020-10-21T11:22:51.73239569+07:00"
     description: A Helm chart for Kubernetes
     digest: 31200bdafdd29ea3ca29486240f890e210d2563606414f4e83bc6d8d2453d1f2
     name: inventory-api
     type: application
     urls:
-    - inventory-api-0.1.0.tgz
+    - releases/inventory-api-0.1.0.tgz
     version: 0.1.0
   machine-api:
   - apiVersion: v2
     appVersion: 3.1.0
-    created: "2020-10-21T11:14:44.857840199+07:00"
+    created: "2020-10-21T11:22:51.732817932+07:00"
     description: A Helm chart for Kubernetes
     digest: dacc6550199e89c3785b9172f6ae874e8a100e60f76ad2707a0e987262868f45
     name: machine-api
     type: application
     urls:
-    - machine-api-0.1.0.tgz
+    - releases/machine-api-0.1.0.tgz
     version: 0.1.0
   mobile-api:
   - apiVersion: v2
     appVersion: 3.1.0
-    created: "2020-10-21T11:14:44.858258169+07:00"
+    created: "2020-10-21T11:22:51.73316552+07:00"
     description: A Helm chart for Kubernetes
     digest: f18bece18a9c297c0874b50fdc2023973be21eb19b11e5e6a2876cf4beb8207e
     name: mobile-api
     type: application
     urls:
-    - mobile-api-0.1.0.tgz
+    - releases/mobile-api-0.1.0.tgz
     version: 0.1.0
   mssql:
   - apiVersion: v2
     appVersion: 2019.0.0
-    created: "2020-10-21T11:14:44.858644993+07:00"
+    created: "2020-10-21T11:22:51.733599362+07:00"
     description: A Helm chart for Kubernetes
     digest: 9bb8937493392cdb23f3d55bbe67b7fca7efbbff0c9130e803ec7a4a460345b1
     name: mssql
     type: application
     urls:
-    - mssql-0.1.0.tgz
+    - releases/mssql-0.1.0.tgz
     version: 0.1.0
-generated: "2020-10-21T11:14:44.847074417+07:00"
+generated: "2020-10-21T11:22:51.730291569+07:00"
