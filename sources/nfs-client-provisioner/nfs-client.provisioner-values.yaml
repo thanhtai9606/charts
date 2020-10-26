@@ -11,7 +11,7 @@ image:
   pullPolicy: IfNotPresent
 
 nfs:
-  server: 172.16.10.100
+  server: 172.16.10.2
   path: /srv/nfs/kubedata
   mountOptions:
 

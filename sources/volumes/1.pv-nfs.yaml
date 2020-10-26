@@ -10,4 +10,4 @@ spec:
     - ReadWriteMany
   nfs:
     path: "/srv/nfs/kubedata/pv-storage"
-    server: "172.16.10.100"
+    server: "172.16.10.2"

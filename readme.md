@@ -33,3 +33,6 @@ mv ~/.kube/config_temp ~/.kube/config
 
 # references 
 https://github.com/nhtua/charts
+
+# test kube
+kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
