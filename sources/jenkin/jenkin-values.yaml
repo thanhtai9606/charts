@@ -44,7 +44,7 @@ jenkinsUser: user
 ## Defaults to a random 10-character alphanumeric string if not set
 ## ref: https://github.com/bitnami/bitnami-docker-jenkins#configuration
 ##
-# jenkinsPassword:
+jenkinsPassword: admin
 
 ## Jenkins home directory
 ##
@@ -190,7 +190,7 @@ ingress:
 
   ## Set this to true in order to add the corresponding annotations for cert-manager
   ##
-  certManager: false
+  certManager: true
 
   ## When the ingress is enabled, a host pointing to this will be created
   ##
@@ -212,10 +212,10 @@ ingress:
 
   ## The tls configuration for additional hostnames to be covered with this ingress record.
   ## see: https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
-  ## extraTls:
-  ## - hosts:
-  ##     - jenkins.local
-  ##   secretName: jenkins.local-tls
+  extraTls:
+  - hosts:
+      - jenkins.becamex.com.vn
+    secretName: becamex-secret-cert
 
   ## If you're providing your own certificates, please use this to add the certificates as secrets
   ## key and certificate should start with -----BEGIN CERTIFICATE----- or
