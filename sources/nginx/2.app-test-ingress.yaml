@@ -6,12 +6,16 @@ metadata:
   # annotations:
   #   nginx.ingress.kubernetes.io/rewrite-target: /$1 #set rewrite
 spec:
+  tls:
+    - hosts:
+      - zzz.becamex.com.vn
+      secretName: becamex-secret-cert
   rules:
     # Tên miền truy cập
-  - host: nginx-ingress.io
+  - host: zzz.becamex.com.vn
     http:
       paths:
-      - path: /xxx
+      - path: /
         backend:
           # dịch vụ phục vụ tương ứng với tên miền và path
           serviceName: http-test-svc
