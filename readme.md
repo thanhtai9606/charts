@@ -41,3 +41,8 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 # create secret certs
 
 kubectl create secret tls becamex-secret-cert --cert=./sources/certs/becamex.com.vn.crt --key=./sources/certs/becamex.com.vn.key
+
+# remove pv,pvc
+
+kubectl patch pvc db-pv-claim -p '{"metadata":{"finalizers":null}}'
+kubectl patch pod db-74755f6698-8td72 -p '{"metadata":{"finalizers":null}}'
