@@ -51,3 +51,8 @@ kubectl patch pod db-74755f6698-8td72 -p '{"metadata":{"finalizers":null}}'
 ```
 đối với ingress phải chỉnh lại hostNetwork =true
 ```
+
+```
+* phải stop firewalld quan trọng
+systemctl stop firewalld
+```

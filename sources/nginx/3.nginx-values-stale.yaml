@@ -476,11 +476,11 @@ ingress:
 
   ## Set this to true in order to add the corresponding annotations for cert-manager
   ##
-  certManager: true
+  certManager: false
 
   ## When the ingress is enabled, a host pointing to this will be created
   ##
-  hostname: nginx-ingress.io
+  hostname: becamex.com.vn
 
   ## Ingress annotations done as key:value pairs
   ## For a full list of possible ingress annotations, please see
@@ -509,15 +509,12 @@ ingress:
   ## The tls configuration for additional hostnames to be covered with this ingress record.
   ## see: https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
   ## E.g.
-  ## extraTls:
-  ##   - hosts:
-  ##       - example.local
-  ##     secretName: example.local-tls
-  ##
-  extraTls: 
+  extraTls:
     - hosts:
-      - nginx-ingress.io
-      secretName: secret-nginx-cert
+        - becamex.com.vn
+      secretName: becamex-secret-cert
+  ##
+  # extraTls: []
 
   ## If you're providing your own certificates, please use this to add the certificates as secrets
   ## key and certificate should start with -----BEGIN CERTIFICATE----- or -----BEGIN RSA PRIVATE KEY-----
@@ -603,7 +600,7 @@ healthIngress:
 ## Prometheus Exporter / Metrics
 ##
 metrics:
-  enabled: false
+  enabled: true
 
   ## Bitnami NGINX Prometheus Exporter image
   ## ref: https://hub.docker.com/r/bitnami/nginx-exporter/tags/
