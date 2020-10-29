@@ -46,3 +46,8 @@ kubectl create secret tls becamex-secret-cert --cert=./sources/certs/becamex.com
 
 kubectl patch pvc db-pv-claim -p '{"metadata":{"finalizers":null}}'
 kubectl patch pod db-74755f6698-8td72 -p '{"metadata":{"finalizers":null}}'
+
+# lưu ý ingress
+```
+đối với ingress phải chỉnh lại hostNetwork =true
+```

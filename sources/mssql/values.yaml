@@ -16,7 +16,7 @@ fullnameOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
-  create: true
+  create: false
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
@@ -42,30 +42,31 @@ env:
     value: "Becamex@1234"
 # set volume nfs
 volumes:
-  claimName: pvc1
+  claimName: pvc-app-share
 # set volumeMounts
 volumeMounts:
     mountPath: "/app/db" # ánh xạ thư mụ nginx config trong container
     subPath: "db"
-    mountPathData: "/var/opt/mssql/data" # ánh xạ thư mụ nginx config trong container
+    mountPathData: "/var/opt/mssql/data" # ánh xạ thư mục database config trong container
     subPathData: "data"
 service:
   type: ClusterIP
   port: 1433
-# externalIPs: 
-#   - 172.16.10.3
+  # externalIPs: 
+  # - 192.168.103.148
 ingress:
-  enabled: false
+  enabled: true
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: nginx-ingress.io
-      paths: []
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+    - host: mssql.becamex.com.vn
+      paths: 
+        - /
+  tls:
+   - secretName: becamex-secret-cert
+     hosts:
+       - mssql.becamex.com.vn
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

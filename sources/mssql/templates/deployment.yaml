@@ -41,9 +41,9 @@ spec:
             - mountPath: {{ .Values.volumeMounts.mountPath }} # ánh xạ thư mụ nginx config trong container
               name: nfs-volume
               subPath: {{ .Values.volumeMounts.subPath }}
-            - mountPath: {{ .Values.volumeMounts.mountPathData }} # ánh xạ thư mụ nginx config trong container
-              name: nfs-volume
-              subPath: {{ .Values.volumeMounts.subPathData }}
+            # - mountPath: {{ .Values.volumeMounts.mountPathData }} # ánh xạ thư mụ nginx config trong container
+            #   name: nfs-volume
+            #   subPath: {{ .Values.volumeMounts.subPathData }}
           ports:
             - name: http
               containerPort: 1433

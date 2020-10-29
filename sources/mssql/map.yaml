@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tcp-services
+  namespace: db-storage
+data:
+  80: "db-storage/mssql.becamex.com.vn:1433"
