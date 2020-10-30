@@ -80,3 +80,15 @@ helm install nginx bitnami/nginx-ingress-controller -f sources/nginx/4.nginx-val
 kubectl apply -f sources/nginx/2.app-test-ingress.yaml 
 
 ```
+
+* create dynamic volume
+```
+helm install nfs-client stable/nfs-client-provisioner -f sources/nfs-client-provisioner/nfs-client.provisioner-values.yaml 
+```
+
+* create volume for db-storage
+```
+kubectl apply -f sources/volumes/4.db-strorage.yaml 
+kubectl apply -f sources/volumes/5.app-share-storage.yaml
+
+```
