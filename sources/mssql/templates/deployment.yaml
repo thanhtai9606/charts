@@ -27,7 +27,6 @@ spec:
       serviceAccountName: {{ include "mssql.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      # hostNetwork: true
       volumes:
         - name: nfs-volume
           persistentVolumeClaim:

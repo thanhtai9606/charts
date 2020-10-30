@@ -53,7 +53,7 @@ service:
   type: LoadBalancer
   port: 1433
   externalIPs:
-    - 172.16.10.4
+    - 172.16.10.6
 ingress:
   enabled: false
   annotations: {}
