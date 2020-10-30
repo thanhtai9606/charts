@@ -92,3 +92,7 @@ kubectl apply -f sources/volumes/4.db-strorage.yaml
 kubectl apply -f sources/volumes/5.app-share-storage.yaml
 
 ```
+* create mssql 
+```
+helm install mssql -n db-storage sources/mssql/ -f sources/mssql/values.yaml 
+```

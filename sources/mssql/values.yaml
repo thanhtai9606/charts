@@ -53,7 +53,7 @@ service:
   type: LoadBalancer
   port: 1433
   externalIPs:
-  - 172.16.10.3
+    - 172.16.10.4
 ingress:
   enabled: false
   annotations: {}
@@ -87,8 +87,8 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-nodeSelector: {}
-  # "kubernetes.io/hostname": worker2.xtl
+nodeSelector:
+  "kubernetes.io/hostname": worker2.xtl
 
 tolerations: []
 
