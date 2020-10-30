@@ -56,3 +56,27 @@ kubectl patch pod db-74755f6698-8td72 -p '{"metadata":{"finalizers":null}}'
 * phải stop firewalld quan trọng
 systemctl stop firewalld
 ```
+
+# copt db & share app
+```
+scp -r ~/app/db/ root@172.16.10.2:/srv/nfs/kubedata
+```
+* share app
+scp -r ~/app/kubernetes-deploy/pv-storage/ root@172.16.10.2:/srv/nfs/kubedata
+
+* create ns
+```
+kubectl create ns xlnt
+kubectl create ns nginx-ingress
+kubectl create ns db-storage
+```
+
+* test ingress
+```
+helm install nginx bitnami/nginx-ingress-controller -f sources/nginx/4.nginx-values.yaml -n nginx-ingress
+
+ kubectl apply -f sources/nginx/1.app-test.yaml 
+
+kubectl apply -f sources/nginx/2.app-test-ingress.yaml 
+
+```

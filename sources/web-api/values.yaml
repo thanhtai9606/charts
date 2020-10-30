@@ -37,7 +37,7 @@ securityContext: {}
   # runAsUser: 1000
 env:
   - name: BCM_SMARTIN_CONNECTION
-    value: "Server=172.16.10.102;Database=Dev_BCM_SmartIn;user id=sa;password=Becamex@1234;Connect Timeout=100;Trusted_Connection=False;MultipleActiveResultSets=true"
+    value: "Server=192.168.103.96;Database=Dev_BCM_SmartIn;user id=sa;password=Becamex@1234;Connect Timeout=100;Trusted_Connection=False;MultipleActiveResultSets=true"
   - name : IS_PRODUCTION
     value: "true"
   - name: LICENSE_KEY
@@ -66,7 +66,7 @@ ingress:
     # nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
     nginx.ingress.kubernetes.io/grpc-backend: "true"
   hosts:
-    - host: nginx-ingress.io
+    - host: zzz.becamex.com.vn
       paths: 
         - /smartin
   tls: []
