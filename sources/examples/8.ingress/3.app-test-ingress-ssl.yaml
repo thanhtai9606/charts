@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: app
+  namespace: ingress-controller
+spec:
+  tls:
+    - hosts:
+      - minikube.io
+      secretName: secret-nginx-cert
+
+    # - hosts:
+    #   - otherdomain.coms
+    #   secretName: otherssl-ssl
+  rules:
+  - host: minikube.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: http-test-svc
+          servicePort: 80

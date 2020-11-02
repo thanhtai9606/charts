@@ -511,7 +511,7 @@ service:
   ##
   loadBalancerIP:
     master: 172.16.10.3
-    slave: 172.16.10.4
+    #slave: 172.16.10.4
 ## MySQL prometheus metrics parameters
 ## ref: https://docs.influxdata.com/influxdb/v1.7/administration/server_monitoring/#influxdb-metrics-http-endpoint
 ##

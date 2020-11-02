@@ -40,7 +40,7 @@ securityContext: {}
 volumes:
   claimName: pvc-app-share
 # set volumeMounts
-volumeMounts:
+volumeMounts: 
     mountPath: "/app/Resources" # ánh xạ thư mụ nginx config trong container
     subPath: "Resources"
 hostNetwork: false
@@ -91,9 +91,9 @@ env:
 
 ingress:
   enabled: true
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
   hosts:
     - host: zzz.becamex.com.vn
       paths: 
