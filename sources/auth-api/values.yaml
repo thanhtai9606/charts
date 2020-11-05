@@ -38,9 +38,9 @@ securityContext: {}
 
 # set volume nfs
 volumes:
-  claimName: pvc1
+  claimName: pvc-app-share
 # set volumeMounts
-volumeMounts:
+volumeMounts: 
     mountPath: "/app/Resources" # ánh xạ thư mụ nginx config trong container
     subPath: "Resources"
 hostNetwork: false
@@ -49,7 +49,7 @@ service:
   port: 80
 env:
   - name: BCM_AUTH_CONNECTION
-    value: "Server=172.16.10.102;Database=Dev_BCM_Auth;user id=sa;password=Becamex@1234;Trusted_Connection=False;MultipleActiveResultSets=true"
+    value: "Server=192.168.103.96;Database=Dev_BCM_Auth;user id=sa;password=Becamex@1234;Trusted_Connection=False;MultipleActiveResultSets=true"
   - name: BCM_AUTH_SHAREPOINT_CONNECTION
     value: "Server=192.168.103.83;Database=UAT_Content_home;user id=becamexapp;password=Becamex@123;Trusted_Connection=False;MultipleActiveResultSets=true"
   - name: BCM_MOBILE_APP_CONNECTION
@@ -83,25 +83,25 @@ env:
   - name: BCM_GRPC
     value: "http://smartin-h2c"
   - name: BCM_SOCIAL_NETWORK
-    value: "http://nginx-ingress.io:8002/social-network/"
+    value: "http://zzz.becamex.com.vn/social-network/"
   - name: BCM_API_GATEWAY
-    value: "http://nginx-ingress.io:8002/"
+    value: "http://zzz.becamex.com.vn/"
   - name: TZ
     value: "Asia/Ho_Chi_Minh"
 
 ingress:
   enabled: true
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
   hosts:
-    - host: nginx-ingress.io
+    - host: zzz.becamex.com.vn
       paths: 
       - /auth
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+  tls:
+   - secretName: becamex-secret-cert
+     hosts:
+       - zzz.becamex.com.vn
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little

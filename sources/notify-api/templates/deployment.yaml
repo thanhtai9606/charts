@@ -39,11 +39,11 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /swagger
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /swagger
               port: http
           env:
             {{- toYaml .Values.env | nindent 12 }}

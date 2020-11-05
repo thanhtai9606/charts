@@ -16,7 +16,7 @@ fullnameOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
-  create: true
+  create: false
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
@@ -42,42 +42,43 @@ env:
     value: "Becamex@1234"
 # set volume nfs
 volumes:
-  claimName: pvc1
+  claimName: pvc-db-storage
 # set volumeMounts
 volumeMounts:
     mountPath: "/app/db" # ánh xạ thư mụ nginx config trong container
     subPath: "db"
-    mountPathData: "/var/opt/mssql/data" # ánh xạ thư mụ nginx config trong container
-    subPathData: "data"
-service:
-  type: ClusterIP
+    # mountPathData: "/var/opt/mssql/data" # ánh xạ thư mục database config trong container
+    # subPathData: "data"
+service:  
+  type: LoadBalancer
   port: 1433
-# externalIPs: 
-#   - 172.16.10.3
+  externalIPs:
+    - 172.16.10.3
 ingress:
   enabled: false
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: nginx-ingress.io
-      paths: []
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+    - host: mssql.becamex.com.vn
+      paths: 
+        - /
+  tls:
+   - secretName: becamex-secret-cert
+     hosts:
+       - mssql.becamex.com.vn
 
-resources: {}
+resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
+  #   cpu: 2000m
+  #   memory: 2048Mi
   # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+  #   cpu: 2000m
+  #   memory: 2048Mi
 
 autoscaling:
   enabled: false
@@ -86,7 +87,7 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-nodeSelector: {}
+nodeSelector:
   # "kubernetes.io/hostname": worker2.xtl
 
 tolerations: []

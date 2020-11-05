@@ -9,5 +9,5 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    path: "/srv/nfs/kubedata/pv-storage"
-    server: "192.168.103.146"
+    path: "/srv/nfs/kubedata/"
+    server: "172.16.10.2"

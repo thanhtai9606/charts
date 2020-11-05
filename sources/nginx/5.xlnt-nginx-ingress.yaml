@@ -1,0 +1,52 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: app-nginx
+  namespace: xlnt
+  # annotations:
+  #   nginx.ingress.kubernetes.io/rewrite-target: /$1 #set rewrite
+spec:
+  tls: 
+    - hosts:
+      - zzz.becamex.com.vn
+      secretName: becamex-secret-cert
+  rules:
+    # Tên miền truy cập
+  - host: zzz.becamex.com.vn
+    http:
+      paths:
+      - path: /auth
+        backend:
+          # dịch vụ phục vụ tương ứng với tên miền và path
+          serviceName: auth-auth-api
+          servicePort: 80
+      # - path: /smartin
+      #   backend:
+      #     # dịch vụ phục vụ tương ứng với tên miền và path
+      #     serviceName: auth-auth-api
+      #     servicePort: 80      
+      # - path: /signalr
+      #   backend:
+      #     # dịch vụ phục vụ tương ứng với tên miền và path
+      #     serviceName: auth-auth-api
+      #     servicePort: 80      
+      # - path: /inventory
+      #   backend:
+      #     # dịch vụ phục vụ tương ứng với tên miền và path
+      #     serviceName: auth-auth-api
+      #     servicePort: 80      
+      # - path: /machine
+      #   backend:
+      #     # dịch vụ phục vụ tương ứng với tên miền và path
+      #     serviceName: auth-auth-api
+      #     servicePort: 80      
+      # - path: /notification
+      #   backend:
+      #     # dịch vụ phục vụ tương ứng với tên miền và path
+      #     serviceName: auth-auth-api
+      #     servicePort: 80      
+      # - path: /fast
+      #   backend:
+      #     # dịch vụ phục vụ tương ứng với tên miền và path
+      #     serviceName: auth-auth-api
+      #     servicePort: 80      
