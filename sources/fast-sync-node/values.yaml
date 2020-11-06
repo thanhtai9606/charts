@@ -53,11 +53,11 @@ env:
   - name: TOPIC_RABBIT_ITEMTYPE
     value: "itemtype-queue"
   - name: RABBIT_USERNAME
-    value: "guest"  
+    value: "user"  
   - name: RABBIT_PASSWORD
-    value: "guest"  
+    value: "aIoneCePd7"  
   - name: RABBIT_CONNECT
-    value: "amqp://rabbit-rabbitmq.fast-sync.svc.cluster.local:5672"  
+    value: "amqp://grateful-boy-rabbitmq.nginx-ingress.svc"  
   - name: TIME_SYNC
     value: "*/1 * * * *"  
   - name: TZ
@@ -72,7 +72,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: nginx-ingress.io
+    - host: zzz.becamex.com.vn
       paths:
       - /fast
   tls: []
