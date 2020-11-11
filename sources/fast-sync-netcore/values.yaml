@@ -48,15 +48,15 @@ env:
   - name: TOPIC_RABBIT_ITEMTYPE
     value: "itemtype-queue"
   - name: RABBIT_USERNAME
-    value: "guest"  
+    value: "guest"
   - name: RABBIT_PASSWORD
     value: "guest"  
-  - name: RABBIT_HOSTNAME
-    value: "rabbit-rabbitmq.fast-sync.svc.cluster.local"  
+  - name: RABBIT_CONNECT
+    value: "amqp://grateful-boy-rabbitmq.nginx-ingress.svc" 
   - name: RABBIT_PORT
     value: "5672"  
   - name: BCM_SMARTIN_CONNECTION
-    value: "Server=172.16.10.102;Database=Dev_BCM_SmartIn;user id=sa;password=Becamex@1234;Connect Timeout=100;Trusted_Connection=False;MultipleActiveResultSets=true"
+    value: "Server=192.168.103.96;Database=Dev_BCM_SmartIn;user id=sa;password=Becamex@1234;Connect Timeout=100;Trusted_Connection=False;MultipleActiveResultSets=true"
   - name: TZ
     value: "Asia/Ho_Chi_Minh"
 ingress:

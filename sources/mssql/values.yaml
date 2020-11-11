@@ -50,10 +50,10 @@ volumeMounts:
     # mountPathData: "/var/opt/mssql/data" # ánh xạ thư mục database config trong container
     # subPathData: "data"
 service:  
-  type: LoadBalancer
+  type: ClusterIP
   port: 1433
-  externalIPs:
-    - 172.16.10.3
+  # externalIPs:
+  #   - 172.16.10.3
 ingress:
   enabled: false
   annotations: {}
@@ -73,12 +73,12 @@ resources:
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 2000m
-  #   memory: 2048Mi
-  # requests:
-  #   cpu: 2000m
-  #   memory: 2048Mi
+  limits:
+    cpu: 1000m
+    memory: 2048Mi
+  requests:
+    cpu: 1000m
+    memory: 2048Mi
 
 autoscaling:
   enabled: false

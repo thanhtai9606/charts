@@ -616,7 +616,7 @@ service:
 ingress:
   ## Set to true to enable ingress record generation
   ##
-  enabled: false
+  enabled: true
 
   ## Path for the default host
   ##
@@ -628,7 +628,7 @@ ingress:
 
   ## When the ingress is enabled, a host pointing to this will be created
   ##
-  hostname: rabbitmq.local
+  hostname: rabbitmq.becamex.com.vn
 
   ## Ingress annotations done as key:value pairs
   ## For a full list of possible ingress annotations, please see
