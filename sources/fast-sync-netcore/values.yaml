@@ -43,16 +43,24 @@ env:
     value: "sync-item"
   - name: TOPIC_RABBIT_ITEM
     value: "item-queue"
+  - name: TOPIC_RABBIT_ITEM_PRICE
+    value: "item-price-queue"
   - name: TOPIC_RABBIT_UNIT
     value: "unit-queue"
   - name: TOPIC_RABBIT_ITEMTYPE
     value: "itemtype-queue"
+  - name: TOPIC_RABBIT_RECEIPT
+    value: "receipt-queue"
+  - name: TOPIC_RABBIT_RECEIPT_MASTER
+    value: "receipt-master-queue"
+  - name: TOPIC_RABBIT_RECEIPT_DETAIL
+    value: "receipt-detail-queue"
   - name: RABBIT_USERNAME
-    value: "guest"
+    value: "user"
   - name: RABBIT_PASSWORD
-    value: "guest"  
-  - name: RABBIT_CONNECT
-    value: "amqp://grateful-boy-rabbitmq.nginx-ingress.svc" 
+    value: "admin"  
+  - name: RABBIT_HOSTNAME
+    value: "acid-suggestion-rabbitmq.kube-apps.svc" 
   - name: RABBIT_PORT
     value: "5672"  
   - name: BCM_SMARTIN_CONNECTION
