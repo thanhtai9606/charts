@@ -14,6 +14,7 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+hostNetwork: true
 serviceAccount:
   # Specifies whether a service account should be created
   create: false
@@ -47,13 +48,13 @@ volumes:
 volumeMounts:
     mountPath: "/app/db" # ánh xạ thư mụ nginx config trong container
     subPath: "db"
-    # mountPathData: "/var/opt/mssql/data" # ánh xạ thư mục database config trong container
-    # subPathData: "data"
+    mountPathData: "/var/opt/mssql/data" # ánh xạ thư mục database config trong container
+    subPathData: "data"
 service:  
   type: ClusterIP
   port: 1433
-  # externalIPs:
-  #   - 172.16.10.3
+  externalIPs:
+    - 192.168.103.147
 ingress:
   enabled: false
   annotations: {}
@@ -74,10 +75,10 @@ resources:
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   limits:
-    cpu: 1000m
+    cpu: 2000m
     memory: 2048Mi
   requests:
-    cpu: 1000m
+    cpu: 2000m
     memory: 2048Mi
 
 autoscaling:

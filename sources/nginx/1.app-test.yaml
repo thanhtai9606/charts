@@ -5,13 +5,15 @@ metadata:
   namespace: nginx-ingress
 spec:
   ports:
-  - port: 80
+  - port: 801
     protocol: TCP
     targetPort: 80
   selector:
     run: http-test-app
   sessionAffinity: None
-  type: ClusterIP
+  type: LoadBalancer
+  externalIPs: 
+   - 192.168.103.147
 ---
 apiVersion: apps/v1
 kind: Deployment
