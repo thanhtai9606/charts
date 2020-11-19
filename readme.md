@@ -42,6 +42,10 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 
 kubectl create secret tls becamex-secret-cert --cert=./sources/certs/becamex.com.vn.crt --key=./sources/certs/becamex.com.vn.key
 
+kubectl create -n becamex-xlnt-dev \
+   secret generic nginx-ui-config \
+   --from-file=./sources/certs/default.conf
+
 # remove pv,pvc
 
 kubectl patch pvc db-pv-claim -p '{"metadata":{"finalizers":null}}'
@@ -59,10 +63,10 @@ systemctl stop firewalld
 
 # copt db & share app
 ```
-scp -r ~/app/db/ root@172.16.10.2:/srv/nfs/kubedata
+scp -r ~/app/db/ becamex@192.168.103.146:/srv/nfs/kubedata/db
 ```
 * share app
-scp -r ~/app/kubernetes-deploy/pv-storage/ root@172.16.10.2:/srv/nfs/kubedata
+scp -r ~/app/kubernetes-deploy/pv-storage/ becamex@192.168.103.146:/srv/nfs/kubedata
 
 * create ns
 ```
