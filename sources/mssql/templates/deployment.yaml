@@ -31,7 +31,6 @@ spec:
         - name: nfs-volume
           persistentVolumeClaim:
             claimName: {{ .Values.volumes.claimName}}
-      hostNetwork: {{ .Values.hostNetwork}}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:

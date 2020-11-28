@@ -10,14 +10,14 @@ spec:
     - ReadWriteMany
   nfs:
     path: "/srv/nfs/kubedata/pv-storage"
-    server: "172.16.10.2"
+    server: "192.168.103.146"
 
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-app-share
-  namespace: xlnt
+  namespace: becamex-xlnt-dev
 spec:
   storageClassName: nfs-storage
   accessModes:

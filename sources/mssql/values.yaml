@@ -14,7 +14,6 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-hostNetwork: true
 serviceAccount:
   # Specifies whether a service account should be created
   create: false
@@ -54,7 +53,7 @@ service:
   type: ClusterIP
   port: 1433
   externalIPs:
-    - 192.168.103.147
+    - 192.168.103.151
 ingress:
   enabled: false
   annotations: {}
@@ -88,7 +87,7 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-nodeSelector:
+nodeSelector: {}
   # "kubernetes.io/hostname": worker2.xtl
 
 tolerations: []
