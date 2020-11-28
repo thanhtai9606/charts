@@ -40,6 +40,8 @@ env:
     value: "Y"
   - name: SA_PASSWORD
     value: "Becamex@1234"
+  - name: MSSQL_AGENT_ENABLED
+    value: "true"
 # set volume nfs
 volumes:
   claimName: pvc-db-storage
