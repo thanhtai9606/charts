@@ -11,7 +11,7 @@
 
 # For FQDN resolving of the master service. Change this value to match your existing configuration.
 # ref: https://github.com/kubernetes/dns/blob/master/docs/specification.md
-clusterZone: "cluster.local"
+clusterZone: "becamex.local"
 
 master:
   httpsKeyStore:
@@ -100,7 +100,7 @@ master:
   # When enabling LDAP or another non-Jenkins identity source, the built-in admin account will no longer exist.
   # If you disable the non-Jenkins identity store and instead use the Jenkins internal one,
   # you should revert master.adminUser to your preferred admin user:
-  #adminUser: "user"
+  adminUser: "user"
   adminPassword: admin
   admin:
     existingSecret: ""
@@ -225,12 +225,13 @@ master:
 
   # List of plugins to be install during Jenkins master start
   installPlugins:
-    - kubernetes:1.25.7
+    - kubernetes:1.28.3
     - workflow-job:2.39
     - workflow-aggregator:2.6
     - credentials-binding:1.23
     - git:4.2.2
     - configuration-as-code:1.41
+    - blueocean:1.24.3
 
   # List of plugins to install in addition to those listed in master.installPlugins
   additionalPlugins: []
@@ -458,8 +459,8 @@ master:
 
 agent:
   enabled: true
-  image: "jenkins/inbound-agent"
-  tag: "4.3-4"
+  image: "jenkins/jnlp-slave"
+  tag: "latest"
   workingDir: "/home/jenkins"
   customJenkinsLabels: []
   # name of the secret to be used for image pulling
