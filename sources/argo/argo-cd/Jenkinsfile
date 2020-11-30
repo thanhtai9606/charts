@@ -41,15 +41,15 @@ pipeline {
                 steps{
                     script {
                         withCredentials([string(credentialsId: "jenkins-argocd-deploy", variable: 'ARGOCD_AUTH_TOKEN')]) {
-                            sh "
-                                ARGOCD_SERVER="argocd-repo-server.argocd.svc"
+                            sh '''
+                                ARGOCD_SERVER="argocd-server.argocd.svc"
                                 APP_NAME="sample-cicd"
                                 CONTAINER="k8s-debian-test"
                                 
                                 # Deploy to ArgoCD
                                 ARGOCD_SERVER=$ARGOCD_SERVER argocd --grpc-web app sync $APP_NAME --force
                                 ARGOCD_SERVER=$ARGOCD_SERVER argocd --grpc-web app wait $APP_NAME --timeout 600
-                            "
+                            '''
                         }
                     }
                 }
