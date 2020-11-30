@@ -231,6 +231,8 @@ master:
     - credentials-binding:1.23
     - git:4.2.2
     - configuration-as-code:1.41
+    - kubernetes-cd:2.2.0
+    - blueocean:1.18.1
 
   # List of plugins to install in addition to those listed in master.installPlugins
   additionalPlugins: []
@@ -464,7 +466,7 @@ agent:
   customJenkinsLabels: []
   # name of the secret to be used for image pulling
   imagePullSecretName:
-  componentName: "jenkins-slave"
+  componentName: "linux"
   privileged: false
   runAsUser:
   runAsGroup:
@@ -473,8 +475,8 @@ agent:
       cpu: "512m"
       memory: "512Mi"
     limits:
-      cpu: "512m"
-      memory: "512Mi"
+      cpu: "1000m"
+      memory: "1000Mi"
   # You may want to change this to true while testing a new image
   alwaysPullImage: false
   # Controls how agent pods are retained after the Jenkins build completes
@@ -516,7 +518,7 @@ agent:
   # jenkins-agent: v1
 
   # Executed command when side container gets started
-  command:
+  command: {}
   args: "${computer.jnlpmac} ${computer.name}"
   # Side container name
   sideContainerName: "jnlp"
