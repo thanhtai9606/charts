@@ -1,0 +1,128 @@
+# Default values for fast-sync-node.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: becamexidcdev/xlnt_fast-sync-node
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+env:
+  - name: PORT
+    value: "80"
+  - name: SERVER
+    value: "192.168.103.143"
+  - name: USER
+    value: "sa"
+  - name: PASSWORD
+    value: "f@st123"
+  - name: DATABASE
+    value: "BECAMEX_A"
+  - name: TOPIC_RABBIT
+    value: "sync-item"
+  - name: TOPIC_RABBIT_ITEM
+    value: "item-queue"
+  - name: TOPIC_RABBIT_UNIT
+    value: "unit-queue"  
+  - name: TOPIC_RABBIT_ITEMTYPE
+    value: "itemtype-queue"
+  - name: TOPIC_RABBIT_ITEM_PRICE
+    value: "item-price-queue"
+  - name: TOPIC_RABBIT_RECEIPT
+    value: "ireceipt-queue"
+  - name: DATABASE_MOBILE_APP
+    value: "BCM_App"
+  - name: USER_MOBILE_APP
+    value: "becamexapp"
+  - name: PASSWORD_MOBILE_APP
+    value: "Becamex@123"
+  - name: SERVER_EOFFICE_DATA
+    value: "192.168.103.83"
+  - name: USER_EOFFICE_DATA
+    value: "becamexapp"
+  - name: PASSWORD_EOFFICE_DATA
+    value: "Becamex@123"
+  - name: DATABASE_EOFFICE_DATA
+    value: "UAT_DATA_EOFFICE_BG_Becamex"  
+  - name: RABBIT_CONNECT
+    value: "amqp://user:admin@rabbitmq.kubeapps.svc:5672"  
+  - name: TIME_SYNC
+    value: "* 12 * * *"  
+  - name: JWT_KEY
+    value: "this is my screte key for jwt 1234"          
+  - name: DB_CONFIG
+    value: "server = 192.168.103.143; user = sa;password = f@st123;database=BECAMEX_A"  
+  - name: PERS_TIME_SYNC
+    value: "* 12 * * *"  
+  - name: TZ
+    value: "Asia/Ho_Chi_Minh"
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: apidev.becamex.com.vn
+      paths:
+      - /fast
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
