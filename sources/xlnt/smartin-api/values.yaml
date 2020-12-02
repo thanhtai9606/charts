@@ -35,6 +35,9 @@ securityContext: {}
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
+volumes:
+  claimName: pvc-app-share
+  secretName: smartin-license
 env:
   - name: TZ
     value: Asia/Ho_Chi_Minh
