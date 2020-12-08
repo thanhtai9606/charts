@@ -47,7 +47,7 @@ global:
     domain: becamex.com.vn
     hostSuffix:
     https: true
-    externalIP: 192.168.104.242
+    externalIP:
     ssh: ~
     gitlab: {}
     minio: {}
@@ -82,17 +82,17 @@ global:
 
   ## doc/charts/globals.md#configure-postgresql-settings
   psql:
-    connectTimeout: 300
-    password:
-      useSecret: admin
-      # secret: admin
+    connectTimeout:
+    password: {}
+      # useSecret:
+      # secret:
       # key:
       # file:
-    host: postgresql-read.kubeapps.svc.becamex.local
-    port: 5432
-    username: user
-    database: gitlabhq_production
-    preparedStatements: false
+    # host: postgresql.hostedsomewhere.else
+    # port: 123
+    # username: gitlab
+    # database: gitlabhq_production
+    # preparedStatements: false
 
   ## doc/charts/globals.md#configure-redis-settings
   redis:
@@ -470,9 +470,9 @@ global:
 
   pages:
     enabled: true
-    accessControl: false
+    accessControl: true
     path: /
-    host: gitlab.becamex.com.vn
+    host: becamex.com.vn
     port:
     https: true
     externalHttp: true
@@ -611,7 +611,7 @@ upgradeCheck:
 certmanager-issuer:
   # The email address to register certificates requested from Let's Encrypt.
   # Required if using Let's Encrypt.
-  email: dungltc50@gmail.com
+  email: ltdungc50@gmail.com
 
 ## Installation & configuration of jetstack/cert-manager
 ## See requirements.yaml for current version
