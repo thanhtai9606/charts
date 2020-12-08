@@ -47,22 +47,23 @@ global:
     domain: becamex.com.vn
     hostSuffix:
     https: true
-    externalIP:
+    externalIP: 192.168.104.242
     ssh: ~
     gitlab: {}
     minio: {}
     registry: {}
     tls: {}
     smartcard: {}
+    kas: {}
 
   ## doc/charts/globals.md#configure-ingress-settings
   ingress:
     configureCertmanager: true
     annotations: {}
     enabled: true
-    tls:
-      enabled: true
-      secretName: becamex-secret-cert
+    tls: {}
+    #   enabled: true
+    #   secretName:
 
   gitlab:
     ## Enterprise license for this GitLab installation
@@ -81,18 +82,17 @@ global:
 
   ## doc/charts/globals.md#configure-postgresql-settings
   psql:
-    connectTimeout:
-    password: {}
+    connectTimeout: 300
+    password:
       # useSecret:
-      # secret:
+      secret: admin
       # key:
       # file:
-    # host: postgresql.hostedsomewhere.else
-    # port: 123
-    # username: gitlab
-    # database: gitlabhq_production
-    # pool: 1
-    # preparedStatements: false
+    host: postgresql.kubeapps.svc.becamex.local
+    port: 5432
+    username: user
+    database: gitlabhq_production
+    preparedStatements: false
 
   ## doc/charts/globals.md#configure-redis-settings
   redis:
@@ -177,7 +177,7 @@ global:
       #   cron: "19 * * * *"
       ## Remove expired build artifacts
       # expire_build_artifacts_worker:
-      #   cron: "50 * * * *"
+      #   cron: "*/7 * * * *"
       ## Periodically run 'git fsck' on all repositories.
       # repository_check_worker:
       #   cron: "20 * * * *"
@@ -372,6 +372,7 @@ global:
       blockAutoCreatedUsers: true
       autoLinkLdapUser: false
       autoLinkSamlUser: false
+      autoLinkUser: []
       externalProviders: []
       allowBypassTwoFactor: []
       providers: []
@@ -419,11 +420,9 @@ global:
         # clientCertificate:
         # serverCA:
 
-  ## doc/installation/secrets.md#gitlab-kas-secret
+  ## doc/charts/gitlab/kas/index.md
   kas:
     enabled: false
-    # secret:
-    # key:
 
   ## doc/charts/globals.md#configure-gitlab-shell-settings
   shell:
@@ -468,6 +467,26 @@ global:
       #         secret: gitlab-registry-specific-password
       #         key: password
       # events: {}
+
+  pages:
+    enabled: true
+    accessControl: false
+    path: /
+    host: gitlab.becamex.com.vn
+    port:
+    https: true
+    externalHttp: true
+    externalHttps: true
+    artifactsServer: true
+    objectStore:
+      enabled: false
+      bucket: 'pages'
+      connection: {}
+        # secret:
+        # key:
+    apiSecret: {}
+      # secret:
+      # key:
 
   ## GitLab Runner
   ## Secret created according to doc/installation/secrets.md#gitlab-runner-secret
@@ -533,7 +552,7 @@ global:
   certificates:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/alpine-certificates
-      tag: 20171114-r3
+      tag: 20191127-r2
     customCAs: []
     # - secret: custom-CA
     # - secret: more-custom-CAs
@@ -590,9 +609,9 @@ upgradeCheck:
 
 ## Settings to for the Let's Encrypt ACME Issuer
 certmanager-issuer:
-#   # The email address to register certificates requested from Let's Encrypt.
-#   # Required if using Let's Encrypt.
-  email: thanhtai42@gmail.com
+  # The email address to register certificates requested from Let's Encrypt.
+  # Required if using Let's Encrypt.
+  email: dungltc50@gmail.com
 
 ## Installation & configuration of jetstack/cert-manager
 ## See requirements.yaml for current version
@@ -634,8 +653,8 @@ nginx-ingress:
         memory: 100Mi
     publishService:
       enabled: true
-    replicaCount: 3
-    minAvailable: 2
+    replicaCount: 2
+    minAvailable: 1
     scope:
       enabled: true
     stats:
@@ -650,7 +669,7 @@ nginx-ingress:
           prometheus.io/port: "10254"
   defaultBackend:
     minAvailable: 1
-    replicaCount: 2
+    replicaCount: 1
     resources:
       requests:
         cpu: 5m
