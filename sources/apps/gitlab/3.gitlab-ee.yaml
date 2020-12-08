@@ -84,11 +84,11 @@ global:
   psql:
     connectTimeout: 300
     password:
-      # useSecret:
-      secret: admin
+      useSecret: admin
+      # secret: admin
       # key:
       # file:
-    host: postgresql.kubeapps.svc.becamex.local
+    host: postgresql-read.kubeapps.svc.becamex.local
     port: 5432
     username: user
     database: gitlabhq_production
