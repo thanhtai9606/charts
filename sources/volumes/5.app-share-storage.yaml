@@ -17,7 +17,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-app-share
-  namespace: becamex-xlnt-dev
+  namespace: becamex-xlnt-uat
 spec:
   storageClassName: nfs-storage
   accessModes:
