@@ -120,7 +120,7 @@ replicas: 1
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 ##
 containerSecurityContext:
-  enabled: false
+  enabled: true
   runAsUser: 1001
   runAsNonRoot: true
 
