@@ -1,0 +1,26 @@
+---
+# Becamex IDC > XLNT mssql service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: argocd
+  name: argocd-exec
+spec:
+  replicas: 1
+  selector:
+     matchLabels:
+       app: argocd-exec
+  template:
+    metadata:
+      labels:
+        app: argocd-exec
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+      - name: argocd-exec
+        image: argoproj/argoexec:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        command: ["/bin/bash"]
+        args: ["-c", "while true; do echo 'argoexec running'; sleep 2000;done"]
