@@ -47,7 +47,7 @@ global:
     domain: becamex.com.vn
     hostSuffix:
     https: true
-    externalIP: 192.168.104.242
+    externalIP: 
     ssh: ~
     gitlab: {}
     minio: {}

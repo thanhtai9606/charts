@@ -349,7 +349,7 @@ service:
   ## Ref: https://kubernetes.io/docs/user-guide/services/#external-ips
   ##
   externalIPs:
-    - 192.168.103.152
+    - 172.18.8.140
 
   ## loadBalancerIP (optional, cloud specific)
   ## ref: http://kubernetes.io/docs/user-guide/services/#type-loadbalancer
