@@ -11,7 +11,7 @@
 
 # For FQDN resolving of the master service. Change this value to match your existing configuration.
 # ref: https://github.com/kubernetes/dns/blob/master/docs/specification.md
-clusterZone: "becamex.local"
+clusterZone: "cluster.local"
 
 master:
   httpsKeyStore:
@@ -124,9 +124,9 @@ master:
       cpu: "2000m"
       memory: "4096Mi"
   # Environment variables that get added to the init container (useful for e.g. http_proxy)
-  initContainerEnv:
-    - name: TZ
-      value: "Asia/Ho_Chi_Minh"
+  # initContainerEnv:
+  #   - name: http_proxy
+  #     value: "http://192.168.64.1:3128"
   # containerEnv:
   #   - name: http_proxy
   #     value: "http://192.168.64.1:3128"
@@ -231,7 +231,6 @@ master:
     - credentials-binding:1.23
     - git:4.2.2
     - configuration-as-code:1.41
-    - kubernetes-cd:2.2.0
 
   # List of plugins to install in addition to those listed in master.installPlugins
   additionalPlugins: []
@@ -459,8 +458,8 @@ master:
 
 agent:
   enabled: true
-  image: "docker"
-  tag: "dind"
+  image: "ltdungc50/docker-dind-git"
+  tag: "latest"
   workingDir: "/home/jenkins"
   customJenkinsLabels: []
   # name of the secret to be used for image pulling
@@ -471,11 +470,11 @@ agent:
   runAsGroup:
   resources:
     requests:
-      cpu: "512m"
-      memory: "512Mi"
-    limits:
       cpu: "1000m"
-      memory: "1000Mi"
+      memory: "2000Mi"
+    limits:
+      cpu: "1512m"
+      memory: "2512Mi"
   # You may want to change this to true while testing a new image
   alwaysPullImage: false
   # Controls how agent pods are retained after the Jenkins build completes
@@ -485,7 +484,7 @@ agent:
   # Allowed types are: ConfigMap, EmptyDir, HostPath, Nfs, PVC, Secret
   # Configure the attributes as they appear in the corresponding Java class for that type
   # https://github.com/jenkinsci/kubernetes-plugin/tree/master/src/main/java/org/csanchez/jenkins/plugins/kubernetes/volumes
-  volumes:
+  volumes: []
   # - type: ConfigMap
   #   configMapName: myconfigmap
   #   mountPath: /var/myapp/myconfigmap
@@ -493,8 +492,8 @@ agent:
   #   mountPath: /var/myapp/myemptydir
   #   memory: false
   # - type: HostPath
-  #   hostPath: /var/run/docker.sock
-  #   mountPath: /var/run/docker.sock
+  #   hostPath: /var/lib/containers
+  #   mountPath: /var/myapp/myhostpath
   # - type: Nfs
   #   mountPath: /var/myapp/mynfs
   #   readOnly: false
@@ -626,7 +625,7 @@ networkPolicy:
   # You can allow agents to connect from both within the cluster (from within specific/all namespaces) AND/OR from a given external IP range
   internalAgents:
     allowed: true
-    podLabels: kubepods
+    podLabels: {}
     namespaceLabels: {}
       # project: myproject
   externalAgents: {}
