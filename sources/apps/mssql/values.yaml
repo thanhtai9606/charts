@@ -25,8 +25,8 @@ serviceAccount:
 
 podAnnotations: {}
 
-podSecurityContext: {}
-  # fsGroup: 2000
+podSecurityContext: 
+  fsGroup: 10001
 
 securityContext: {}
   # capabilities:
@@ -39,7 +39,7 @@ env:
   - name : ACCEPT_EULA
     value: "Y"
   - name: SA_PASSWORD
-    value: "Becamex@1234"
+    value: "Becamex@dwh2020"
   - name: MSSQL_AGENT_ENABLED
     value: "true"
 # set volume nfs
@@ -47,15 +47,15 @@ volumes:
   claimName: pvc-db-storage
 # set volumeMounts
 volumeMounts:
-    mountPath: "/app/db" # ánh xạ thư mụ nginx config trong container
-    subPath: "db"
+    mountPath: "/app/db-backup" # ánh xạ thư mụ nginx config trong container
+    subPath: "db-backup"
     mountPathData: "/var/opt/mssql/data" # ánh xạ thư mục database config trong container
     subPathData: "data"
 service:  
-  type: ClusterIP
+  type: LoadBalancer
   port: 1433
   externalIPs:
-    - 192.168.103.151
+    - 192.168.104.245
 ingress:
   enabled: false
   annotations: {}
@@ -90,7 +90,7 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 nodeSelector: {}
-  # "kubernetes.io/hostname": worker2.xtl
+  # "kubernetes.io/hostname": k8s-worker-2
 
 tolerations: []
 
