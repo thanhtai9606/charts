@@ -97,7 +97,8 @@ kubectl apply -f sources/apps/dasboard-k8s/4.ingress-dashboard.yaml
 ```
 * create dynamic volume
 ```
-helm install nfs-client stable/nfs-client-provisioner -f sources/nfs-client-provisioner/nfs-client.provisioner-values.yaml 
+helm install nfs-client -n kubeapps stable/nfs-client-provisioner -f sources/apps/nfs-client-provisioner/nfs-client-provisioner-values.yaml
+
 ```
 
 * create volume for db-storage
@@ -108,5 +109,5 @@ kubectl apply -f sources/volumes/5.app-share-storage.yaml
 ```
 * create mssql 
 ```
-helm install mssql -n db-storage sources/mssql/ -f sources/mssql/values.yaml 
+helm install mssql -n kubeapps sources/apps/mssql/ -f sources/apps/mssql/values.yaml
 ```
