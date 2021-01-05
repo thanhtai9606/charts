@@ -34,7 +34,7 @@ securityContext: {}
   #   - ALL
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
-  # runAsUser: 1000
+  # runAsUser: 1000d
 env:
   - name : ACCEPT_EULA
     value: "Y"
@@ -56,6 +56,7 @@ service:
   port: 1433
   externalIPs:
     - 192.168.104.245
+    - 192.168.104.240
 ingress:
   enabled: false
   annotations: {}

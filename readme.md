@@ -73,18 +73,28 @@ scp -r ~/app/kubernetes-deploy/pv-storage/ becamex@192.168.103.146:/srv/nfs/kube
 kubectl create ns xlnt
 kubectl create ns nginx-ingress
 kubectl create ns db-storage
+kubectl create ns kubeapps
 ```
 
 * test ingress
-```
-helm install nginx bitnami/nginx-ingress-controller -f sources/nginx/4.nginx-values.yaml -n nginx-ingress
+```bash
+helm install nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/4.nginx-values.yaml -n kubeapps
 
- kubectl apply -f sources/nginx/1.app-test.yaml 
+kubectl apply -f sources/nginx/1.app-test.yaml 
 
 kubectl apply -f sources/nginx/2.app-test-ingress.yaml 
-
 ```
 
+* install nginx kubeapps 
+
+```bash
+ helm install nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/4.nginx-values.yaml -n kubeapps
+ helm install kubeapps -n kubeapps bitnami/kubeapps -f sources/apps/dasboard-k8s/3.kube-apps.yaml
+
+# ingress dashboard
+kubectl apply -f sources/apps/dasboard-k8s/4.ingress-dashboard.yaml
+# get token
+```
 * create dynamic volume
 ```
 helm install nfs-client stable/nfs-client-provisioner -f sources/nfs-client-provisioner/nfs-client.provisioner-values.yaml 
