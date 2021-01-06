@@ -29,18 +29,18 @@ strategy: {}
 serverDefinitions:
   ## If true, server definitions will be created
   ##
-  enabled: false
+  enabled: true
 
   servers: |-
-  #  "1": {
-  #    "Name": "Minimally Defined Server",
-  #    "Group": "Servers",
-  #    "Port": 5432,
-  #    "Username": "postgres",
-  #    "Host": "localhost",
-  #    "SSLMode": "prefer",
-  #    "MaintenanceDB": "postgres"
-  #  }
+   "1": {
+     "Name": "Default Server",
+     "Group": "Servers",
+     "Port": 5432,
+     "Username": "postgres",
+     "Host": "postgresql.kubeapps.svc.becamex.local",
+     "SSLMode": "prefer",
+     "MaintenanceDB": "postgres"
+   }
 
 ingress:
   ## If true, pgAdmin Ingress will be created
@@ -57,8 +57,7 @@ ingress:
   ## Must be provided if Ingress is enabled
   hosts:
     - host: pgadmin.becamex.com.vn
-      paths: 
-        - /
+      paths: [/]
 
   ## pgAdmin Ingress TLS configuration
   ## Secrets must be manually created in the namespace
