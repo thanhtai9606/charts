@@ -44,7 +44,7 @@ image:
 
 ## Kubernetes Cluster Domain
 ##
-clusterDomain: cluster.local
+clusterDomain: becamex.local
 
 ## RabbitMQ Authentication parameters
 ##
@@ -52,12 +52,12 @@ auth:
   ## RabbitMQ application username
   ## ref: https://github.com/bitnami/bitnami-docker-rabbitmq#environment-variables
   ##
-  username: guest
+  username: user
 
   ## RabbitMQ application password
   ## ref: https://github.com/bitnami/bitnami-docker-rabbitmq#environment-variables
   ##
-  password: guest
+  password: admin
   # existingPasswordSecret: name-of-existing-secret
 
   ## Erlang cookie to determine whether different nodes are allowed to communicate with each other
@@ -791,7 +791,7 @@ metrics:
 ## values from the securityContext section of the component
 ##
 volumePermissions:
-  enabled: false
+  enabled: true
   ## Bitnami Minideb image
   ## ref: https://hub.docker.com/r/bitnami/minideb/tags/
   ##

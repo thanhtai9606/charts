@@ -121,3 +121,10 @@ sửa deployment kubernetes-dashboard trong namespace kubernetes-dashboard
 thêm arg sau
 - --token-ttl=86400
 ```
+
+* kubeapps create
+```bash
+# rabbitmq
+helm install rabbitmq -n kubeapps bitnami/rabbitmq -f sources/apps/rabbitmq/rabbitmq-values.yaml 
+
+```
