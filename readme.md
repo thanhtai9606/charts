@@ -114,3 +114,10 @@ kubectl apply -f sources/volumes/5.app-share-storage.yaml
 ```
 helm install mssql -n kubeapps sources/apps/mssql/ -f sources/apps/mssql/values.yaml
 ```
+
+set time dashboard
+```bash
+sửa deployment kubernetes-dashboard trong namespace kubernetes-dashboard
+thêm arg sau
+- --token-ttl=86400
+```
