@@ -88,6 +88,8 @@ kubectl apply -f sources/nginx/2.app-test-ingress.yaml
 * install nginx kubeapps 
 
 ```bash
+ # create secret ssl
+ kubectl apply -f sources/apps/nginx/5.secret-certificate.yaml 
  helm install nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/4.nginx-values.yaml -n kubeapps
  helm install kubeapps -n kubeapps bitnami/kubeapps -f sources/apps/dasboard-k8s/3.kube-apps.yaml
 # create admin account
@@ -128,6 +130,6 @@ thêm arg sau
 helm install rabbitmq -n kubeapps bitnami/rabbitmq -f sources/apps/rabbitmq/rabbitmq-values.yaml 
 # postgres sql
 helm install postgres -n kubeapps bitnami/postgresql -f sources/apps/postgresql/1.postgresql-values.yaml 
-# pgadmin
+#
 helm install pgadmin -n kubeapps stable/pgadmin -f sources/apps/postgresql/2.pgadmin-values.yaml
 ```
