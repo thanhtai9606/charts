@@ -152,8 +152,8 @@ args: []
 
 ## Additional command line arguments to pass to nginx-ingress-controller
 ## E.g. to specify the default SSL certificate you can use
-# extraArgs:
-#   default-ssl-certificate: "<namespace>/<secret_name>"
+extraArgs:
+  default-ssl-certificate: "kubeapps/becamexidc-cert"
 ##
 # extraArgs: {}
 
