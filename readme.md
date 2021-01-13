@@ -90,11 +90,14 @@ kubectl apply -f sources/nginx/2.app-test-ingress.yaml
 ```bash
  helm install nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/4.nginx-values.yaml -n kubeapps
  helm install kubeapps -n kubeapps bitnami/kubeapps -f sources/apps/dasboard-k8s/3.kube-apps.yaml
-
+# create admin account
+kubectl apply -f sources/apps/dasboard-k8s/1.admin-user.yaml 
 # ingress dashboard
 kubectl apply -f sources/apps/dasboard-k8s/4.ingress-dashboard.yaml
 # get token
+kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
 ```
+
 * create dynamic volume
 ```
 helm install nfs-client -n kubeapps stable/nfs-client-provisioner -f sources/apps/nfs-client-provisioner/nfs-client-provisioner-values.yaml
