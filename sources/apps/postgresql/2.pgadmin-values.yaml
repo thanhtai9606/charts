@@ -84,7 +84,7 @@ persistentVolume:
   ## If true, pgAdmin will create/use a Persistent Volume Claim
   ## If false, use emptyDir
   ##
-  enabled: false
+  enabled: true
 
   ## pgAdmin Persistent Volume Claim annotations
   ##
@@ -94,7 +94,7 @@ persistentVolume:
   ## Must match those of existing PV or dynamic provisioner
   ## Ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
 
   ## pgAdmin Persistent Volume Size
   ##
