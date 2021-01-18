@@ -2,7 +2,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: nfs-client-provisioner
-  namespace: kubeapps
+  # namespace: kubeapps
 spec:
   replicas: 1
   strategy:
