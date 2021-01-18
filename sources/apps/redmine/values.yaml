@@ -55,12 +55,12 @@ redmineUsername: user
 ## Defaults to a random 10-character alphanumeric string if not set
 ## ref: https://github.com/bitnami/bitnami-docker-redmine#environment-variables
 ##
-redminePassword: admin
+# redminePassword:
 
 ## Admin email
 ## ref: https://github.com/bitnami/bitnami-docker-redmine/#environment-variables
 ##
-redmineEmail: thanhtai42@gmail.com
+redmineEmail: user@example.com
 
 ## Redmine default data language
 ## ref: https://github.com/bitnami/bitnami-docker-redmine/#environment-variables
@@ -303,7 +303,7 @@ sidecars: {}
 ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
 ##
 persistence:
-  enabled: false
+  enabled: true
   ## A manually manage Persistent Volume Claim
   ## Requires persistence.enable: true
   ## If defined, PVC must be created manually before volume will be bound
@@ -316,7 +316,7 @@ persistence:
   ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
   ##   GKE, AWS & OpenStack)
   ##
-  storageClass: null
+  # storageClass: "-"
   accessModes:
     - ReadWriteOnce
   size: 8Gi
@@ -324,7 +324,7 @@ persistence:
 ## Database type. Allowed values: "mariadb" and "postgresql"
 ## ref: https://github.com/bitnami/bitnami-docker-redmine#run-the-application-using-postgresql-database
 ##
-databaseType: postgresql
+databaseType: mariadb
 
 ## MariaDB chart configuration
 ##
@@ -332,7 +332,7 @@ databaseType: postgresql
 ##
 mariadb:
   ## Whether to deploy a mariadb server to satisfy the applications database requirements. To use an external database set this to false and configure the externalDatabase parameters
-  enabled: false
+  enabled: true
   ## Disable MariaDB replication
   replication:
     enabled: false
@@ -411,7 +411,7 @@ postgresql:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: {}
+    # storageClass: "-"
     accessMode: ReadWriteOnce
     size: 8Gi
 
@@ -420,19 +420,19 @@ postgresql:
 ## b) postgresql.enabled is set to false and databaseType=postgresql
 externalDatabase:
   ## Database host
-  host: "postgres-postgresql.kubeapps.svc"
+  host: ""
 
   ## Database name
   name: bitnami_redmine
 
   ## Database User
-  user: postgres
+  user: bn_redmine
 
   ## Database Password
-  password: "admin"
+  password: ""
 
   ## Database port number (use 5432 when using PostgreSQL)
-  port: 5432
+  port: 3306
 
   ## Use existing secret containing the database password
   ## Must contain the key "postgresql-password" in case that databaseType=postgresql
@@ -450,7 +450,7 @@ containerPorts:
 ##   elsewhere: LoadBalancer
 ##
 service:
-  type: ClusterIP
+  type: LoadBalancer
   # HTTP Port
   port: 80
   ## clusterIP: ""
@@ -482,7 +482,7 @@ service:
 ingress:
   ## Set to true to enable ingress record generation
   ##
-  enabled: true
+  enabled: false
 
   ## Set this to true in order to add the corresponding annotations for cert-manager
   ##
@@ -490,10 +490,7 @@ ingress:
 
   ## When the ingress is enabled, a host pointing to this will be created
   ##
-  hostname: redmine.becamex.com.vn
-  ## The Path to WordPress. You may need to set this to '/*' in order to use this
-  ## with ALB ingress controllers.
-  ##
+  hostname: redmine.local
 
   ## Enable TLS configuration for the hostname defined at ingress.hostname parameter
   ## TLS certificates will be retrieved from a TLS secret with name: {{- printf "%s-tls" .Values.ingress.hostname }}
@@ -560,7 +557,10 @@ mailReceiver:
     repository: bitnami/redmine
     tag: 4.1.1-debian-10-r208
     ## Specify a imagePullPolicy
-    ## Defaults to 'Always' if image tag is 'p
+    ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+    ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+    ##
+    pullPolicy: IfNotPresent
 
   ## Additional pod annotations
   ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
@@ -828,4 +828,3 @@ certificates:
   extraEnvVars: []
   # - name: myvar
   #   value: myval
-
