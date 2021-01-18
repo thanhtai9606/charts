@@ -126,9 +126,12 @@ thêm arg sau
 
 * kubeapps create
 ```bash
-# nfs
+# nfs client
 helm uninstall nfs-client -n kubeapps
 helm install nfs-client -n kubeapps stable/nfs-client-provisioner -f sources/apps/nfs-client-provisioner/nfs-client-provisioner-values.yaml
+# nfs server
+helm uninstall nfs-server -n kubeapps
+helm install nfs-server -n kubeapps stable/nfs-server-provisioner -f sources/apps/nfs-client-provisioner/3.nfs-server-provisioner.yaml 
 # rabbitmq
 helm install rabbitmq -n kubeapps bitnami/rabbitmq -f sources/apps/rabbitmq/rabbitmq-values.yaml 
 # postgres sql
