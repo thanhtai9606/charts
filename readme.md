@@ -73,21 +73,37 @@ scp -r ~/app/kubernetes-deploy/pv-storage/ becamex@192.168.103.146:/srv/nfs/kube
 kubectl create ns xlnt
 kubectl create ns nginx-ingress
 kubectl create ns db-storage
+kubectl create ns kubeapps
 ```
 
 * test ingress
-```
-helm install nginx bitnami/nginx-ingress-controller -f sources/nginx/4.nginx-values.yaml -n nginx-ingress
+```bash
+helm install nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/4.nginx-values.yaml -n kubeapps
 
- kubectl apply -f sources/nginx/1.app-test.yaml 
+kubectl apply -f sources/nginx/1.app-test.yaml 
 
 kubectl apply -f sources/nginx/2.app-test-ingress.yaml 
+```
 
+* install nginx kubeapps 
+
+```bash
+ # create secret ssl
+ kubectl apply -f sources/apps/nginx/5.secret-certificate.yaml 
+ helm install nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/4.nginx-values.yaml -n kubeapps
+ helm install kubeapps -n kubeapps bitnami/kubeapps -f sources/apps/dasboard-k8s/3.kube-apps.yaml
+# create admin account
+kubectl apply -f sources/apps/dasboard-k8s/1.admin-user.yaml 
+# ingress dashboard
+kubectl apply -f sources/apps/dasboard-k8s/4.ingress-dashboard.yaml
+# get token
+kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
 ```
 
 * create dynamic volume
 ```
-helm install nfs-client stable/nfs-client-provisioner -f sources/nfs-client-provisioner/nfs-client.provisioner-values.yaml 
+helm install nfs-client -n kubeapps stable/nfs-client-provisioner -f sources/apps/nfs-client-provisioner/nfs-client-provisioner-values.yaml
+
 ```
 
 * create volume for db-storage
@@ -98,5 +114,29 @@ kubectl apply -f sources/volumes/5.app-share-storage.yaml
 ```
 * create mssql 
 ```
-helm install mssql -n db-storage sources/mssql/ -f sources/mssql/values.yaml 
+helm install mssql -n kubeapps sources/apps/mssql/ -f sources/apps/mssql/values.yaml
+```
+
+set time dashboard
+```bash
+sửa deployment kubernetes-dashboard trong namespace kubernetes-dashboard
+thêm arg sau
+- --token-ttl=86400
+```
+
+* kubeapps create
+```bash
+# nfs client
+helm uninstall nfs-client -n kubeapps
+helm install nfs-client -n kubeapps stable/nfs-client-provisioner -f sources/apps/nfs-client-provisioner/nfs-client-provisioner-values.yaml
+# nfs server
+helm uninstall nfs-server -n kubeapps
+helm install nfs-server -n kubeapps stable/nfs-server-provisioner -f sources/apps/nfs-client-provisioner/3.nfs-server-provisioner.yaml 
+# rabbitmq
+helm install rabbitmq -n kubeapps bitnami/rabbitmq -f sources/apps/rabbitmq/rabbitmq-values.yaml 
+# postgres sql
+helm install postgres -n kubeapps bitnami/postgresql -f sources/apps/postgresql/1.postgresql-values.yaml 
+# pgadmin
+helm uninstall pgadmin -n kubeapps 
+helm install pgadmin -n kubeapps stable/pgadmin -f sources/apps/postgresql/2.pgadmin-values.yaml
 ```

@@ -83,7 +83,7 @@ persistentVolume:
   ## If true, pgAdmin will create/use a Persistent Volume Claim
   ## If false, use emptyDir
   ##
-  enabled: false
+  enabled: true
 
   ## pgAdmin Persistent Volume Claim annotations
   ##
