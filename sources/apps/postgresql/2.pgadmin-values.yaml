@@ -108,7 +108,7 @@ persistentVolume:
   ##   GKE, AWS & OpenStack)
   ##
   # storageClass: "-"
-  # existingClaim: ""
+  existingClaim: "pvc-pgadmin"
 
 ## Security context to be added to pgAdmin pods
 ##

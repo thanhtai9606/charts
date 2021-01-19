@@ -462,7 +462,7 @@ rbac:
 persistence:
   ## this enables PVC templates that will create one per pod
   ##
-  enabled: false
+  enabled: true
 
   ## rabbitmq data Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>
@@ -778,7 +778,7 @@ metrics:
     #     expr: rabbitmq_connectionsTotal{service="{{ template "rabbitmq.fullname" . }}"} > 1000
     #     for: 5m
     #     labels:
-    #       severity: warning
+    #       severity: warningtrue
     #     annotations:
     #       summary: Too many connections (instance {{ "{{ $labels.instance }}" }})
     #       description: |
@@ -791,7 +791,7 @@ metrics:
 ## values from the securityContext section of the component
 ##
 volumePermissions:
-  enabled: true
+  enabled: false
   ## Bitnami Minideb image
   ## ref: https://hub.docker.com/r/bitnami/minideb/tags/
   ##

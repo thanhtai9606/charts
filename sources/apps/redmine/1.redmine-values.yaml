@@ -307,7 +307,7 @@ persistence:
   ## A manually manage Persistent Volume Claim
   ## Requires persistence.enable: true
   ## If defined, PVC must be created manually before volume will be bound
-  # existingClaim:
+  existingClaim: "pvc-redmine"
 
   ## redmine data Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>
@@ -318,7 +318,7 @@ persistence:
   ##
   accessModes:
     - ReadWriteMany
-  size: 10Gi
+  size: 8Gi
 
 ## Database type. Allowed values: "mariadb" and "postgresql"
 ## ref: https://github.com/bitnami/bitnami-docker-redmine#run-the-application-using-postgresql-database
