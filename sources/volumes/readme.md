@@ -16,3 +16,16 @@ sudo exportfs -rav
 sudo exportfs -v
 sudo showmount -e
 ```
+# check nfs share
+```bash
+# check
+ssh vagrant@172.18.8.102
+sudo apt install nfs-kernel-server -y
+sudo mkdir /home/data
+
+# Gắn ổ đĩa
+mount -t nfs 172.18.8.101:/srv/nfs/kubedata /home/data/
+
+# Kiểm tra xong, hủy gắn ổ đĩa
+umount /home/data
+```
