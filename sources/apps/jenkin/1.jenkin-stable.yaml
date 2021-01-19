@@ -606,7 +606,7 @@ persistence:
   ##
   storageClass:
   annotations: {}
-  accessMode: "ReadWriteMany"
+  accessMode: "ReadWriteOnce"
   size: "8Gi"
   volumes:
   #  - name: nothing
