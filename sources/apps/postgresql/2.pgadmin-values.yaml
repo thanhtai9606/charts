@@ -62,10 +62,10 @@ ingress:
 
   ## pgAdmin Ingress TLS configuration
   ## Secrets must be manually created in the namespace
-  tls:
-   - secretName: becamex-idc-cert
-     hosts:
-       - pgadminuat.becamex.com.vn
+  tls: {}
+  #  - secretName: becamex-idc-cert
+  #    hosts:
+  #      - pgadminuat.becamex.com.vn
 
 
 ## pgAdmin startup configuration

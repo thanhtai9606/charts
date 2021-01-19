@@ -102,6 +102,7 @@ kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboar
 
 * create dynamic volume
 ```
+helm uninstall nfs-client -n kubeapps
 helm install nfs-client -n kubeapps stable/nfs-client-provisioner -f sources/apps/nfs-client-provisioner/nfs-client-provisioner-values.yaml
 
 ```
@@ -128,7 +129,6 @@ thêm arg sau
 ```bash
 # nfs client
 helm uninstall nfs-client -n kubeapps
-helm install nfs-client -n kubeapps stable/nfs-client-provisioner -f sources/apps/nfs-client-provisioner/nfs-client-provisioner-values.yaml
 # nfs server
 helm uninstall nfs-server -n kubeapps
 helm install nfs-server -n kubeapps stable/nfs-server-provisioner -f sources/apps/nfs-client-provisioner/3.nfs-server-provisioner.yaml 
@@ -139,4 +139,8 @@ helm install postgres -n kubeapps bitnami/postgresql -f sources/apps/postgresql/
 # pgadmin
 helm uninstall pgadmin -n kubeapps 
 helm install pgadmin -n kubeapps stable/pgadmin -f sources/apps/postgresql/2.pgadmin-values.yaml
+
+# redmine
+helm uninstall redmine  -n kubeapps 
+helm install redmine -n kubeapps sources/apps/redmine/ -f sources/apps/redmine/1.redmine-values.yaml
 ```
