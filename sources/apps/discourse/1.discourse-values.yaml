@@ -67,7 +67,7 @@ discourse:
   ## Defaults to a random 10-character alphanumeric string if not set
   ## ref: https://github.com/bitnami/bitnami-docker-discourse#environment-variables
   ##
-  password: admin
+  password: admin123456
   ## Name of an existing secret containing the password (ignores previous password)
   ##
   # existingSecret: my-secret
@@ -552,7 +552,7 @@ externalDatabase:
   password: 'admin'
   ## PostgreSQL admin user (used in the installation stage)
   ##
-  postgresqlPostgresUser: 'postgresql'
+  postgresqlPostgresUser: 'postgres'
   ## PostgreSQL admin password (used in the installation stage)
   ##
   postgresqlPostgresPassword: 'admin'
@@ -573,7 +573,7 @@ externalDatabase:
 redis:
   ## Whether to deploy a redis server to satisfy the applications requirements. To use an external redis instance set this to false and configure the externalRedis parameters
   ##
-  enabled: true
+  enabled: false
   ## Use password authentication
   ##
   usePassword: false
