@@ -134,7 +134,7 @@ helm uninstall nfs-server -n kubeapps
 helm install nfs-server -n kubeapps stable/nfs-server-provisioner -f sources/apps/nfs-client-provisioner/3.nfs-server-provisioner.yaml 
 # rabbitmq
 helm uninstall rabbitmq -n kubeapps 
-helm install rabbitmq -n kubeapps bitnami/rabbitmq -f sources/apps/rabbitmq/rabbitmq-values.yaml 
+helm install rabbitmq -n kubeapps bitnami/rabbitmq -f sources/apps/rabbitmq/1.rabbitmq-values.yaml 
 # postgres sql
 helm install postgres -n kubeapps bitnami/postgresql -f sources/apps/postgresql/1.postgresql-values.yaml 
 # pgadmin
@@ -144,4 +144,8 @@ helm install pgadmin -n kubeapps stable/pgadmin -f sources/apps/postgresql/2.pga
 # redmine
 helm uninstall redmine  -n kubeapps 
 helm install redmine -n kubeapps sources/apps/redmine/ -f sources/apps/redmine/1.redmine-values.yaml
+
+# wordpress
+helm uninstall wordpress  -n kubeapps 
+helm install wordpress -n kubeapps bitnami/wordpress -f sources/apps/wordpress/1.wordpress-values.yaml
 ```
