@@ -303,7 +303,7 @@ sidecars: {}
 ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
 ##
 persistence:
-  enabled: true
+  enabled: false
   ## A manually manage Persistent Volume Claim
   ## Requires persistence.enable: true
   ## If defined, PVC must be created manually before volume will be bound
