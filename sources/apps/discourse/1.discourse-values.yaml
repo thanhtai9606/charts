@@ -135,12 +135,38 @@ discourse:
 
   ## An array to add extra env vars
   ## For example:
-  ## extraEnvVars:
-  ##   discourse:
-  ##   - name: DISCOURSE_ELASTICSEARCH_URLfalse
-  ##     value: test
-  ##
-  extraEnvVars: []
+  # extraEnvVars:
+  #   discourse:
+  #   - name: DISCOURSE_ELASTICSEARCH_URLfalse
+  #     value: test
+  #
+  extraEnvVars: 
+    - name: SMTP_HOST
+      value: "smtp.gmail.com"
+    - name: SMTP_PORT
+      value: "587"
+    - name: SMTP_USER
+      value: "becamexidc2020@gmail.com"
+    - name: SMTP_PASSWORD
+      value: "becamex@123"
+    - name: SMTP_AUTH
+      value: "plain"
+
+
+    ## mail on premise
+    #  extraEnvVars: 
+    #   - name: SMTP_HOST
+    #     value: "mail.becamex.com.vn"
+    #   - name: SMTP_PORT
+    #     value: "25"
+    #   - name: SMTP_USER
+    #     value: "support@becamex.com.vn"
+    #   - name: SMTP_PASSWORD
+    #     value: "Becamex@1919"
+    #   - name: SMTP_AUTH
+    #     value: "plain"
+    #   - name: SMTP_TLS
+    #     value: "yes"
 
   ## Array to add extra configmaps:
   ##
@@ -228,7 +254,33 @@ sidekiq:
   ##   - name: DISCOURSE_ELASTICSEARCH_URL
   ##     value: test
   ##
-  extraEnvVars: []
+  extraEnvVars: 
+    - name: SMTP_HOST
+      value: "smtp.gmail.com"
+    - name: SMTP_PORT
+      value: "587"
+    - name: SMTP_USER
+      value: "becamexidc2020@gmail.com"
+    - name: SMTP_PASSWORD
+      value: "becamex@123"
+    - name: SMTP_AUTH
+      value: "plain"
+
+
+  ## mail on premise
+  #  extraEnvVars: 
+  #   - name: SMTP_HOST
+  #     value: "mail.becamex.com.vn"
+  #   - name: SMTP_PORT
+  #     value: "25"
+  #   - name: SMTP_USER
+  #     value: "support@becamex.com.vn"
+  #   - name: SMTP_PASSWORD
+  #     value: "Becamex@1919"
+  #   - name: SMTP_AUTH
+  #     value: "plain"
+  #   - name: SMTP_TLS
+  #     value: "yes"
 
   ## Array to add extra configmaps:
   ##
@@ -610,14 +662,14 @@ redis:
 externalRedis:
   ## Redis(TM) host
   ##
-  host: ''
+  host: 'redis-master.kubeapps.svc'
   ## Redis(TM) port
   ##
   port: 6379
   ## Redis(TM) password for authentication
   ## Ignored if existingSecret is set
   ##
-  password: ''
+  password: 'admin'
   ##
   ## Name of existing secret object containing the password
   ##

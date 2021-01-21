@@ -148,4 +148,9 @@ helm install redmine -n kubeapps sources/apps/redmine/ -f sources/apps/redmine/1
 # wordpress
 helm uninstall wordpress  -n kubeapps 
 helm install wordpress -n kubeapps bitnami/wordpress -f sources/apps/wordpress/1.wordpress-values.yaml
+
+# discourse
+helm uninstall discourse  -n kubeapps 
+helm install discourse -n kubeapps bitnami/discourse -f sources/apps/discourse/1.discourse-values.yaml 
+
 ```
