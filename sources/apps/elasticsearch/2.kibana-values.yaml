@@ -443,4 +443,4 @@ elasticsearch:
   hosts:
   - elasticsearch-elasticsearch-coordinating-only.kubeapps.svc.becamex.local
   # - elasticsearch-2
-  port: 9002
+  port: 9200

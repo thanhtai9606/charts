@@ -377,7 +377,7 @@ persistence:
 ## For minikube, set this to NodePort, elsewhere use LoadBalancer or ClusterIP
 ##
 service:
-  type: LoadBalancer
+  type: ClusterIP
   ## HTTP Port
   ##
   port: 80
