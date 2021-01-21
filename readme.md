@@ -156,8 +156,8 @@ helm install discourse -n kubeapps bitnami/discourse -f sources/apps/discourse/1
 helm uninstall elasticsearch  -n kubeapps 
 helm install elasticsearch -n kubeapps bitnami/elasticsearch -f sources/apps/elasticsearch/1.elasticsearch-values.yaml 
 
-# kibana
+# kibana 
 helm uninstall kibana  -n kubeapps 
-helm install kibana -n kubeapps bitnami/kibana -f sources/apps/elasticsearch/2.kibana-values.yaml 
-
+# helm install kibana -n kubeapps bitnami/kibana -f sources/apps/elasticsearch/2.kibana-values.yaml 
+helm install kibana -n kubeapps sources/my-apps/kibana -f sources/my-apps/kibana/values.yaml
 ```
