@@ -152,5 +152,12 @@ helm install wordpress -n kubeapps bitnami/wordpress -f sources/apps/wordpress/1
 # discourse
 helm uninstall discourse  -n kubeapps 
 helm install discourse -n kubeapps bitnami/discourse -f sources/apps/discourse/1.discourse-values.yaml 
+# elasticsearch bitnami/elasticsearch
+helm uninstall elasticsearch  -n kubeapps 
+helm install elasticsearch -n kubeapps bitnami/elasticsearch -f sources/apps/elasticsearch/1.elasticsearch-values.yaml 
+
+# kibana
+helm uninstall kibana  -n kubeapps 
+helm install kibana -n kubeapps bitnami/kibana -f sources/apps/elasticsearch/2.kibana-values.yaml 
 
 ```
