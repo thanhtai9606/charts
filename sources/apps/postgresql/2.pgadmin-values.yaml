@@ -61,10 +61,10 @@ ingress:
 
   ## pgAdmin Ingress TLS configuration
   ## Secrets must be manually created in the namespace
-  tls: []
-  #  - secretName: chart-example-tls
+  tls: {}
+  #  - secretName: becamex-idc-cert
   #    hosts:
-  #      - chart-example.local
+  #      - pgadminuat.becamex.com.vn
 
 
 ## pgAdmin startup configuration
@@ -154,4 +154,3 @@ tolerations: []
 ## Pod affinity
 ##
 affinity: {}
-

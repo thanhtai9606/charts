@@ -60,9 +60,9 @@ ingress:
     - host: camunda.becamex.com.vn
       paths: [ / ]
   tls: []
-  #  - secretName: camunda-bpm-platform-tls
+  #  - secretName: default/becamex-idc-cert
   #    hosts:
-  #      - camunda-bpm-platform.local
+  #      - camunda.becamex.com.vn
 
 podAnnotations: {}
 

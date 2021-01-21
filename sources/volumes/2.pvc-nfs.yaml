@@ -1,11 +1,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc1
+  name: pvc-redmine
+  namespace: kubeapps
 spec:
-  storageClassName: nfs-storage
+  # storageClassName: nfs-storage
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 5Gi
+      storage: 8Gi

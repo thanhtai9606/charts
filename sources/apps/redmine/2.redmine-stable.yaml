@@ -44,12 +44,20 @@ redmineUsername: user
 ## Defaults to a random 10-character alphanumeric string if not set
 ## ref: https://github.com/bitnami/bitnami-docker-redmine#environment-variables
 ##
+<<<<<<< HEAD
 # redminePassword:
+=======
+redminePassword: admin
+>>>>>>> 0776905f59cabd87557d37fe390d11208e01da79
 
 ## Admin email
 ## ref: https://github.com/bitnami/bitnami-docker-redmine/#environment-variables
 ##
+<<<<<<< HEAD
 redmineEmail: user@example.com
+=======
+redmineEmail: thanhtai42@gmail.com
+>>>>>>> 0776905f59cabd87557d37fe390d11208e01da79
 
 ## Redmine default data language
 ## ref: https://github.com/bitnami/bitnami-docker-redmine/#environment-variables
@@ -271,6 +279,7 @@ postgresql:
 ## b) postgresql.enabled is set to false and databaseType=postgresql
 externalDatabase:
   ## Database host
+<<<<<<< HEAD
   host: postgresql.kubeapps.svc.becamex.local
 
   ## Database name
@@ -278,6 +287,15 @@ externalDatabase:
 
   ## Database User
   user: user
+=======
+  host: "postgres-postgresql.kubeapps.svc"
+
+  ## Database name
+  name: bitnami_redmine
+
+  ## Database User
+  user: postgres
+>>>>>>> 0776905f59cabd87557d37fe390d11208e01da79
 
   ## Database Password
   password: "admin"
@@ -315,7 +333,11 @@ service:
 ingress:
   ## Set to true to enable ingress record generation
   ##
+<<<<<<< HEAD
   enabled: false
+=======
+  enabled: true
+>>>>>>> 0776905f59cabd87557d37fe390d11208e01da79
 
   ## Set this to true in order to add the corresponding annotations for cert-manager
   ##

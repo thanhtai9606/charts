@@ -18,5 +18,5 @@ spec:
     host: argocd.becamex.com.vn
   tls: 
   - hosts:
-    - argocd.becamex.com.vn
+    - argocduat.becamex.com.vn
     secretName: argocd-secret # do not change, this is provided by Argo CD

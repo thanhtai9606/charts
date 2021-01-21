@@ -10,7 +10,7 @@ spec:
     - ReadWriteMany
   nfs:
     path: "/srv/nfs/kubedata/db"
-    server: "192.168.103.146"
+    server: "192.168.104.3"
 
 ---
 apiVersion: v1

@@ -10,7 +10,11 @@ metadata:
   namespace: kubernetes-dashboard
 spec:
   rules:
+<<<<<<< HEAD
   - host: dashboard.becamex.com.vn
+=======
+  - host: dashboarduat.becamex.com.vn
+>>>>>>> 0776905f59cabd87557d37fe390d11208e01da79
     http:
       paths:
       - path: /dashboard(/|$)(.*)

@@ -102,6 +102,10 @@ kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboar
 
 * create dynamic volume
 ```
+<<<<<<< HEAD
+=======
+helm uninstall nfs-client -n kubeapps
+>>>>>>> 0776905f59cabd87557d37fe390d11208e01da79
 helm install nfs-client -n kubeapps stable/nfs-client-provisioner -f sources/apps/nfs-client-provisioner/nfs-client-provisioner-values.yaml
 
 ```
@@ -128,15 +132,35 @@ thêm arg sau
 ```bash
 # nfs client
 helm uninstall nfs-client -n kubeapps
-helm install nfs-client -n kubeapps stable/nfs-client-provisioner -f sources/apps/nfs-client-provisioner/nfs-client-provisioner-values.yaml
 # nfs server
 helm uninstall nfs-server -n kubeapps
 helm install nfs-server -n kubeapps stable/nfs-server-provisioner -f sources/apps/nfs-client-provisioner/3.nfs-server-provisioner.yaml 
 # rabbitmq
-helm install rabbitmq -n kubeapps bitnami/rabbitmq -f sources/apps/rabbitmq/rabbitmq-values.yaml 
+helm uninstall rabbitmq -n kubeapps 
+helm install rabbitmq -n kubeapps bitnami/rabbitmq -f sources/apps/rabbitmq/1.rabbitmq-values.yaml 
 # postgres sql
 helm install postgres -n kubeapps bitnami/postgresql -f sources/apps/postgresql/1.postgresql-values.yaml 
 # pgadmin
 helm uninstall pgadmin -n kubeapps 
 helm install pgadmin -n kubeapps stable/pgadmin -f sources/apps/postgresql/2.pgadmin-values.yaml
+
+# redmine
+helm uninstall redmine  -n kubeapps 
+helm install redmine -n kubeapps sources/apps/redmine/ -f sources/apps/redmine/1.redmine-values.yaml
+
+# wordpress
+helm uninstall wordpress  -n kubeapps 
+helm install wordpress -n kubeapps bitnami/wordpress -f sources/apps/wordpress/1.wordpress-values.yaml
+
+# discourse
+helm uninstall discourse  -n kubeapps 
+helm install discourse -n kubeapps bitnami/discourse -f sources/apps/discourse/1.discourse-values.yaml 
+# elasticsearch bitnami/elasticsearch
+helm uninstall elasticsearch  -n kubeapps 
+helm install elasticsearch -n kubeapps bitnami/elasticsearch -f sources/apps/elasticsearch/1.elasticsearch-values.yaml 
+
+# kibana 
+helm uninstall kibana  -n kubeapps 
+# helm install kibana -n kubeapps bitnami/kibana -f sources/apps/elasticsearch/2.kibana-values.yaml 
+helm install kibana -n kubeapps sources/my-apps/kibana -f sources/my-apps/kibana/values.yaml
 ```
