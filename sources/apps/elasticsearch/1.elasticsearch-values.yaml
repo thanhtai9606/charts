@@ -350,7 +350,7 @@ master:
     ## Set the LoadBalancer service type to internal only.
     ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer
     ##
-    # loadBalancerIP:
+    loadBalancerIP: 192.168.104.244
   ## Provide functionality to use RBAC
   ##
   serviceAccount:
@@ -487,7 +487,7 @@ coordinating:
     ## Set the LoadBalancer service type to internal only.
     ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer
     ##
-    # loadBalancerIP:
+    loadBalancerIP: 192.168.104.244
   ## Provide functionality to use RBAC
   ##
   serviceAccount:
@@ -780,7 +780,7 @@ ingest:
     ## Set the LoadBalancer service type to internal only.
     ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer
     ##
-    # loadBalancerIP:
+    loadBalancerIP: 192.168.104.244
 
 ## Elasticsearch curator parameters
 ##

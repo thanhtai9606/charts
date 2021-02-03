@@ -88,10 +88,16 @@ kubectl apply -f sources/nginx/2.app-test-ingress.yaml
 * install nginx kubeapps 
 
 ```bash
+# add repo stable and bitnami
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo add stable https://charts.helm.sh/stable
  # create secret ssl
  kubectl apply -f sources/apps/nginx/5.secret-certificate.yaml 
  helm install nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/4.nginx-values.yaml -n kubeapps
  helm install kubeapps -n kubeapps bitnami/kubeapps -f sources/apps/dasboard-k8s/3.kube-apps.yaml
+
+ # create dashboard
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml 
 # create admin account
 kubectl apply -f sources/apps/dasboard-k8s/1.admin-user.yaml 
 # ingress dashboard
