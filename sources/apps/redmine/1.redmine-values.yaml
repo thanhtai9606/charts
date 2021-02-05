@@ -14,12 +14,12 @@
 image:
   registry: docker.io
   repository: bitnami/redmine
-  tag: 4.1.1-debian-10-r209
+  tag: 4.1.1-debian-10-r250
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   ##
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -422,7 +422,7 @@ externalDatabase:
   host: "postgres-postgresql.kubeapps.svc"
 
   ## Database name
-  name: bitnami_redmine
+  name: redmine
 
   ## Database User
   user: postgres
@@ -489,7 +489,7 @@ ingress:
 
   ## When the ingress is enabled, a host pointing to this will be created
   ##
-  hostname: redmine.becamex.com.vn
+  hostname: redminedev.becamex.com.vn
   ## The Path to WordPress. You may need to set this to '/*' in order to use this
   ## with ALB ingress controllers.
   ##
@@ -498,7 +498,7 @@ ingress:
   ## TLS certificates will be retrieved from a TLS secret with name: {{- printf "%s-tls" .Values.ingress.hostname }}
   ## You can use the ingress.secrets parameter to create this TLS secret or relay on cert-manager to create it
   ##
-  tls: false
+  tls: true
 
   ## Ingress annotations done as key:value pairs
   ## For a full list of possible ingress annotations,

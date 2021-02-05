@@ -55,7 +55,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: redmine.becamex.com.vn
+    - host: dev.redmine.becamex.com.vn
       paths: 
         - /
   tls: []
