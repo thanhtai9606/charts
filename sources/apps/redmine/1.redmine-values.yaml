@@ -70,11 +70,11 @@ redmineLanguage: en
 ## SMTP mail delivery configuration
 ## ref: https://github.com/bitnami/bitnami-docker-redmine/#smtp-configuration
 ##
-# smtpHost:
-# smtpPort:
-# smtpUser:
-# smtpPassword:
-# smtpTls:
+# smtpHost: smtp.gmail.com
+# smtpPort: 587
+# smtpUser: becamexidc2020
+# smtpPassword: becamex@123
+# smtpTls: true
 
 ## Use an existing secret with keys "redmine-password" and "smtp-password".
 ## This ignores both redminePassword and smtpPassword properties.
@@ -419,7 +419,7 @@ postgresql:
 ## b) postgresql.enabled is set to false and databaseType=postgresql
 externalDatabase:
   ## Database host
-  host: "postgres-postgresql.kubeapps.svc"
+  host: "postgresql.kubeapps.svc"
 
   ## Database name
   name: bitnami_redmine
