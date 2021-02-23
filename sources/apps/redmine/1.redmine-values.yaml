@@ -13,8 +13,13 @@
 ##
 image:
   registry: docker.io
+<<<<<<< HEAD
   repository: becamexidc2020/redmine
   tag: 4.4
+=======
+  repository: bitnami/redmine
+  tag: 4.1.1-debian-10-r250
+>>>>>>> b6857d1ba06b64f4ba9a2a95522ab0e9884cab56
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -422,7 +427,7 @@ externalDatabase:
   host: "postgres-postgresql.kubeapps.svc"
 
   ## Database name
-  name: bitnami_redmine
+  name: redmine
 
   ## Database User
   user: postgres
@@ -498,7 +503,7 @@ ingress:
   ## TLS certificates will be retrieved from a TLS secret with name: {{- printf "%s-tls" .Values.ingress.hostname }}
   ## You can use the ingress.secrets parameter to create this TLS secret or relay on cert-manager to create it
   ##
-  tls: false
+  tls: true
 
   ## Ingress annotations done as key:value pairs
   ## For a full list of possible ingress annotations,
