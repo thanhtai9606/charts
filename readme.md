@@ -166,4 +166,16 @@ helm install elasticsearch -n kubeapps bitnami/elasticsearch -f sources/apps/ela
 helm uninstall kibana  -n kubeapps 
 # helm install kibana -n kubeapps bitnami/kibana -f sources/apps/elasticsearch/2.kibana-values.yaml 
 helm install kibana -n kubeapps sources/my-apps/kibana -f sources/my-apps/kibana/values.yaml
+
+# mysql
+helm uninstall mysql  -n kubeapps 
+helm install mysql -n kubeapps bitnami/mysql -f sources/apps/mysql/2.mysql-values.yaml 
+
+# mariadb
+helm uninstall mariadb  -n kubeapps 
+helm install mariadb -n kubeapps bitnami/mariadb -f sources/apps/mysq;/1.mariadb-values.yaml 
+
+# phpmyadmin
+helm uninstall myadmin  -n kubeapps 
+helm install phpmyadmin -n kubeapps bitnami/phpmyadmin -f sources/apps/mysq;/3.phpmyadmin-values.yaml 
 ```
