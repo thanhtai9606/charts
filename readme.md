@@ -160,4 +160,11 @@ helm install elasticsearch -n kubeapps bitnami/elasticsearch -f sources/apps/ela
 helm uninstall kibana  -n kubeapps 
 # helm install kibana -n kubeapps bitnami/kibana -f sources/apps/elasticsearch/2.kibana-values.yaml 
 helm install kibana -n kubeapps sources/my-apps/kibana -f sources/my-apps/kibana/values.yaml
+
+# delete namespace is stuck
+
+kubectl get namespace "linkerd" -o json \
+  | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" \
+  | kubectl replace --raw /api/v1/namespaces/linkerd/finalize -f -
+
 ```
