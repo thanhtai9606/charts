@@ -178,4 +178,11 @@ helm install mariadb -n kubeapps bitnami/mariadb -f sources/apps/mysq;/1.mariadb
 # phpmyadmin
 helm uninstall myadmin  -n kubeapps 
 helm install phpmyadmin -n kubeapps bitnami/phpmyadmin -f sources/apps/mysq;/3.phpmyadmin-values.yaml 
+
+
+# delete namespace is stuck
+
+kubectl get namespace "linkerd" -o json \
+  | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" \
+  | kubectl replace --raw /api/v1/namespaces/linkerd/finalize -f -
 ```
