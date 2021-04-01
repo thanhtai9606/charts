@@ -105,7 +105,11 @@ kubectl apply -f sources/apps/dasboard-k8s/4.ingress-dashboard.yaml
 # get token
 kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
 ```
-
+# add repo bitnami & stable
+```
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo add stable https://charts.helm.sh/stable
+```
 * create dynamic volume
 ```
 helm uninstall nfs-client -n kubeapps
