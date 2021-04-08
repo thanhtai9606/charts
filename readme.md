@@ -161,10 +161,16 @@ helm uninstall kibana  -n kubeapps
 # helm install kibana -n kubeapps bitnami/kibana -f sources/apps/elasticsearch/2.kibana-values.yaml 
 helm install kibana -n kubeapps sources/my-apps/kibana -f sources/my-apps/kibana/values.yaml
 
+# odoo service
+
+# kibana 
+helm uninstall sws  -n kubeapps 
+helm install sws -n kubeapps bitnami/odoo -f sources/apps/odoo/1.odoo-values.yaml
+
 # delete namespace is stuck
 
-kubectl get namespace "linkerd" -o json \
+kubectl get namespace "web-service" -o json \
   | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" \
-  | kubectl replace --raw /api/v1/namespaces/linkerd/finalize -f -
+  | kubectl replace --raw /api/v1/namespaces/web-service/finalize -f -
 
 ```
