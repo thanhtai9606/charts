@@ -432,12 +432,12 @@ ingress:
 
   ## When the ingress is enabled, a host pointing to this will be created
   ##
-  hostname: wordpress.becamex.com.vn
+  hostname: redmine.becamex.com.vn
 
   ## The Path to WordPress. You may need to set this to '/*' in order to use this
   ## with ALB ingress controllers.
   ##
-  path: /
+  path: /wordpress
 
   ## Ingress annotations done as key:value pairs
   ## For a full list of possible ingress annotations, please see
