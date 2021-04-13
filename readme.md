@@ -162,6 +162,7 @@ helm install wordpress -n kubeapps bitnami/wordpress -f sources/apps/wordpress/1
 # discourse
 helm uninstall discourse  -n kubeapps 
 helm install discourse -n kubeapps bitnami/discourse -f sources/apps/discourse/1.discourse-values.yaml 
+
 # elasticsearch bitnami/elasticsearch
 helm uninstall elasticsearch  -n kubeapps 
 helm install elasticsearch -n kubeapps bitnami/elasticsearch -f sources/apps/elasticsearch/1.elasticsearch-values.yaml 
@@ -170,6 +171,10 @@ helm install elasticsearch -n kubeapps bitnami/elasticsearch -f sources/apps/ela
 helm uninstall kibana  -n kubeapps 
 # helm install kibana -n kubeapps bitnami/kibana -f sources/apps/elasticsearch/2.kibana-values.yaml 
 helm install kibana -n kubeapps sources/my-apps/kibana -f sources/my-apps/kibana/values.yaml
+
+#fluentd 
+helm uninstall fluentd  -n kubeapps 
+helm install fluentd -n kubeapps bitnami/fluentd -f sources/apps/elasticsearch/3.fluentd-values.yaml 
 
 # mysql
 helm uninstall mysql  -n kubeapps 
@@ -186,7 +191,7 @@ helm install phpmyadmin -n kubeapps bitnami/phpmyadmin -f sources/apps/mysq;/3.p
 
 # delete namespace is stuck
 
-kubectl get namespace "linkerd" -o json \
+kubectl get namespace "efk" -o json \
   | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" \
-  | kubectl replace --raw /api/v1/namespaces/linkerd/finalize -f -
+  | kubectl replace --raw /api/v1/namespaces/efk/finalize -f -
 ```
