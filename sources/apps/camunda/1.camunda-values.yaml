@@ -24,7 +24,7 @@ database:
     enabled: true
     credentialsSecertName: camunda-bpm-platform-postgresql-credentials
     driver: org.postgresql.Driver
-    url: jdbc:postgresql://postgresql.kubeapps.svc.becamex.local:5432/process-engine
+    url: jdbc:postgresql://postgres-postgresql.kubeapps.svc.becamex.local:5432/process-engine
 
 service:
   type: ClusterIP
