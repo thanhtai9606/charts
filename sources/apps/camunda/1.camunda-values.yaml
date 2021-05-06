@@ -57,7 +57,7 @@ ingress:
   # kubernetes.io/ingress.class: nginx
   # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: camunda.becamex.com.vn
+    - host: camundauat.becamex.com.vn
       paths: [ / ]
   tls: []
   #  - secretName: default/becamex-idc-cert
