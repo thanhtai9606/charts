@@ -151,6 +151,11 @@ helm install postgres -n kubeapps bitnami/postgresql -f sources/apps/postgresql/
 helm uninstall pgadmin -n kubeapps 
 helm install pgadmin -n kubeapps stable/pgadmin -f sources/apps/postgresql/2.pgadmin-values.yaml
 
+# camunda
+kubectl apply -f sources/apps/camunda/2.secret.yaml
+helm uninstall camunda -n kubeapps 
+helm install camunda -n kubeapps camunda/camunda-bpm-platform -f sources/apps/camunda/1.camunda-values.yaml
+
 # redmine
 helm uninstall redmine  -n kubeapps 
 helm install redmine -n kubeapps sources/apps/redmine/ -f sources/apps/redmine/1.redmine-values.yaml
@@ -191,7 +196,7 @@ helm install phpmyadmin -n kubeapps bitnami/phpmyadmin -f sources/apps/mysq;/3.p
 
 # delete namespace is stuck
 
-kubectl get namespace "efk" -o json \
+kubectl get namespace "esgin-dev" -o json \
   | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" \
-  | kubectl replace --raw /api/v1/namespaces/efk/finalize -f -
+  | kubectl replace --raw /api/v1/namespaces/esgin-dev/finalize -f -
 ```
