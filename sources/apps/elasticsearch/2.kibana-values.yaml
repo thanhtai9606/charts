@@ -441,6 +441,6 @@ metrics:
 elasticsearch:
   tls: false
   hosts:
-  - elasticsearch-elasticsearch-coordinating-only.kubeapps.svc.becamex.local
+  - elastic-search-elasticsearch-coordinating-only.kubeapps.svc.becamex.local
   # - elasticsearch-2
   port: 9200

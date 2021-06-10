@@ -161,7 +161,10 @@ helm uninstall kibana  -n kubeapps
 # helm install kibana -n kubeapps bitnami/kibana -f sources/apps/elasticsearch/2.kibana-values.yaml 
 helm install kibana -n kubeapps sources/my-apps/kibana -f sources/my-apps/kibana/values.yaml
 
-# odoo service
+# fluentd 
+helm uninstall fluentd  -n kubeapps 
+helm install fluentd -n kubeapps bitnami/fluentd -f sources/apps/elasticsearch/3.fluentd-values.yaml 
+
 
 # kibana 
 helm uninstall sws  -n kubeapps 
