@@ -169,8 +169,8 @@ helm install sws -n kubeapps bitnami/odoo -f sources/apps/odoo/1.odoo-values.yam
 
 # delete namespace is stuck
 
-kubectl get namespace "web-service" -o json \
+kubectl get namespace "cattle-system" -o json \
   | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" \
-  | kubectl replace --raw /api/v1/namespaces/web-service/finalize -f -
+  | kubectl replace --raw /api/v1/namespaces/cattle-system/finalize -f -
 
 ```
