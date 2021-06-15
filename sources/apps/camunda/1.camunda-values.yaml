@@ -17,14 +17,14 @@ image:
 database:
   # In case H2 database is used.
   internal:
-    enabled: false
-    diskSize: 1G
+    enabled: true
+    diskSize: 2G
   # In case PostgreSQL or MySQL databases are used.
   external:
-    enabled: true
+    enabled: false
     credentialsSecertName: camunda-bpm-platform-postgresql-credentials
     driver: org.postgresql.Driver
-    url: jdbc:postgresql://postgres-postgresql.kubeapps.svc.becamex.local:5432/process-engine
+    url: jdbc:postgresql://postgres-postgresql.kubeapps.svc.cluster.local:5432/process-engine
 
 service:
   type: ClusterIP

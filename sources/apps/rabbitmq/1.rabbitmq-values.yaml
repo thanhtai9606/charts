@@ -44,7 +44,7 @@ image:
 
 ## Kubernetes Cluster Domain
 ##
-clusterDomain: becamex.local
+clusterDomain: cluster.local
 
 ## RabbitMQ Authentication parameters
 ##
@@ -592,7 +592,8 @@ service:
 
   ## Set the ExternalIPs
   ##
-  # externalIPs:
+  externalIPs:
+    - 192.168.104.241
 
   ## Set the LoadBalancerIP
   ##
@@ -628,7 +629,7 @@ ingress:
 
   ## When the ingress is enabled, a host pointing to this will be created
   ##
-  hostname: rabbitmq.becamex.com.vn
+  hostname: rabbitmqdev.becamex.com.vn
 
   ## Ingress annotations done as key:value pairs
   ## For a full list of possible ingress annotations, please see

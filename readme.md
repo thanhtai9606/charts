@@ -137,6 +137,12 @@ thêm arg sau
 
 * kubeapps create
 ```bash
+
+# install kubeapp
+
+helm uninstall kubeapp -n kubeapps
+helm install kubeapp -n kubeapps bitnami/kubeapps -f sources/apps/kubeapps/1.kubeapp-values.yaml 
+
 # nfs client
 helm uninstall nfs-client -n kubeapps
 # nfs server
