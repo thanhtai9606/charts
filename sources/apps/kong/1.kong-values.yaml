@@ -361,7 +361,7 @@ service:
 
   ## Include the admin ports in the service
   ##
-  exposeAdmin: false
+  exposeAdmin: true
   ## kong proxy HTTP service port
   ##
   adminHttpPort: 8001
