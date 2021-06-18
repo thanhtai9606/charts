@@ -199,6 +199,14 @@ helm install mariadb -n kubeapps bitnami/mariadb -f sources/apps/mysq;/1.mariadb
 helm uninstall myadmin  -n kubeapps 
 helm install phpmyadmin -n kubeapps bitnami/phpmyadmin -f sources/apps/mysq;/3.phpmyadmin-values.yaml 
 
+# konga
+helm uninstall konga  -n kubeapps 
+helm install konga -n kubeapps sources/apps/konga/ -f sources/apps/konga/values.yaml 
+
+# kong
+helm uninstall kong  -n kubeapps 
+helm install kong -n kubeapps bitnami/kong -f sources/apps/kong/1.kong-values.yaml 
+
 
 # delete namespace is stuck
 
