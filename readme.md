@@ -193,15 +193,21 @@ helm install mysql -n kubeapps bitnami/mysql -f sources/apps/mysql/2.mysql-value
 
 # mariadb
 helm uninstall mariadb  -n kubeapps 
-helm install mariadb -n kubeapps bitnami/mariadb -f sources/apps/mysq;/1.mariadb-values.yaml 
+helm install mariadb -n kubeapps bitnami/mariadb -f sources/apps/mysql/1.mariadb-values.yaml 
+
+# redis
+helm uninstall redis  -n kubeapps 
+helm install redis -n kubeapps bitnami/redis -f sources/apps/redis/1.redis-values.yaml 
 
 # phpmyadmin
 helm uninstall myadmin  -n kubeapps 
-helm install phpmyadmin -n kubeapps bitnami/phpmyadmin -f sources/apps/mysq;/3.phpmyadmin-values.yaml 
+helm install phpmyadmin -n kubeapps bitnami/phpmyadmin -f sources/apps/mysql/3.phpmyadmin-values.yaml 
 
 # konga
 helm uninstall konga  -n kubeapps 
 helm install konga -n kubeapps sources/apps/konga/ -f sources/apps/konga/values.yaml 
+
+
 
 # kong
 helm uninstall kong  -n kubeapps 
