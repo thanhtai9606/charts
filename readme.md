@@ -170,10 +170,16 @@ helm install fluentd -n kubeapps bitnami/fluentd -f sources/apps/elasticsearch/3
 helm uninstall sws  -n kubeapps 
 helm install sws -n kubeapps bitnami/odoo -f sources/apps/odoo/1.odoo-values.yaml
 
+
+# kibana 
+helm uninstall rancher  -n kubeapps 
+helm install rancher -n kubeapps rancher-latest/rancher -f sources/apps/rancher/rancher-values.yaml
+
+helm upgrade rancher -n kubeapps rancher-latest/rancher -f sources/apps/rancher/rancher-values.yaml
+
 # delete namespace is stuck
 
-kubectl get namespace "cattle-system" -o json \
+kubectl get namespace "becamex-kpi" -o json \
   | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" \
-  | kubectl replace --raw /api/v1/namespaces/cattle-system/finalize -f -
-
+  | kubectl replace --raw /api/v1/namespaces/becamex-kpi/finalize -f -
 ```
