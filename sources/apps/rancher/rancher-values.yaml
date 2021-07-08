@@ -25,6 +25,11 @@ addLocal: "true"
 # Important: update pkg/image/export/main.go when this default image is changed, so that it's reflected accordingly in rancher-images.txt generated for air-gapped setups.
 busyboxImage: busybox
 
+# Override imagePullPolicy for busybox images
+# options: Always, Never, IfNotPresent
+# Defaults to IfNotPresent
+# busyboxImagePullPolicy: <pullPolicy>
+
 # Add debug flag to Rancher server
 debug: false
 
@@ -47,12 +52,15 @@ imagePullSecrets: []
 ### ingress ###
 # Readme for details and instruction on adding tls secrets.
 ingress:
+  # If set to false, ingress will not be created
+  # Defaults to true
+  # options: true, false
+  enabled: true
   extraAnnotations:
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "30"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "1800"
     nginx.org/websocket-services: rancher
-
   # configurationSnippet - Add additional Nginx configuration. This example statically sets a header on the ingress.
   # configurationSnippet: |
   #   more_set_input_headers "X-Forwarded-Host: {{ .Values.hostname }}";
@@ -78,7 +86,7 @@ privateCA: false
 # proxy: http://<username>@<password>:<url>:<port>
 
 # comma separated list of domains or ip addresses that will not use the proxy
-noProxy: 127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,.svc,.cluster.local
+noProxy: 127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,.svc,.becamex.local
 
 # Override rancher image location for Air Gap installs
 rancherImage: rancher/rancher
@@ -116,6 +124,9 @@ certmanager:
 # Rancher custom logos persistence
 customLogos:
   enabled: false
+  volumeSubpaths:
+    emberUi: "ember"
+    vueUi: "vue"
   ## Volume kind to use for persistence: persistentVolumeClaim, configMap
   volumeKind: persistentVolumeClaim
   ## Use an existing volume. Custom logos should be copied to the volume by the user
@@ -125,4 +136,19 @@ customLogos:
   # storageClass: "-"
   accessMode: ReadWriteOnce
   size: 1Gi
+
+# Rancher post-delete hook
+postDelete:
+  enabled: true
+  image:
+    repository: rancher/shell
+    tag: v0.1.6
+  namespaceList:
+    - fleet-system
+    - cattle-system
+    - rancher-operator-system
+  # Number of seconds to wait for an app to be uninstalled
+  timeout: 120
+  # by default, the job will fail if it fail to uninstall any of the apps
+  ignoreTimeoutError: false
 

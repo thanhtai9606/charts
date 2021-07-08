@@ -177,6 +177,9 @@ helm install rancher -n kubeapps rancher-latest/rancher -f sources/apps/rancher/
 
 helm upgrade rancher -n kubeapps rancher-latest/rancher -f sources/apps/rancher/rancher-values.yaml
 
+#delete all pods Failed
+kubectl delete pods --field-selector status.phase=Failed -n becamex-kpi
+
 # delete namespace is stuck
 
 kubectl get namespace "becamex-kpi" -o json \
