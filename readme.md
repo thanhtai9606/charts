@@ -170,7 +170,7 @@ helm install pgadmin -n kubeapps stable/pgadmin -f sources/apps/postgresql/2.pga
 # camunda
 kubectl apply -f sources/apps/camunda/2.secret.yaml
 helm uninstall camundadev -n kubeapps 
-helm install camundadev -n kubeapps camunda/camunda-bpm-platform -f sources/apps/camunda/1.camunda-values.yaml
+helm install camundauat -n kubeapps camunda/camunda-bpm-platform -f sources/apps/camunda/1.camunda-values.yaml
 
 # redmine
 helm uninstall redmine  -n kubeapps 

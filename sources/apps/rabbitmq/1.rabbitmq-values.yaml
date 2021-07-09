@@ -593,7 +593,7 @@ service:
   ## Set the ExternalIPs
   ##
   externalIPs:
-    - 192.168.104.241
+    - 192.168.103.181
 
   ## Set the LoadBalancerIP
   ##
@@ -629,7 +629,7 @@ ingress:
 
   ## When the ingress is enabled, a host pointing to this will be created
   ##
-  hostname: rabbitmqdev.becamex.com.vn
+  hostname: rabbitmq.becamex.com.vn
 
   ## Ingress annotations done as key:value pairs
   ## For a full list of possible ingress annotations, please see
