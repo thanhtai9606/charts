@@ -14,9 +14,6 @@ helm install auth .
 # heml upgrade
 helm upgrade nginx-ingress bitnami/nginx-ingress-controller -f nginx-values.yaml
 
-# set hostNetwork for access in localhost
-hostNetwork: true
-
 # rewrite for route
 nginx.ingress.kubernetes.io/rewrite-target: /$1 #set rewrite
 
@@ -116,7 +113,7 @@ helm uninstall nfs-client -n kubeapps
 helm install nfs-client -n kubeapps stable/nfs-client-provisioner -f sources/apps/nfs-client-provisioner/nfs-client-provisioner-values.yaml
 
 ```
-* create nginx ingress
+* #create nginx ingress
 helm install nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/4.nginx-values.yaml -n kubeapps
 helm install nginx bitnami/nginx -f sources/apps/nginx/6.nginx-values.yaml -n kubeapps
 helm uninstall nginx -n kubeapps
