@@ -118,6 +118,7 @@ helm install nfs-client -n kubeapps stable/nfs-client-provisioner -f sources/app
 ```
 * create nginx ingress
 helm install nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/4.nginx-values.yaml -n kubeapps
+helm install nginx bitnami/nginx -f sources/apps/nginx/6.nginx-values.yaml -n kubeapps
 helm uninstall nginx -n kubeapps
 * create volume for db-storage
 ```

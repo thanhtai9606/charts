@@ -1,0 +1,809 @@
+## Global Docker image parameters
+## Please, note that this will override the image parameters, including dependencies, configured to use the global value
+## Current available global Docker image parameters: imageRegistry and imagePullSecrets
+##
+# global:
+#   imageRegistry: myRegistryName
+#   imagePullSecrets:
+#     - myRegistryKeySecretName
+
+## Bitnami NGINX image version
+## ref: https://hub.docker.com/r/bitnami/nginx/tags/
+##
+image:
+  registry: docker.io
+  repository: bitnami/nginx
+  tag: 1.21.1-debian-10-r0
+  ## Specify a imagePullPolicy
+  ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+  ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  ##
+  pullPolicy: IfNotPresent
+  ## Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ## E.g.:
+  ## pullSecrets:
+  ##   - myRegistryKeySecretName
+  ##
+  pullSecrets: []
+  ## Set to true if you would like to see extra information on logs
+  ##
+  debug: false
+
+## String to partially override nginx.fullname template (will maintain the release name)
+##
+# nameOverride:
+
+## String to fully override nginx.fullname template
+##
+# fullnameOverride:
+
+## Force target Kubernetes version (using Helm capabilites if not set)
+##
+kubeVersion:
+
+## Deployment pod host aliases
+## https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
+##
+hostAliases: []
+
+## Kubernetes Cluster Domain
+##
+clusterDomain: cluster.local
+
+## Extra objects to deploy (value evaluated as a template)
+##
+extraDeploy: []
+
+## Add labels to all the deployed resources
+##
+commonLabels: {}
+
+## Add annotations to all the deployed resources
+##
+commonAnnotations: {}
+
+## Command and args for running the container (set to default if not set). Use array form
+##
+# command:
+# args:
+
+## Additional environment variables to set
+## E.g:
+## extraEnvVars:
+##   - name: FOO
+##     value: BAR
+##
+extraEnvVars: []
+
+## ConfigMap with extra environment variables
+##
+# extraEnvVarsCM:
+
+## Secret with extra environment variables
+##
+# extraEnvVarsSecret:
+
+## Get the server static content from a git repository
+## NOTE: This will override staticSiteConfigmap and staticSitePVC
+##
+cloneStaticSiteFromGit:
+  enabled: false
+  ## Bitnami Git image version
+  ## ref: https://hub.docker.com/r/bitnami/git/tags/
+  ##
+  image:
+    registry: docker.io
+    repository: bitnami/git
+    tag: 2.32.0-debian-10-r25
+    ## Specify a imagePullPolicy
+    ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+    ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+    ##
+    pullPolicy: IfNotPresent
+    ## Optionally specify an array of imagePullSecrets.
+    ## Secrets must be manually created in the namespace.
+    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+    ##
+    # pullSecrets:
+    #   - myRegistryKeySecretName
+  ## Repository to clone static content from
+  ##
+  # repository:
+  ## Branch inside the git repository
+  ##
+  # branch:
+  ## Interval for sidecar container pull from the repository
+  ##
+  interval: 60
+  ## Additional configuration for git-clone-repository initContainer
+  ##
+  gitClone:
+    ## Override container command
+    ##
+    command: []
+    ## Override container args
+    ##
+    args:
+  ## Additional configuration for the git-repo-syncer container
+  ##
+  gitSync:
+    ## Override container command
+    ##
+    command: []
+    ## Override container args
+    ##
+    args: []
+
+  ## Additional environment variables to set for the in the containers that clone static site from git
+  ## E.g:
+  ## extraEnvVars:
+  ##   - name: FOO
+  ##     value: BAR
+  ##
+  extraEnvVars: []
+  ## Add extra volume mounts for the GIT containers
+  ## Useful to mount keys to connect through ssh. (normally used with extraVolumes)
+  ## E.g:
+  ## extraVolumeMounts:
+  ##   - name: ssh-dir
+  ##     mountPath: /root/.ssh/
+  ##
+  extraVolumeMounts: []
+
+## Custom server block to be added to NGINX configuration
+## PHP-FPM example server block:
+## serverBlock: |-
+##   server {
+##     listen 0.0.0.0:8080;
+##     root /app;
+##     location / {
+##       index index.html index.php;
+##     }
+##     location ~ \.php$ {
+##       fastcgi_pass phpfpm-server:9000;
+##       fastcgi_index index.php;
+##       include fastcgi.conf;
+##     }
+##   }
+##
+# serverBlock:
+
+## ConfigMap with custom server block to be added to NGINX configuration
+## NOTE: This will override serverBlock
+##
+# existingServerBlockConfigmap:
+
+## Name of existing ConfigMap with the server static site content
+##
+# staticSiteConfigmap
+
+## Name of existing PVC with the server static site content
+## NOTE: This will override staticSiteConfigmap
+##
+# staticSitePVC
+
+## Number of replicas to deploy
+##
+replicaCount: 1
+
+## Pod extra labels
+## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+##
+podLabels: {}
+
+## Pod annotations
+## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+##
+podAnnotations: {}
+
+## Pod affinity preset
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
+## Allowed values: soft, hard
+##
+podAffinityPreset: ""
+
+## Pod anti-affinity preset
+## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
+## Allowed values: soft, hard
+##
+podAntiAffinityPreset: soft
+
+## Node affinity preset
+## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity
+## Allowed values: soft, hard
+##
+nodeAffinityPreset:
+  ## Node affinity type
+  ## Allowed values: soft, hard
+  ##
+  type: ""
+  ## Node label key to match
+  ## E.g.
+  ## key: "kubernetes.io/e2e-az-name"
+  ##
+  key: ""
+  ## Node label values to match
+  ## E.g.
+  ## values:
+  ##   - e2e-az1
+  ##   - e2e-az2
+  ##
+  values: []
+
+## Affinity for pod assignment
+## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+## Note: podAffinityPreset, podAntiAffinityPreset, and  nodeAffinityPreset will be ignored when it's set
+##
+affinity: {}
+
+## Node labels for pod assignment. Evaluated as a template.
+## Ref: https://kubernetes.io/docs/user-guide/node-selection/
+##
+nodeSelector: {}
+
+## Tolerations for pod assignment. Evaluated as a template.
+## Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+##
+tolerations: {}
+
+## Priority class name
+## ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/#priorityclass
+##
+priorityClassName: ""
+
+## NGINX pods' Security Context.
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
+##
+podSecurityContext:
+  enabled: false
+  fsGroup: 1001
+  ## sysctl settings
+  ## Example:
+  ## sysctls:
+  ## - name: net.core.somaxconn
+  ##   value: "10000"
+  ##
+  sysctls: []
+
+## NGINX Core containers' Security Context (only main container).
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
+##
+containerSecurityContext:
+  enabled: false
+  runAsUser: 1001
+  runAsNonRoot: true
+
+## Configures the ports NGINX listens on
+##
+containerPorts:
+  http: 8080
+  # https: 8443
+
+## NGINX containers' resource requests and limits
+## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+##
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits: {}
+  #   cpu: 100m
+  #   memory: 128Mi
+  requests: {}
+  #   cpu: 100m
+  #   memory: 128Mi
+
+## NGINX containers' liveness and readiness probes.
+## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
+##
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  periodSeconds: 10
+  failureThreshold: 6
+  successThreshold: 1
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 5
+  timeoutSeconds: 3
+  periodSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+
+## Custom Liveness probe
+##
+customLivenessProbe: {}
+
+## Custom Rediness probe
+##
+customReadinessProbe: {}
+
+## Autoscaling parameters
+##
+autoscaling:
+  enabled: false
+  # minReplicas: 1
+  # maxReplicas: 10
+  # targetCPU: 50
+  # targetMemory: 50
+
+## Array to add extra volumes (evaluated as a template)
+##
+extraVolumes: []
+
+## Array to add extra mounts (normally used with extraVolumes, evaluated as a template)
+##
+extraVolumeMounts: []
+
+## Pods Service Account
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+##
+serviceAccount:
+  ## Specifies whether a ServiceAccount should be created
+  ##
+  create: false
+  ## The name of the ServiceAccount to use.
+  ## If not set and create is true, a name is generated using the `common.names.fullname` template
+  # name:
+
+  ## Annotations for service account. Evaluated as a template.
+  ## Only used if `create` is `true`.
+  ##
+  annotations: {}
+
+## NGINX Service properties
+##
+service:
+  ## Service type
+  ##
+  type: LoadBalancer
+
+  ## HTTP Port
+  ##
+  port: 80
+
+  ## HTTPS Port
+  ##
+  httpsPort: 443
+
+  ## Specify the nodePort(s) value(s) for the LoadBalancer and NodePort service types.
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
+  ##
+  nodePorts:
+    http: ""
+    https: ""
+
+  ## Target port reference value for the Loadbalancer service types can be specified explicitly.
+  ## Listeners for the Loadbalancer can be custom mapped to the http or https service.
+  ## Example: Mapping the https listener to targetPort http [http: https]
+  ##
+  targetPort:
+    http: http
+    https: https
+
+  ## Set the LoadBalancer service type to internal only.
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer
+  ##
+  ##loadBalancerIP: 192.168.103.182
+
+  ## Provide any additional annotations which may be required. This can be used to
+  ## set the LoadBalancer service type to internal only.
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer
+  ##
+  annotations: {}
+
+  ## Enable client source IP preservation
+  ## ref http://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
+  ##
+  externalTrafficPolicy: Cluster
+
+## LDAP Auth Daemon Properties
+##
+## Daemon that will proxy LDAP requests
+## between NGINX and a given LDAP Server
+##
+ldapDaemon:
+
+  enabled: false
+
+  ## Bitnami NGINX LDAP Auth Daemon image
+  ## ref: https://hub.docker.com/r/bitnami/nginx-ldap-auth-daemon/tags/
+  ##
+  image:
+    registry: docker.io
+    repository: bitnami/nginx-ldap-auth-daemon
+    tag: 0.20200116.0-debian-10-r387
+    pullPolicy: IfNotPresent
+
+  ## LDAP Daemon port
+  ##
+  port: 8888
+
+  ## LDAP Auth Daemon Configuration
+  ##
+  ## These different properties define the form of requests performed
+  ## against the given LDAP server
+  ##
+  ## BEWARE THAT THESE VALUES WILL BE IGNORED IF A CUSTOM LDAP SERVER BLOCK
+  ## ALREADY SPECIFIES THEM.
+  ##
+  ##
+  ldapConfig:
+
+    ## LDAP URI where to query the server
+    ## Must follow the pattern -> ldap[s]:/<hostname>:<port>
+    ##
+    uri: ""
+
+    ## LDAP search base DN
+    ##
+    baseDN: ""
+
+    ## LDAP bind DN
+    ##
+    bindDN: ""
+
+    ## LDAP bind Password
+    ##
+    bindPassword: ""
+
+    ## LDAP search filter
+    ##
+    filter: ""
+
+    ## LDAP auth realm
+    ##
+    httpRealm: ""
+
+    ## LDAP cookie name
+    ##
+    httpCookieName: ""
+
+  ## NGINX Configuration File containing the directives (that define
+  ## how LDAP requests are performed) and tells NGINX to use the LDAP Daemon
+  ## as proxy. Besides, it defines the routes that will require of LDAP auth
+  ## in order to be accessed.
+  ##
+  ## If LDAP directives are provided, they will take precedence over
+  ## the ones specified in ldapConfig.
+  ##
+  ## This will be evaluated as a template.
+  ##
+  ##
+
+  nginxServerBlock: |-
+    server {
+    listen 0.0.0.0:{{ .Values.containerPorts.http }};
+
+    # You can provide a special subPath or the root
+    location = / {
+        auth_request /auth-proxy;
+    }
+
+    location = /auth-proxy {
+        internal;
+
+        proxy_pass http://127.0.0.1:{{ .Values.ldapDaemon.port }};
+
+        ###############################################################
+        # YOU SHOULD CHANGE THE FOLLOWING TO YOUR LDAP CONFIGURATION  #
+        ###############################################################
+
+        # URL and port for connecting to the LDAP server
+        # proxy_set_header X-Ldap-URL "ldap://YOUR_LDAP_SERVER_IP:YOUR_LDAP_SERVER_PORT";
+
+        # Base DN
+        # proxy_set_header X-Ldap-BaseDN "dc=example,dc=org";
+
+        # Bind DN
+        # proxy_set_header X-Ldap-BindDN "cn=admin,dc=example,dc=org";
+
+        # Bind password
+        # proxy_set_header X-Ldap-BindPass "adminpassword";
+    }
+    }
+
+  ## Use an existing Secret holding an NGINX Configuration file that
+  ## configures LDAP requests. (will be evaluated as a template)
+  ##
+  ## If provided, both nginxServerBlock and ldapConfig properties are ignored.
+  ##
+  existingNginxServerBlockSecret:
+
+  ## LDAP Auth Daemon containers' liveness and readiness probes.
+  ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
+  ##
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 30
+    timeoutSeconds: 5
+    periodSeconds: 10
+    failureThreshold: 6
+    successThreshold: 1
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 5
+    timeoutSeconds: 3
+    periodSeconds: 5
+    failureThreshold: 3
+    successThreshold: 1
+
+  ## Custom Liveness probe
+  ##
+  customLivenessProbe: {}
+
+  ## Custom Rediness probe
+  ##
+  customReadinessProbe: {}
+
+## Sidecar parameters
+##
+# sidecars:
+#   - name: your-image-name
+#     image: your-image
+#     imagePullPolicy: Always
+#     ports:
+#       - name: portname
+#         containerPort: 1234
+sidecars:
+
+## Extra init containers
+##
+initContainers:
+
+## Configure the ingress resource that allows you to access the
+## Nginx installation. Set up the URL
+## ref: http://kubernetes.io/docs/user-guide/ingress/
+##
+ingress:
+  ## Set to true to enable ingress record generation
+  ##
+  enabled: true
+
+  ## Set this to true in order to add the corresponding annotations for cert-manager
+  ##
+  certManager: false
+
+  ## Ingress Path type
+  ##
+  pathType: ImplementationSpecific
+
+  ## Override API Version (automatically detected if not set)
+  ##
+  apiVersion:
+
+  ## When the ingress is enabled, a host pointing to this will be created
+  ##
+  hostname: nginx.becamex.com.vn
+
+  ## The Path to Nginx. You may need to set this to '/*' in order to use this
+  ## with ALB ingress controllers.
+  ##
+  path: /
+
+  ## Ingress annotations done as key:value pairs
+  ## For a full list of possible ingress annotations, please see
+  ## ref: https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/annotations.md
+  ##
+  ## If certManager is set to true, annotation kubernetes.io/tls-acme: "true" will automatically be set
+  ##
+  annotations: {}
+
+  ## Enable TLS configuration for the hostname defined at ingress.hostname parameter
+  ## TLS certificates will be retrieved from a TLS secret with name: {{- printf "%s-tls" .Values.ingress.hostname }}
+  ## You can use the ingress.secrets parameter to create this TLS secret or relay on cert-manager to create it
+  ##
+  tls: false
+
+  ## The list of additional hostnames to be covered with this ingress record.
+  ## Most likely the hostname above will be enough, but in the event more hosts are needed, this is an array
+  ## extraHosts:
+  ## - name: nginx.local
+  ##   path: /
+  ##
+
+  ## Any additional arbitrary paths that may need to be added to the ingress under the main host.
+  ## For example: The ALB ingress controller requires a special rule for handling SSL redirection.
+  ## extraPaths:
+  ## - path: /*
+  ##   backend:
+  ##     serviceName: ssl-redirect
+  ##     servicePort: use-annotation
+  ##
+
+  ## The tls configuration for additional hostnames to be covered with this ingress record.
+  ## see: https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
+  ## extraTls:
+  ## - hosts:
+  ##     - nginx.local
+  ##   secretName: nginx.local-tls
+  ##
+
+  ## If you're providing your own certificates, please use this to add the certificates as secrets
+  ## key and certificate should start with -----BEGIN CERTIFICATE----- or
+  ## -----BEGIN RSA PRIVATE KEY-----
+  ##
+  ## name should line up with a tlsSecret set further up
+  ## If you're using cert-manager, this is unneeded, as it will create the secret for you if it is not set
+  ##
+  ## It is also possible to create and manage the certificates outside of this helm chart
+  ## Please see README.md for more information
+  ##
+  secrets: 
+    - name: becamexcert
+      key: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUZ4ekNDQksrZ0F3SUJBZ0lNVkFqa01JYmFGS1doOTJ4YU1BMEdDU3FHU0liM0RRRUJDd1VBTUV3eEN6QUoKQmdOVkJBWVRBa0pGTVJrd0Z3WURWUVFLRXhCSGJHOWlZV3hUYVdkdUlHNTJMWE5oTVNJd0lBWURWUVFERXhsQgpiSEJvWVZOVFRDQkRRU0F0SUZOSVFUSTFOaUF0SUVjeU1CNFhEVEl3TURrd09EQTBNekl6TVZvWERUSXhNVEF4Ck1EQTBNekl6TVZvd0d6RVpNQmNHQTFVRUF3d1FLaTVpWldOaGJXVjRMbU52YlM1MmJqQ0NBU0l3RFFZSktvWkkKaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFOMWlyeXFLYXJOODNxN1Q0L1pPL3dVMXcza2psbnVocWR0Tgp3R295eEN6NXpmZGdtYjhla05vMnE3TFhIZzV1U2NGR0JKNTRucE9xeGFRWVZTb2RPSEh6eXJ2OFVvTjUzVU9zCmR4d21xTFNWb0hvVFlBSk9PUWJ5OHhNVzBhYU1XT0ZlNi9yK1VRL0J0RHAxSk0xa0c2RE0vWjllK1UrMzEvMzcKY3VCemxra2dTMnVlcm95bGYzaTlqaktLRUNndmJnTGdVdDlVaHcxS1hSdi9oZllHeUZ0eVFZNzV0dzlWVXZrcwpNNFZxQWt5eXBLTWdWYk9qOXcwdDdtNWFEMGtqVDI0MUNzcFdDZTN4WlFkMzlBOGVSQW1YWjg2b0QwZWJuZUNtCkpjY1VSbnZ1STl6SnJGc2x1dCtFNThZdFpXQzVKSUV2ODBlbGRHMlB1eC8yOHNmdFpqTUNBd0VBQWFPQ0F0Z3cKZ2dMVU1BNEdBMVVkRHdFQi93UUVBd0lGb0RDQmlRWUlLd1lCQlFVSEFRRUVmVEI3TUVJR0NDc0dBUVVGQnpBQwpoalpvZEhSd09pOHZjMlZqZFhKbE1pNWhiSEJvWVhOemJDNWpiMjB2WTJGalpYSjBMMmR6WVd4d2FHRnphR0V5Clp6SnlNUzVqY25Rd05RWUlLd1lCQlFVSE1BR0dLV2gwZEhBNkx5OXZZM053TWk1bmJHOWlZV3h6YVdkdUxtTnYKYlM5bmMyRnNjR2hoYzJoaE1tY3lNRmNHQTFVZElBUlFNRTR3UWdZS0t3WUJCQUdnTWdFS0NqQTBNRElHQ0NzRwpBUVVGQndJQkZpWm9kSFJ3Y3pvdkwzZDNkeTVuYkc5aVlXeHphV2R1TG1OdmJTOXlaWEJ2YzJsMGIzSjVMekFJCkJnWm5nUXdCQWdFd0NRWURWUjBUQkFJd0FEQStCZ05WSFI4RU56QTFNRE9nTWFBdmhpMW9kSFJ3T2k4dlkzSnMKTWk1aGJIQm9ZWE56YkM1amIyMHZaM012WjNOaGJIQm9ZWE5vWVRKbk1pNWpjbXd3S3dZRFZSMFJCQ1F3SW9JUQpLaTVpWldOaGJXVjRMbU52YlM1MmJvSU9ZbVZqWVcxbGVDNWpiMjB1ZG00d0hRWURWUjBsQkJZd0ZBWUlLd1lCCkJRVUhBd0VHQ0NzR0FRVUZCd01DTUI4R0ExVWRJd1FZTUJhQUZQWE4xVHdJVVBscVR6cTNsOXBXZytacDBtajMKTUIwR0ExVWREZ1FXQkJSd1RNNU5IS3BxZE14VjRFREJseDhxU3lKb0JUQ0NBUVFHQ2lzR0FRUUIxbmtDQkFJRQpnZlVFZ2ZJQThBQjJBRzlUZHF3eDhERVoySmtBcEZFVi8zY1ZIQkhaQXNFQUtRYU5zZ2lhTjlrVEFBQUJkR3Y4CnFhWUFBQVFEQUVjd1JRSWdTWm5wMGp1emt5bXJOSFYxMk1NNVY4a1NaaDZCT2ZLMTZGYks1NnRDakgwQ0lRQ1oKdmtJckhiNlQ2YkgwZXJxZ1JKclc4TzJSMnZHMk9lTGM2OGxMYk5PQm9BQjJBUFpjbEMvUmR6QWlGRlFZQ0RDVQpWbzdqVFJNWk03L2ZEQzhnQzh4TzhXVGpBQUFCZEd2OHJITUFBQVFEQUVjd1JRSWdLLytIU2ovUnVOa0hDTTlqCkx4anJDU2FFU1lLMEZWMUJlWTFUek5JQ244a0NJUUNqOGUyQzV6VGNtdGJoVGRpTWw5RVB3OTJGU0pTY0R2WSsKcVRldnFMaFZMVEFOQmdrcWhraUc5dzBCQVFzRkFBT0NBUUVBZEFRYVdZMjhDLzFzZ3R6NjRwUXNYSlBCdEZPNApBQ0hjMW1CZWtybjBrZHhmWmpSV3BPS3ZkSmhLcnp3YkI0OFI1cmFBcFRWVXFIUjh3Y20xS0tOZ2wzZHdOTStqCnZxVXhjZTQ3Rmo5ekJIR1pxeUplS2dMRUZoR3ZWNzRMTTd0YUczVHltdENGeVNMWWlSaHBoZEVnNHczNW04a0cKMHNLWjZCYUt6VUtXOEJMU1ZkaHJvTFU0WUlhTVdRSnZueEZqa0RnMFYzQ2pITlhONUs3WWtObE5ZOHVnSlpsNAoyNGlCb1JwQ014VkxrY2hjM0YxdlZzVFpqNE9qZWJLOHJQeTJQMVJoKzZvdHhhNy9MVDZPa0cvMFUrVmJMMGpzClNLNEwxT2ZzeXRlcENScVh5THVsYnptK2c3RG5SaHFQMUdHZExaT1o1T1B0NW1sL2JwT2VIZEEyckE9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCgotLS0tLUJFR0lOIENFUlRJRklDQVRFLS0tLS0KTUlJRGRUQ0NBbDJnQXdJQkFnSUxCQUFBQUFBQkZVdGF3NVF3RFFZSktvWklodmNOQVFFRkJRQXdWekVMTUFrRwpBMVVFQmhNQ1FrVXhHVEFYQmdOVkJBb1RFRWRzYjJKaGJGTnBaMjRnYm5ZdGMyRXhFREFPQmdOVkJBc1RCMUp2CmIzUWdRMEV4R3pBWkJnTlZCQU1URWtkc2IySmhiRk5wWjI0Z1VtOXZkQ0JEUVRBZUZ3MDVPREE1TURFeE1qQXcKTURCYUZ3MHlPREF4TWpneE1qQXdNREJhTUZjeEN6QUpCZ05WQkFZVEFrSkZNUmt3RndZRFZRUUtFeEJIYkc5aQpZV3hUYVdkdUlHNTJMWE5oTVJBd0RnWURWUVFMRXdkU2IyOTBJRU5CTVJzd0dRWURWUVFERXhKSGJHOWlZV3hUCmFXZHVJRkp2YjNRZ1EwRXdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCQVFEYUR1YVoKamM2ajQwK0tmdnZ4aTRNbGErcElIL0Vxc0xtVkVRUzk4R1BSNG1kbXp4emR6eHRJSys2TmlZNmFyeW1BWmF2cAp4eTBTeTZzY1RIQUhvVDBLTU0wVmpVLzQzZFNNVUJVYzcxRHV4QzczL09sUzhwRjk0RzNWTlRDT1hrTno4a0hwCjFXcmpzb2s2VmprNGJ3WThpR2xiS2szRnAxUzRiSW5NbS9rOHl1WDlpZlVTUEpKNGx0YmNkRzZUUkdIUmpjZEcKc25VT2h1Z1ppdFZ0Yk5WNEZwV2k2Y2dLT092eUpCTlBjMVNURTRVNkc3d2VOTFdMQll5NWQ0dXgyeDhna2FzSgpVMjZRem5zM2RMbHdSNUVpVVdNV2VhNnhya0VtQ01nWks5Rkdxa2pXWkNyWGd6VC9MQ3JCYkJsRFNnZUY1OU44CjlpRm83K3J5VXA5L2s1RFBBZ01CQUFHalFqQkFNQTRHQTFVZER3RUIvd1FFQXdJQkJqQVBCZ05WSFJNQkFmOEUKQlRBREFRSC9NQjBHQTFVZERnUVdCQlJnZTJZYVJRMlh5b2xRTDMwRXpUU28vL3o5U3pBTkJna3Foa2lHOXcwQgpBUVVGQUFPQ0FRRUExblBuZkU5MjBJMi83THFpdmpURktESzFmUHhzbkN3cnZRbWVVNzlyWHFvUlNMYmxDS096CnlqMWhUZE5HQ2JNK3c2RGpZMVViOHJydnJUbmhRN2s0bytZdmlpWTc3NkJRVnZuR0N2MDR6Y1FMY0ZHVWw1Z0UKMzhOZmxOVVZ5UlJCbk1SZGRXUVZEZjlWTU95R2ovOE43eXk1WTBiMnF2emZ2R245TGhKSVpKcmdsZkNtN3ltUApBYkVWdFF3ZHBmNXBMR2trZUI2enB4eHhZdTdLeUplc0YxMkt3dmhIaG00cXhGWXhsZEJuaVlVcitXeW1YVWFkCkRLcUM1SmxSM1hDMzIxWTlZZVJxNFZ6Vzl2NDkza0hNQjY1alVyOVRVL1FyNmNmOXR2ZUNYNFhTUVJqYmdiTUUKSE1VZnBJQnZGU0RKM2d5SUNoM1dabFhpL0VqSktTWnA0QT09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0KCi0tLS0tQkVHSU4gQ0VSVElGSUNBVEUtLS0tLQpNSUlFVFRDQ0F6V2dBd0lCQWdJTEJBQUFBQUFCUkU3d05qRXdEUVlKS29aSWh2Y05BUUVMQlFBd1Z6RUxNQWtHCkExVUVCaE1DUWtVeEdUQVhCZ05WQkFvVEVFZHNiMkpoYkZOcFoyNGdibll0YzJFeEVEQU9CZ05WQkFzVEIxSnYKYjNRZ1EwRXhHekFaQmdOVkJBTVRFa2RzYjJKaGJGTnBaMjRnVW05dmRDQkRRVEFlRncweE5EQXlNakF4TURBdwpNREJhRncweU5EQXlNakF4TURBd01EQmFNRXd4Q3pBSkJnTlZCQVlUQWtKRk1Sa3dGd1lEVlFRS0V4QkhiRzlpCllXeFRhV2R1SUc1MkxYTmhNU0l3SUFZRFZRUURFeGxCYkhCb1lWTlRUQ0JEUVNBdElGTklRVEkxTmlBdElFY3kKTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUEyZ0hzNU94ellQdCtqMnEzeGhmagprbVF5MUt3QTJhSVB1ZTN1YTRxR3lwSm4yWFRYWFVjQ1BJOUExcDV0Rk0zRDJpazVwdzhGQ21paVpob2V4TEtMCmRsamxxMTBkajBDek9ZdnZIb045SXREanFRQXU3RlBQWWhtRlJDaE13Q2ZMZXc3c0VHUUFFS1FGektCeXZrRnMKTVZ0STVMSHN1U1ByVlUzUWZXSktwYlNscEZtRnhTV1JwdjZtQ1o4R0VHMlBnUXhrUUY1ekFKcmdMbVdZVkJBQQpjSmpJNGUwMFg5aWN4dzNBMWlOWlJmeitWWHFHN3BSZ0l2R3UwZVpWUnZhWnhSc0lkRitzc0dTRWo0azRIS0duCmtDRlBBbTY5NEdGbjFQaENodzhLOThrRWJTcXBMKzlDcGQvZG8xUGJtQjZCK1pweWUxcmVUejUvb2xpZzRoZXQKWndJREFRQUJvNElCSXpDQ0FSOHdEZ1lEVlIwUEFRSC9CQVFEQWdFR01CSUdBMVVkRXdFQi93UUlNQVlCQWY4QwpBUUF3SFFZRFZSME9CQllFRlBYTjFUd0lVUGxxVHpxM2w5cFdnK1pwMG1qM01FVUdBMVVkSUFRK01Ed3dPZ1lFClZSMGdBREF5TURBR0NDc0dBUVVGQndJQkZpUm9kSFJ3Y3pvdkwzZDNkeTVoYkhCb1lYTnpiQzVqYjIwdmNtVncKYjNOcGRHOXllUzh3TXdZRFZSMGZCQ3d3S2pBb29DYWdKSVlpYUhSMGNEb3ZMMk55YkM1bmJHOWlZV3h6YVdkdQpMbTVsZEM5eWIyOTBMbU55YkRBOUJnZ3JCZ0VGQlFjQkFRUXhNQzh3TFFZSUt3WUJCUVVITUFHR0lXaDBkSEE2Ckx5OXZZM053TG1kc2IySmhiSE5wWjI0dVkyOXRMM0p2YjNSeU1UQWZCZ05WSFNNRUdEQVdnQlJnZTJZYVJRMlgKeW9sUUwzMEV6VFNvLy96OVN6QU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FRRUFZRUJvRmtmbkZvM2JYS0ZXS3N2MApYSnV3SHFKTDljc0NQL2dMb2ZLblF0UzNUT3ZqWm9EekpVTjRMaHNYVmdkU0dNdlJxT3ptKzNNK3BHS01nTFRTCnhSSnpvOVA2QWppK1l6MkV1Sm5COGJyM244TkEwVmdZVThGaTNhOFlRbjgwVHNWRDFYR3dNQURINDVDdVAxZUcKbDg3cURCS09JbkRqWnFkVWZ5NG95OVJVMExNZVltY0krU2ZoeStObXVDUWJpV3FKUkdYeTJVelNXQnlNVHNDVgpvZFR2Wnk4NElPZ3UvNVpSOExyWVBaSndSMlVjbm5OeXRHQU1YT0xSYzNiZ3IwN2k1VGVsUlMrS0l6Nkh4ekRtCk1UaDg5TjFTeXZOVEJDVlhWbWFVNkF2dTVnTVVUdTc5YlpSa25sN09lZFN5cHM5QXNVU29Qb2NaWHVuNElSWlpVdz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+      certificate: LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2UUlCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktjd2dnU2pBZ0VBQW9JQkFRRGRZcThxaW1xemZONnUKMCtQMlR2OEZOY041STVaN29hbmJUY0JxTXNRcytjMzNZSm0vSHBEYU5xdXkxeDRPYmtuQlJnU2VlSjZUcXNXawpHRlVxSFRoeDg4cTcvRktEZWQxRHJIY2NKcWkwbGFCNkUyQUNUamtHOHZNVEZ0R21qRmpoWHV2Ni9sRVB3YlE2CmRTVE5aQnVnelAyZlh2bFB0OWY5KzNMZ2M1WkpJRXRybnE2TXBYOTR2WTR5aWhBb0wyNEM0RkxmVkljTlNsMGIKLzRYMkJzaGJja0dPK2JjUFZWTDVMRE9GYWdKTXNxU2pJRld6by9jTkxlNXVXZzlKSTA5dU5RcktWZ250OFdVSApkL1FQSGtRSmwyZk9xQTlIbTUzZ3BpWEhGRVo3N2lQY3lheGJKYnJmaE9mR0xXVmd1U1NCTC9OSHBYUnRqN3NmCjl2TEg3V1l6QWdNQkFBRUNnZ0VBUUI1RngxZGhnZXlIZmpFR1ZCOGJBMEpJQS96SHA3VHh3ZjlwM0JncDh6REMKYzRRNTR6MlNESEZMRnpmd2o1Tm5yeDk5VlB4d1NTcHJwWlFham1ENktSN0h0OXhqZFlyRkI4V2FsYitvbXV5LwpGcnduMFdNZ1p4L1VRTklhRkZlUG9tNWdnRWhKNS90ZEhKVXkvSDJpOXRhSUdqRmltYkVRVUpJVCttZmZ2ZnVmClpITXlTNThWNW52b2dHdlU0KzZEU0ZsY00ra05uSnhuOC8zbURWUlI4dm43TVNHR0dvbTMyVWVRN1dUc1Q1OXQKUEhwbGdkWW1mM3BjT21keFBtVW9iK3hNMUVEYTJLd2Q5M0VHdEo4clEza3NBajJPVGVUYWg2SFFzSE5lNUc3dgpMZ0Y2R2U4dzBIQnZybDZXM1Flc1NEajljR0RleUpjem9ocU1rWUgwSVFLQmdRRDdCVW9TTVFRajFQSVEvUVZaCmpSOW43TlE3Si9iL09jdVpqYUN5K25tT2ZNOFBtVTF0d1B2eVo4aEMvVmZmLzU5aXNOWXNRRjhid2gvY0JLMlYKVHJIQTgrRkprdWVaVVBWQW9MQ3k3Y2V0MXc3U2pVZkR3UERlLys3M2ZCV1E3T3htQnRXT3VkOCtacFJKcEVadwo4STUyYkpYTkZvSGZzZjR1TDdTN2F0YlZ3d0tCZ1FEaHh1ZDUzRFk4WG03VkdicjN6azd6dCt6U2FtQ0xib2VyCjJwTXVSaks1TDBCUmhLUU9WdHluK0JOOFhmZEZnanRRLzlsb3k5N3Q5dVdkUjZacGVPRmhoaVU5cDdyWDU0UDUKOHljbGJxemtoYkNHaVFvVDRxa3M1a3RwKzh3bm1HVnVNZCtQVWtBRUNYY09ZNGJ2disra2R5MGNKd3Zod0hBSQpLcXRNbXV0MjBRS0JnQ3FRcmd2QnBnc1JhKzYzaVBXemVYVGM4dXdKRGRnZmk4ZkEvVlA4SnlxalBWVk8wSk5nCjJ4Z3l3d0doQmdxa3hQa3VOVk1SbzA4SXJ2QlhGcnd2dVBLWUtFYWFrNDBxN2p1RVJCSkRRYzNYbnRyVFBDMFUKaFlPNjhHR2s5OTg0WGFtN1ZQRTcwWUE2VXNEZUMxZlJZc2J3Q01MYkl6QzBkUDZOOWw2bGNrS1RBb0dBUlJ4YQpyTjJ3cUdnTHF5V1dLdGEzS2pscHY3c2FWSFFBQ2FYOW1aT1pZVUJLZ3VtRVFuTnFWZXhGSXJPc3hsVW9EUkpVCkhaVVNaMnRGUEJDN3F0dDZ1aHlTOTcySkh4L2FNVCt5QXU1TzlDRE1PVkpuaUZEQWttTG9RTWYzNVVMc0FZQTQKdTZsa3VSZWdud0h1UXlOUW10cDBMNEx3U3lsWjRkWVYyM3dzaVpFQ2dZRUF1enZsZlBVZUNRamc2a0FPRm4zUAp6a2RCWUVCUnV6UzFhZ3E1bGc1cSswcHJRWkpTNVRIMzFWZUU2TFEyc2lnUHViMmtiM2tRaHEraDdQNUVpSHc0CjNvcFQxazhjZ3hCdmQ3RmhkaWlyb0JpZkFnTTlnWFVXc1ZpaEtua2Zaa0tacEg5TGRWVFVwWjBMMEpVb2szR24KUzBhU1pVVXEvcExmOHFtQmhnQUFEV1E9Ci0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0K
+  ##
+
+## Health Ingress parameters
+##
+healthIngress:
+  ## Set to true to enable health ingress record generation
+  ##
+  enabled: false
+
+  ## Set this to true in order to add the corresponding annotations for cert-manager
+  ##
+  certManager: false
+
+  ## Ingress Path type
+  ##
+  pathType: ImplementationSpecific
+
+  ## When the health ingress is enabled, a host pointing to this will be created
+  ##
+  hostname: example.local
+
+  ## Health Ingress annotations done as key:value pairs
+  ## For a full list of possible ingress annotations, please see
+  ## ref: https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/annotations.md
+  ##
+  ## If certManager is set to true, annotation kubernetes.io/tls-acme: "true" will automatically be set
+  ##
+  annotations: {}
+
+  ## Enable TLS configuration for the hostname defined at healthIngress.hostname parameter
+  ## TLS certificates will be retrieved from a TLS secret with name: {{- printf "%s-tls" .Values.healthIngress.hostname }}
+  ## You can use the healthIngress.secrets parameter to create this TLS secret, relay on cert-manager to create it, or
+  ## let the chart create self-signed certificates for you
+  ##
+  tls: false
+
+  ## The list of additional hostnames to be covered with this health ingress record.
+  ## Most likely the hostname above will be enough, but in the event more hosts are needed, this is an array
+  ## E.g.
+  ## extraHosts:
+  ##   - name: example.local
+  ##     path: /
+  ##
+  extraHosts: []
+
+  ## The tls configuration for additional hostnames to be covered with this health ingress record.
+  ## see: https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
+  ## E.g.
+  ## extraTls:
+  ##   - hosts:
+  ##       - example.local
+  ##     secretName: example.local-tls
+  ##
+  extraTls: []
+
+  ## If you're providing your own certificates, please use this to add the certificates as secrets
+  ## key and certificate should start with -----BEGIN CERTIFICATE----- or -----BEGIN RSA PRIVATE KEY-----
+  ## name should line up with a secretName set further up
+  ## If it is not set and you're using cert-manager, this is unneeded, as it will create the secret for you
+  ## If it is not set and you're NOT using cert-manager either, self-signed certificates will be created
+  ## It is also possible to create and manage the certificates outside of this helm chart
+  ## Please see README.md for more information
+  ##
+  ## E.g.
+  ## secrets:
+  ##   - name: example.local-tls
+  ##     key:
+  ##     certificate:
+  ##
+  secrets: []
+
+## Prometheus Exporter / Metrics
+##
+metrics:
+  enabled: false
+
+  ## Specify which port is used by the exporter to retrieve the NGINX status.
+  ## Defaults to specified http port
+  port:
+
+  ## Bitnami NGINX Prometheus Exporter image
+  ## ref: https://hub.docker.com/r/bitnami/nginx-exporter/tags/
+  ##
+  image:
+    registry: docker.io
+    repository: bitnami/nginx-exporter
+    tag: 0.9.0-debian-10-r93
+    pullPolicy: IfNotPresent
+    ## Optionally specify an array of imagePullSecrets.
+    ## Secrets must be manually created in the namespace.
+    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+    ##
+    # pullSecrets:
+    #   - myRegistryKeySecretName
+
+  ## Prometheus exporter pods' annotation and labels
+  ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+  ##
+  podAnnotations: {}
+
+  ## Container Security Context
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+  ##
+  securityContext:
+    enabled: false
+    runAsUser: 1001
+
+  ## Prometheus exporter service parameters
+  ##
+  service:
+    ## NGINX Prometheus exporter port
+    ##
+    port: 9113
+    ## Annotations for the Prometheus exporter service
+    ##
+    annotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "{{ .Values.metrics.service.port }}"
+
+  ## NGINX Prometheus exporter resource requests and limits
+  ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+  ##
+  resources:
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    limits: {}
+    #   cpu: 100m
+    #   memory: 128Mi
+    requests: {}
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  ## Prometheus Operator ServiceMonitor configuration
+  ##
+  serviceMonitor:
+    enabled: false
+    ## Namespace in which Prometheus is running
+    ##
+    # namespace: monitoring
+
+    ## Interval at which metrics should be scraped.
+    ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint
+    ##
+    # interval: 10s
+
+    ## Timeout after which the scrape is ended
+    ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint
+    ##
+    # scrapeTimeout: 10s
+
+    ## ServiceMonitor selector labels
+    ## ref: https://github.com/bitnami/charts/tree/master/bitnami/prometheus-operator#prometheus-configuration
+    ##
+    # selector:
+    #   prometheus: my-prometheus
+
+## Pod Disruption Budget configuration
+## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+##
+pdb:
+  create: false
+  ## Min number of pods that must still be available after the eviction
+  ##
+  minAvailable: 1
+  ## Max number of pods that can be unavailable after the eviction
+  ##
+  # maxUnavailable: 1
+
