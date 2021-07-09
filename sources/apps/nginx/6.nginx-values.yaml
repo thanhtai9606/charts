@@ -71,9 +71,9 @@ commonAnnotations: {}
 
 ## Additional environment variables to set
 ## E.g:
-extraEnvVars:
-  - name: default-ssl-certificate
-    value: "kubeapps/becamexidc-cert"
+## extraEnvVars:
+##   - name: FOO
+##     value: BAR
 ##
 extraEnvVars: []
 
@@ -83,8 +83,8 @@ extraEnvVars: []
 
 ## Secret with extra environment variables
 ##
-extraEnvVarsSecret:
-# default-ssl-certificate: "kubeapps/becamexidc-cert"
+# extraEnvVarsSecret:
+
 ## Get the server static content from a git repository
 ## NOTE: This will override staticSiteConfigmap and staticSitePVC
 ##
@@ -617,10 +617,10 @@ ingress:
 
   ## The tls configuration for additional hostnames to be covered with this ingress record.
   ## see: https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
-  # extraTls:
-  # - hosts:
-  #     - nginx.local
-  #   secretName: nginx.local-tls
+  extraTls:
+  - hosts:
+      - nginx.becamex.com.vn
+    secretName: becamex-secret-cert
   ##
 
   ## If you're providing your own certificates, please use this to add the certificates as secrets
@@ -644,7 +644,7 @@ ingress:
 healthIngress:
   ## Set to true to enable health ingress record generation
   ##
-  enabled: false
+  enabled: true
 
   ## Set this to true in order to add the corresponding annotations for cert-manager
   ##

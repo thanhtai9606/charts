@@ -2,7 +2,6 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: app-nginx
-  namespace: nginx-ingress
   # annotations:
   #   nginx.ingress.kubernetes.io/rewrite-target: /$1 #set rewrite
 spec:
