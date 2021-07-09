@@ -141,6 +141,14 @@ thêm arg sau
 * kubeapps create
 ```bash
 
+# metaLB LoadBalancer
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml
+# On first install only
+kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
+
+kubectl apply -f sources/apps/metalb/1.metab.yaml 
+
 # install kubeapp
 
 helm uninstall kubeapp -n kubeapps
@@ -156,6 +164,7 @@ helm uninstall nfs-client -n kubeapps
 helm uninstall rabbitmq -n kubeapps 
 helm install rabbitmq -n kubeapps bitnami/rabbitmq -f sources/apps/rabbitmq/1.rabbitmq-values.yaml 
 # postgres sql
+helm uninstall postgres -n kubeapps 
 helm install postgres -n kubeapps bitnami/postgresql -f sources/apps/postgresql/1.postgresql-values.yaml 
 # pgadmin
 helm uninstall pgadmin -n kubeapps 
@@ -163,8 +172,8 @@ helm install pgadmin -n kubeapps stable/pgadmin -f sources/apps/postgresql/2.pga
 
 # camunda
 kubectl apply -f sources/apps/camunda/2.secret.yaml
-helm uninstall camunda -n kubeapps 
-helm install camunda -n kubeapps camunda/camunda-bpm-platform -f sources/apps/camunda/1.camunda-values.yaml
+helm uninstall camundadev -n kubeapps 
+helm install camundadev -n kubeapps camunda/camunda-bpm-platform -f sources/apps/camunda/1.camunda-values.yaml
 
 # redmine
 helm uninstall redmine  -n kubeapps 
