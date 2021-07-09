@@ -419,7 +419,7 @@ service:
   ## List of IP addresses at which the controller services are available
   ## Ref: https://kubernetes.io/docs/user-guide/services/#external-ips
   ##
-  externalIPs: [ 192.168.104.242 ]
+  externalIPs: [ 192.168.103.182 ]
 
   ## loadBalancerIP (optional, cloud specific)
   ## ref: http://kubernetes.io/docs/user-guide/services/#type-loadbalancer

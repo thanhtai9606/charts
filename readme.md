@@ -93,7 +93,7 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo add stable https://charts.helm.sh/stable
  # create secret ssl
  kubectl apply -f sources/apps/nginx/5.secret-certificate.yaml 
- helm install nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/4.nginx-values.yaml -n kubeapps
+ helm upgrade nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/4.nginx-values.yaml -n kubeapps
  helm install kubeapps -n kubeapps bitnami/kubeapps -f sources/apps/dasboard-k8s/3.kube-apps.yaml
 
  # create dashboard
@@ -116,7 +116,9 @@ helm uninstall nfs-client -n kubeapps
 helm install nfs-client -n kubeapps stable/nfs-client-provisioner -f sources/apps/nfs-client-provisioner/nfs-client-provisioner-values.yaml
 
 ```
-
+* create nginx ingress
+helm install nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/4.nginx-values.yaml -n kubeapps
+helm uninstall nginx -n kubeapps
 * create volume for db-storage
 ```
 kubectl apply -f sources/volumes/4.db-strorage.yaml 
@@ -146,8 +148,9 @@ helm install kubeapp -n kubeapps bitnami/kubeapps -f sources/apps/kubeapps/1.kub
 # nfs client
 helm uninstall nfs-client -n kubeapps
 # nfs server
-helm uninstall nfs-server -n kubeapps
-helm install nfs-server -n kubeapps stable/nfs-server-provisioner -f sources/apps/nfs-client-provisioner/3.nfs-server-provisioner.yaml 
+# helm uninstall nfs-server -n kubeapps
+# helm install nfs-server -n kubeapps stable/nfs-server-provisioner -f sources/apps/nfs-client-provisioner/3.nfs-server-provisioner.yaml 
+
 # rabbitmq
 helm uninstall rabbitmq -n kubeapps 
 helm install rabbitmq -n kubeapps bitnami/rabbitmq -f sources/apps/rabbitmq/1.rabbitmq-values.yaml 
