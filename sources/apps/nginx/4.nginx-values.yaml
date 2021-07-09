@@ -504,7 +504,7 @@ podSecurityPolicy:
 defaultBackend:
   ## If false, defaultBackendService must be provided
   ##
-  enabled: true
+  enabled: false
   ## Bitnami NGINX image
   ## ref: https://hub.docker.com/r/bitnami/nginx/tags/
   ##
