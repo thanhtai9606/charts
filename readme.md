@@ -197,7 +197,7 @@ helm install kibana -n kubeapps sources/my-apps/kibana -f sources/my-apps/kibana
 helm uninstall fluentd  -n kubeapps 
 helm install fluentd -n kubeapps bitnami/fluentd -f sources/apps/elasticsearch/3.fluentd-values.yaml 
 
-#open-distro 
+#open-distro Have to delete storage in server first
 # first way
 helm package sources/apps/opendistro-build/helm/opendistro-es/ #Package open-distro or no need package
 helm install opendistro -n kubeapps opendistro-es-1.13.2.tgz  # if we're package it
@@ -205,8 +205,34 @@ helm install opendistro -n kubeapps opendistro-es-1.13.2.tgz  # if we're package
 # second way if not package
 helm uninstall opendistro  -n kubeapps 
 helm install opendistro -n kubeapps sources/apps/opendistro-build/helm/opendistro-es/ -f sources/apps/opendistro-build/helm/opendistro-es/values.yaml
+helm upgrade opendistro -n kubeapps sources/apps/opendistro-build/helm/opendistro-es/ -f sources/apps/opendistro-build/helm/opendistro-es/values.yaml
 
 
+#fluentbit
+# add helm char
+helm repo add fluent https://fluent.github.io/helm-charts
+```bash
+# create root-ca.pem first
+# create file root-ca.pem
+kubectl exec -it -n kubeapps opendistro-opendistro-es-client-5fd4987d56-vkr7s cat /usr/share/elasticsearch/config/root-ca.pem > es-root-ca.pem
+# check root-ca.pem
+cat es-root-ca.pem
+# create secret es-root-ca
+kubectl delete secret es-root-ca -n logging
+kubectl create secret generic es-root-ca --from-file=es-root-ca.pem -n logging
+
+#install fulentbit
+helm uninstall fluentbit  -n kubeapps 
+helm install fluentbit -n kubeapps fluent/fluent-bit -f sources/apps/fluentbit/1.fluentbit-values.yaml
+helm upgrade fluentbit -n kubeapps fluent/fluent-bit -f sources/apps/fluentbit/1.fluentbit-values.yaml
+# second ways
+ kubectl create namespace logging
+ kubectl apply -f 1.fluent-bit-service-account.yaml
+ kubectl apply -f 2.fluent-bit-role.yaml 
+ kubectl apply -f 3.fluent-bit-role-binding.yaml
+ kubectl apply -f 4.fluent-bit.configmap.yaml
+ kubectl apply -f 5.fluent-bit-ds.yaml
+```
 
 # mysql
 helm uninstall mysql  -n kubeapps 
