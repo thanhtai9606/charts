@@ -197,6 +197,17 @@ helm install kibana -n kubeapps sources/my-apps/kibana -f sources/my-apps/kibana
 helm uninstall fluentd  -n kubeapps 
 helm install fluentd -n kubeapps bitnami/fluentd -f sources/apps/elasticsearch/3.fluentd-values.yaml 
 
+#open-distro 
+# first way
+helm package sources/apps/opendistro-build/helm/opendistro-es/ #Package open-distro or no need package
+helm install opendistro -n kubeapps opendistro-es-1.13.2.tgz  # if we're package it
+
+# second way if not package
+helm uninstall opendistro  -n kubeapps 
+helm install opendistro -n kubeapps sources/apps/opendistro-build/helm/opendistro-es/ -f sources/apps/opendistro-build/helm/opendistro-es/values.yaml
+
+
+
 # mysql
 helm uninstall mysql  -n kubeapps 
 helm install mysql -n kubeapps bitnami/mysql -f sources/apps/mysql/2.mysql-values.yaml 
