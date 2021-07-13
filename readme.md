@@ -223,15 +223,15 @@ kubectl create secret generic es-root-ca --from-file=es-root-ca.pem -n logging
 
 #install fulentbit
 helm uninstall fluentbit  -n kubeapps 
-helm install fluentbit -n kubeapps fluent/fluent-bit -f sources/apps/fluentbit/1.fluentbit-values.yaml
-helm upgrade fluentbit -n kubeapps fluent/fluent-bit -f sources/apps/fluentbit/1.fluentbit-values.yaml
+helm install fluentbit -n kubeapps fluent/fluent-bit -f sources/apps/fluentbit/fluentbit-values.yaml
+helm upgrade fluentbit -n kubeapps fluent/fluent-bit -f sources/apps/fluentbit/fluentbit-values.yaml
 # second ways
  kubectl create namespace logging
- kubectl apply -f 1.fluent-bit-service-account.yaml
- kubectl apply -f 2.fluent-bit-role.yaml 
- kubectl apply -f 3.fluent-bit-role-binding.yaml
- kubectl apply -f 4.fluent-bit.configmap.yaml
- kubectl apply -f 5.fluent-bit-ds.yaml
+ kubectl apply -f sources/apps/fluentbit/1.fluent-bit-service-account.yaml
+ kubectl apply -f sources/apps/fluentbit/2.fluent-bit-role.yaml 
+ kubectl apply -f sources/apps/fluentbit/3.fluent-bit-role-binding.yaml
+ kubectl apply -f sources/apps/fluentbit/4.fluent-bit.configmap.yaml
+ kubectl apply -f sources/apps/fluentbit/5.fluent-bit-ds.yaml
 ```
 
 # mysql

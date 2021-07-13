@@ -136,7 +136,7 @@ priorityClassName: ""
 
 env: 
 - name: FLUENT_ELASTICSEARCH_HOST
-  value: "opendistro-opendistro-es-client-service"
+  value: "opendistro-opendistro-es-client-service.kubeapps"
 - name: FLUENT_ELASTICSEARCH_PORT
   value: "9200"
 - name: FLUENT_ELASTICSEARCH_USER
