@@ -254,7 +254,14 @@ helm install phpmyadmin -n kubeapps bitnami/phpmyadmin -f sources/apps/mysql/3.p
 helm uninstall konga  -n kubeapps 
 helm install konga -n kubeapps sources/apps/konga/ -f sources/apps/konga/values.yaml 
 
+# racher
+```
+#remove message unhealthy in master 
+sed -i 's|- --port=0|#- --port=0|' /etc/kubernetes/manifests/kube-scheduler.yaml
+sed -i 's|- --port=0|#- --port=0|' /etc/kubernetes/manifests/kube-controller-manager.yaml
 
+
+```
 
 # kong
 helm uninstall kong  -n kubeapps 
