@@ -138,7 +138,7 @@ thêm arg sau
 * kubeapps create
 ```bash
 
-# metaLB LoadBalancer
+# metaLB LoadBalancer ko phải nguyên nhân chính đâu
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml
 # On first install only
