@@ -107,6 +107,7 @@ helm install nfs-client -n kubeapps stable/nfs-client-provisioner -f sources/app
 
 helm uninstall nfs-elastic -n kubeapps
 helm install nfs-elastic -n kubeapps stable/nfs-client-provisioner -f sources/apps/nfs-client-provisioner/2.nfs-elastic-provisioner-values.yaml
+helm upgrade nfs-elastic -n kubeapps stable/nfs-client-provisioner -f sources/apps/nfs-client-provisioner/2.nfs-elastic-provisioner-values.yaml
 
 
 ```
