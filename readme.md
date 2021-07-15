@@ -103,7 +103,11 @@ kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboar
 * create dynamic volume
 ```
 helm uninstall nfs-client -n kubeapps
-helm install nfs-client -n kubeapps stable/nfs-client-provisioner -f sources/apps/nfs-client-provisioner/nfs-client-provisioner-values.yaml
+helm install nfs-client -n kubeapps stable/nfs-client-provisioner -f sources/apps/nfs-client-provisioner/1.nfs-client-provisioner-values.yaml
+
+helm uninstall nfs-elastic -n kubeapps
+helm install nfs-elastic -n kubeapps stable/nfs-client-provisioner -f sources/apps/nfs-client-provisioner/2.nfs-elastic-provisioner-values.yaml
+
 
 ```
 
