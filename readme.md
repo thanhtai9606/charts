@@ -188,9 +188,14 @@ helm repo add fluent https://fluent.github.io/helm-charts
 ```bash
 # create root-ca.pem first
 # create file root-ca.pem
-kubectl exec -it -n kubeapps opendistro-opendistro-es-client-5fd4987d56-vkr7s cat /usr/share/elasticsearch/config/root-ca.pem > es-root-ca.pem
+kubectl exec -it -n kubeapps opendistro-opendistro-es-client-5fd4987d56-8jhlx cat /usr/share/elasticsearch/config/root-ca.pem > es-root-ca.pem
 # check root-ca.pem
 cat es-root-ca.pem
+
+# create secret es-root-ca -n kubeapps
+kubectl delete secret es-root-ca -n kubeapps
+kubectl create secret generic es-root-ca --from-file=es-root-ca.pem -n kubeapps
+
 # create secret es-root-ca
 kubectl delete secret es-root-ca -n logging
 kubectl create secret generic es-root-ca --from-file=es-root-ca.pem -n logging
@@ -219,6 +224,20 @@ helm uninstall rancher  -n kubeapps
 helm install rancher -n kubeapps rancher-latest/rancher -f sources/apps/rancher/rancher-values.yaml
 
 helm upgrade rancher -n kubeapps rancher-latest/rancher -f sources/apps/rancher/rancher-values.yaml
+# install flutter + android studio
+1. install android studio on repository arch
+2. install flutter in repository
+3. fix sdk tools chain not validate in flutter doctor
+   a. sudo flutter config --android-sdk ~/Android/Sdk
+   b. argee sdk license => Open Android Studio => File => Settings => Search Android SDK => Tab SDK Tools => check Android SDK Command _line Tools => apply
+      ```
+      sudo flutter doctor --android-licenses
+      ```
+   b. google chrome not valid
+      ```
+      sudo ln -s /usr/bin/google-chrome-stable /usr/local/bin/google-chrome
+      ```
+
 
 #delete all pods Failed
 kubectl delete pods --field-selector status.phase=Failed -n becamex-kpi
