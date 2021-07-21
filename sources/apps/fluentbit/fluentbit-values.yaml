@@ -157,9 +157,14 @@ extraPorts: []
 #     protocol: TCP
 #     name: tcp
 
-extraVolumes: []
+extraVolumes: 
+  - name: certs
+    secret:
+      secretName: es-root-ca
 
-extraVolumeMounts: []
+extraVolumeMounts:
+  - name: certs
+    mountPath: /fluent-bit/etc/certs
 
 updateStrategy: {}
   # type: RollingUpdate
@@ -219,18 +224,24 @@ config:
   outputs: |
     [OUTPUT]
         Name es
-        Match kube.*
-        Host elasticsearch-master
+        Match kube.*        
         Logstash_Format On
         Retry_Limit False
 
     [OUTPUT]
         Name es
-        Match host.*
-        Host elasticsearch-master
+        Match *
+        Host            ${FLUENT_ELASTICSEARCH_HOST}
+        Port            ${FLUENT_ELASTICSEARCH_PORT}
+        HTTP_User       ${FLUENT_ELASTICSEARCH_USER}
+        HTTP_Passwd     ${FLUENT_ELASTICSEARCH_PASSWORD}
         Logstash_Format On
-        Logstash_Prefix node
-        Retry_Limit False
+        Replace_Dots    On
+        tls             On
+        tls.verify      Off
+        tls.ca_file     /fluent-bit/etc/certs/es-root-ca.pem
+        Index           efk_logging
+        Retry_Limit     False
 
   ## https://docs.fluentbit.io/manual/pipeline/parsers
   customParsers: |
@@ -249,9 +260,7 @@ volumeMounts:
   - name: config
     mountPath: /fluent-bit/etc/custom_parsers.conf
     subPath: custom_parsers.conf
-  # - name: certs
-  #   mountPath: /fluent-bit/etc/certs
-
+    
 daemonSetVolumes:
   - name: varlog
     hostPath:
@@ -263,9 +272,7 @@ daemonSetVolumes:
     hostPath:
       path: /etc/machine-id
       type: File
-  # - name: certs
-  #   secret:
-  #     secretName: es-root-ca
+  
 
 daemonSetVolumeMounts:
   - name: varlog
