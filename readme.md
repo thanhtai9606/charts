@@ -214,12 +214,12 @@ helm repo add fluent https://fluent.github.io/helm-charts
 ```bash
 # create root-ca.pem first
 # create file root-ca.pem
-kubectl exec -it -n kubeapps opendistro-opendistro-es-client-5fd4987d56-vkr7s cat /usr/share/elasticsearch/config/root-ca.pem > es-root-ca.pem
+kubectl exec -it -n kubeapps opendistro-opendistro-es-client-5fd4987d56-8jhlx cat /usr/share/elasticsearch/config/root-ca.pem > es-root-ca.pem
 # check root-ca.pem
 cat es-root-ca.pem
 # create secret es-root-ca
-kubectl delete secret es-root-ca -n logging
-kubectl create secret generic es-root-ca --from-file=es-root-ca.pem -n logging
+kubectl delete secret es-root-ca -n kubeapps
+kubectl create secret generic es-root-ca --from-file=es-root-ca.pem -n kubeapps
 
 #install fulentbit
 helm uninstall fluentbit  -n kubeapps 
