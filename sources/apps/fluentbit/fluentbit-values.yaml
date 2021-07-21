@@ -229,8 +229,8 @@ config:
         Retry_Limit False
 
     [OUTPUT]
-        Name es
-        Match *
+        Name            es
+        Match           *
         Host            ${FLUENT_ELASTICSEARCH_HOST}
         Port            ${FLUENT_ELASTICSEARCH_PORT}
         HTTP_User       ${FLUENT_ELASTICSEARCH_USER}
