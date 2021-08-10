@@ -161,6 +161,11 @@ helm install discourse -n kubeapps bitnami/discourse -f sources/apps/discourse/1
 helm uninstall elasticsearch  -n kubeapps 
 helm install elasticsearch -n kubeapps bitnami/elasticsearch -f sources/apps/elasticsearch/1.elasticsearch-values.yaml 
 
+# camunda
+kubectl apply -f sources/apps/camunda/2.secret.yaml
+helm uninstall camunda -n kubeapps
+helm install camunda -n kubeapps camunda/camunda-bpm-platform -f sources/apps/camunda/1.camunda-values.yaml
+
 # kibana 
 helm uninstall kibana  -n kubeapps 
 # helm install kibana -n kubeapps bitnami/kibana -f sources/apps/elasticsearch/2.kibana-values.yaml 
