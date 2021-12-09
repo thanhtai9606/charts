@@ -259,7 +259,7 @@ helm install konga -n kubeapps sources/apps/konga/ -f sources/apps/konga/values.
 #remove message unhealthy in master 
 sed -i 's|- --port=0|#- --port=0|' /etc/kubernetes/manifests/kube-scheduler.yaml
 sed -i 's|- --port=0|#- --port=0|' /etc/kubernetes/manifests/kube-controller-manager.yaml
-
+systemctl restart kubelet
 
 ```
 
@@ -274,9 +274,9 @@ kubectl get namespace "esgin-dev" -o json \
   | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" \
   | kubectl replace --raw /api/v1/namespaces/esgin-dev/finalize -f -
 ```
+
 ```
-# fix unHealthy Node on Master Node
-sed -i 's|- --port=0|#- --port=0|' /etc/kubernetes/manifests/kube-scheduler.yaml
-sed -i 's|- --port=0|#- --port=0|' /etc/kubernetes/manifests/kube-controller-manager.yaml
-systemctl restart kubelet
+# reset new Cert K8s
+kubeadm alpha  certs renew all
+kubeadm alpha certs check-expiration
 ```
