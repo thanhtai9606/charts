@@ -278,5 +278,7 @@ kubectl get namespace "esgin-dev" -o json \
 ```
 # reset new Cert K8s
 kubeadm alpha  certs renew all
+
 kubeadm alpha certs check-expiration
+https://programmer.help/blogs/how-to-use-kubeadm-to-manage-certificates.html
 ```
