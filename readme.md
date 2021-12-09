@@ -261,23 +261,5 @@ kubeadm alpha  certs renew all
 
 kubeadm alpha certs check-expiration
 
-1. Perform renew updates:
-
-root@k8s-master:~# kubeadm  alpha certs renew apiserver
-certificate for serving the Kubernetes API renewed
-2. Restart control plane:
-
-Restarting kubelet automatically recreates core components
-
-systemctl restart kubelet
-3. Verification:
-
-root@k8s-master:~# kubeadm alpha certs check-expiration
-CERTIFICATE                EXPIRES                  RESIDUAL TIME   EXTERNALLY MANAGED
-apiserver                  Oct 06, 2020 10:41 UTC   364d            no  
-The expiration time of the apiserver certificate has changed, but it's not a one-year extension, it's a one-year renew from the time when you succeed in renew.
-
-If all certificates are to be renewed for one year, then:
-
-kubeadm  alpha certs renew all
+https://programmer.help/blogs/how-to-use-kubeadm-to-manage-certificates.html
 ```
