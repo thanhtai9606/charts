@@ -254,3 +254,9 @@ kubectl get namespace "becamex-kpi" -o json \
   | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" \
   | kubectl replace --raw /api/v1/namespaces/becamex-kpi/finalize -f -
 ```
+
+```
+# reset new Cert K8s
+kubeadm alpha  certs renew all
+kubeadm alpha certs check-expiration
+```
