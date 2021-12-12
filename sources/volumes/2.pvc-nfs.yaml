@@ -4,7 +4,7 @@ metadata:
   name: pvc-redmine
   namespace: kubeapps
 spec:
-  # storageClassName: nfs-storage
+  storageClassName: nfs-client
   accessModes:
     - ReadWriteMany
   resources:

@@ -115,7 +115,7 @@ rbac:
   create: false
 
 replication:
-  enabled: true
+  enabled: false
   user: user
   password: Becamex@123456
   slaveReplicas: 1
@@ -392,7 +392,7 @@ persistence:
   ## If defined, PVC must be created manually before volume will be bound
   ## The value is evaluated as a template, so, for example, the name can depend on .Release or .Chart
   ##
-  # existingClaim:
+  existingClaim: pvc-postgresql-master
 
   ## The path the volume will be mounted at, useful when using different
   ## PostgreSQL images.
@@ -404,9 +404,9 @@ persistence:
   ##
   subPath: ''
 
-  # storageClass: "-"
+  storageClass: "nfs-storage"
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   size: 8Gi
   annotations: {}
 
@@ -521,7 +521,7 @@ slave:
   ## Whether to enable PostgreSQL slave replicas data Persistent
   ##
   persistence:
-    enabled: true
+    enabled: false
 
   # Override the resource configuration for slave
   resources: {}

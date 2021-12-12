@@ -37,7 +37,7 @@ serverDefinitions:
      "Group": "Servers",
      "Port": 5432,
      "Username": "postgres",
-     "Host": "postgresql.kubeapps.svc.becamex.local",
+     "Host": "postgresql.kubeapps.svc.cluster.local",
      "SSLMode": "prefer",
      "MaintenanceDB": "postgres"
    }
@@ -45,7 +45,7 @@ serverDefinitions:
 ingress:
   ## If true, pgAdmin Ingress will be created
   ##
-  enabled: true
+  enabled: false
 
   ## pgAdmin Ingress annotations
   ##

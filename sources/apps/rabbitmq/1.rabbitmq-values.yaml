@@ -42,7 +42,7 @@ image:
 # fullnameOverride:
 ## Kubernetes Cluster Domain
 ##
-clusterDomain: becamex.local
+clusterDomain: cluster.local
 
 ## RabbitMQ Authentication parameters
 ##
