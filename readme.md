@@ -102,12 +102,16 @@ kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboar
 
 * create dynamic volume
 ```
+add new repo first
+# have been change from nfs-client-provisoner => nfs-subdir-external-provisioner
+helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
+
 helm uninstall nfs-client -n kubeapps
-helm install nfs-client -n kubeapps stable/nfs-client-provisioner -f sources/apps/nfs-client-provisioner/1.nfs-client-provisioner-values.yaml
+helm install nfs-client -n kubeapps nfs-subdir-external-provisioner/nfs-subdir-external-provisioner -f sources/apps/nfs-client-provisioner/1.nfs-client-provisioner-values.yaml
 
 helm uninstall nfs-elastic -n kubeapps
-helm install nfs-elastic -n kubeapps stable/nfs-client-provisioner -f sources/apps/nfs-client-provisioner/2.nfs-elastic-provisioner-values.yaml
-helm upgrade nfs-elastic -n kubeapps stable/nfs-client-provisioner -f sources/apps/nfs-client-provisioner/2.nfs-elastic-provisioner-values.yaml
+helm install nfs-elastic -n kubeapps nfs-subdir-external-provisioner/nfs-subdir-external-provisioner -f sources/apps/nfs-client-provisioner/2.nfs-elastic-provisioner-values.yaml
+helm upgrade nfs-elastic -n kubeapps  nfs-subdir-external-provisioner/nfs-subdir-external-provisioner -f sources/apps/nfs-client-provisioner/2.nfs-elastic-provisioner-values.yaml
 
 
 ```
@@ -136,15 +140,18 @@ thêm arg sau
 helm uninstall nfs-client -n kubeapps
 # nfs server
 helm uninstall nfs-server -n kubeapps
-helm install nfs-server -n kubeapps stable/nfs-server-provisioner -f sources/apps/nfs-client-provisioner/3.nfs-server-provisioner.yaml 
+helm install nfs-server -n kubeapps stable/nfs-server-provisioner -f sources/apps/nfs-client-provisioner/1.nfs-server-provisioner.yaml 
 # rabbitmq
 helm uninstall rabbitmq -n kubeapps 
 helm install rabbitmq -n kubeapps bitnami/rabbitmq -f sources/apps/rabbitmq/1.rabbitmq-values.yaml 
 # postgres sql
 helm install postgres -n kubeapps bitnami/postgresql -f sources/apps/postgresql/1.postgresql-values.yaml 
 # pgadmin
+helm repo add cetic https://cetic.github.io/helm-charts
+helm repo update
+
 helm uninstall pgadmin -n kubeapps 
-helm install pgadmin -n kubeapps stable/pgadmin -f sources/apps/postgresql/2.pgadmin-values.yaml
+helm install pgadmin -n kubeapps cetic/pgadmin -f sources/apps/postgresql/2.pgadmin-values.yaml
 
 # redmine
 helm uninstall redmine  -n kubeapps 
