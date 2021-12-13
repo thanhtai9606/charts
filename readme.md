@@ -145,7 +145,20 @@ helm install nfs-server -n kubeapps stable/nfs-server-provisioner -f sources/app
 helm uninstall rabbitmq -n kubeapps 
 helm install rabbitmq -n kubeapps bitnami/rabbitmq -f sources/apps/rabbitmq/1.rabbitmq-values.yaml 
 # postgres sql
+# create pvc first
+kubectl apply -f sources/postgresql/000-postgresql-pvc.yaml
 helm install postgres -n kubeapps bitnami/postgresql -f sources/apps/postgresql/1.postgresql-values.yaml 
+
+# mariadb sql
+# create pvc first
+kubectl apply -f sources/apps/mysql/000-mariadb-pvc.yaml 
+
+helm uninstall -n kubeapps mariadb
+helm install mariadb -n kubeapps bitnami/mariadb -f sources/apps/mysql/1.mariadb-values.yaml 
+
+# phpmyadmin
+helm install phpmyadmin -n kubeapps bitnami/phpmyadmin -f sources/apps/mysql/3.phpmyadmin-values.yaml
+helm uninstall phpmyadmin -n kubeapps
 # pgadmin
 helm repo add cetic https://cetic.github.io/helm-charts
 helm repo update
