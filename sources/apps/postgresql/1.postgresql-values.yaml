@@ -392,7 +392,8 @@ persistence:
   ## If defined, PVC must be created manually before volume will be bound
   ## The value is evaluated as a template, so, for example, the name can depend on .Release or .Chart
   ##
-  existingClaim: pvc-postgresql-master
+  ## create manual db pvc
+  existingClaim: pvc-postgresql-master 
 
   ## The path the volume will be mounted at, useful when using different
   ## PostgreSQL images.
