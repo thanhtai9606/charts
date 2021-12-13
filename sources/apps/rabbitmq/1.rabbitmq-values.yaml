@@ -496,7 +496,7 @@ rbac:
 persistence:
   ## this enables PVC templates that will create one per pod
   ##
-  enabled: true
+  enabled: false
 
   ## rabbitmq data Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>

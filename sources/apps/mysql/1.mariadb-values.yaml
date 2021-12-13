@@ -43,7 +43,7 @@ image:
 
 ## Cluster domain
 ##
-clusterDomain: becamex.local
+clusterDomain: cluster.local
 
 ## Common annotations to add to all MariaDB resources (sub-charts are not considered). Evaluated as a template
 ##
