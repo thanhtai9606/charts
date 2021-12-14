@@ -88,8 +88,7 @@ controller:
   terminationGracePeriodSeconds: 30
 
   ## The resources of the Ingress controller pods.
-  resources:
-    {}
+  resources: {}
     # limits:
     #   cpu: 100m
     #   memory: 64Mi
@@ -147,8 +146,7 @@ controller:
     create: false
 
     ## The spec of the GlobalConfiguration for defining the global configuration parameters of the Ingress Controller.
-    spec:
-      {}
+    spec: {}
       # listeners:
       # - name: dns-udp
       #   port: 5353
@@ -162,7 +160,7 @@ controller:
 
   ## Add a location based on the value of health-status-uri to the default server. The location responds with the 200 status code for any request.
   ## Useful for external health-checking of the Ingress controller.
-  healthStatus: false
+  healthStatus: true
 
   ## Sets the URI of health status location in the default server. Requires controller.healthStatus.
   healthStatusURI: "/nginx-health"
@@ -194,13 +192,13 @@ controller:
     extraLabels: {}
 
     ## The static IP address for the load balancer. Requires controller.service.type set to LoadBalancer. The cloud provider must support this feature.
-    loadBalancerIP: "192.168.103.152"
+    loadBalancerIP: ""
 
     ## The list of external IPs for the Ingress controller service.
     externalIPs: 
       - 192.168.103.152
       - 192.168.103.154
-      - 192.168.103.155
+
     ## The IP ranges (CIDR) that are allowed to access the load balancer. Requires controller.service.type set to LoadBalancer. The cloud provider must support this feature.
     loadBalancerSourceRanges: []
 
@@ -310,3 +308,4 @@ prometheus:
 
   ## Configures the HTTP scheme used.
   scheme: http
+
