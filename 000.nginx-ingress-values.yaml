@@ -64,7 +64,7 @@ controller:
     ## The value must follow the following format: `<namespace>/<name>`.
     ## Used as an alternative to specifying a certificate and key using `controller.defaultTLS.cert` and `controller.defaultTLS.key` parameters.
     ## Format: <namespace>/<secret_name>
-    secret: 
+    secret: "kubeapps/becamexidc-cert"
 
   wildcardTLS:
     ## The base64-encoded TLS certificate for every Ingress host that has TLS enabled but no secret specified.
@@ -128,7 +128,7 @@ controller:
   ingressClass: nginx
 
   ## New Ingresses without an ingressClassName field specified will be assigned the class specified in `controller.ingressClass`.
-  setAsDefaultIngress: false
+  setAsDefaultIngress: true
 
   ## Namespace to watch for Ingress resources. By default the Ingress controller watches all namespaces.
   watchNamespace: ""
@@ -197,8 +197,10 @@ controller:
     loadBalancerIP: "192.168.103.152"
 
     ## The list of external IPs for the Ingress controller service.
-    externalIPs: [192.168.103.152]
-
+    externalIPs: 
+      - 192.168.103.152
+      - 192.168.103.154
+      - 192.168.103.155
     ## The IP ranges (CIDR) that are allowed to access the load balancer. Requires controller.service.type set to LoadBalancer. The cloud provider must support this feature.
     loadBalancerSourceRanges: []
 

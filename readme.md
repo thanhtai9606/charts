@@ -111,6 +111,7 @@ kubectl apply -f sources/nginx/2.app-test-ingress.yaml
   kubectl create -n kubeapps secret tls becamexidc-cert --key sources/certs/new-certs/pfx/becamex.com.vn.key --cert sources/certs/new-certs/cert/3.Certificate.cer
 # old cert 1.19 kubectl apply -f sources/apps/nginx/5.secret-certificate.yaml
  helm install nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/4.nginx-values.yaml -n kubeapps
+ helm install nginx -n kubeapps nginx-stable/nginx-ingress -f 000.nginx-ingress-values.yaml
  helm install kubeapps -n kubeapps bitnami/kubeapps -f sources/apps/dasboard-k8s/3.kube-apps.yaml
 # create admin account
 kubectl apply -f sources/apps/dasboard-k8s/1.admin-user.yaml
