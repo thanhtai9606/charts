@@ -167,9 +167,16 @@ helm uninstall nfs-client -n kubeapps
 # nfs server
 helm uninstall nfs-server -n kubeapps
 helm install nfs-server -n kubeapps stable/nfs-server-provisioner -f sources/apps/nfs-client-provisioner/1.nfs-server-provisioner.yaml
+
+# traefik
+helm repo add traefik https://helm.traefik.io/traefik
+helm uninstall traefik -n kubeapps
+helm install traefik -n kubeapps traefik/traefik -f sources/apps/traefik/001.traefik-values.yaml
+
 # rabbitmq
 helm uninstall rabbitmq -n kubeapps
 helm install rabbitmq -n kubeapps bitnami/rabbitmq -f sources/apps/rabbitmq/1.rabbitmq-values.yaml
+
 # postgres sql
 # create pvc first
 kubectl apply -f sources/postgresql/000-postgresql-pvc.yaml
