@@ -677,6 +677,7 @@ ingress:
   ##   certificate:
   ##
   secrets: []
+    # - becamexidc-cert
 ## Health Ingress parameters
 ##
 healthIngress:
