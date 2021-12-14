@@ -16,14 +16,6 @@ helm install -f .
 
 helm install auth .
 
-# heml upgrade
-
-helm upgrade nginx-ingress bitnami/nginx-ingress-controller -f nginx-values.yaml
-
-# set hostNetwork for access in localhost
-
-hostNetwork: true
-
 # rewrite for route
 
 nginx.ingress.kubernetes.io/rewrite-target: /$1 #set rewrite
@@ -64,17 +56,6 @@ kubectl create -n kubeapps secret tls becamexidc-cert --key sources/certs/new-ce
 kubectl patch pvc db-pv-claim -p '{"metadata":{"finalizers":null}}'
 kubectl patch pod db-74755f6698-8td72 -p '{"metadata":{"finalizers":null}}'
 
-# lưu ý ingress
-
-```
-đối với ingress phải chỉnh lại hostNetwork =true
-```
-
-```
-* phải stop firewalld quan trọng
-systemctl stop firewalld
-```
-
 # copt db & share app
 
 ```
@@ -111,7 +92,7 @@ kubectl apply -f sources/nginx/2.app-test-ingress.yaml
   kubectl create -n kubeapps secret tls becamexidc-cert --key sources/certs/new-certs/pfx/becamex.com.vn.key --cert sources/certs/new-certs/cert/3.Certificate.cer
 # old cert 1.19 kubectl apply -f sources/apps/nginx/5.secret-certificate.yaml
  helm uninstall nginx -n kubeapps
- helm install nginx -n kubeapps nginx-stable/nginx-ingress -f sources/apps/nginx/000.nginx-ingress-values.yaml
+ helm install nginx -n kubeapps bitnami/nginx-ingress-controller  -f sources/apps/nginx/000.nginx-ingress-values.yaml
  helm install kubeapps -n kubeapps bitnami/kubeapps -f sources/apps/dasboard-k8s/3.kube-apps.yaml
 # create admin account
 kubectl apply -f sources/apps/dasboard-k8s/1.admin-user.yaml
