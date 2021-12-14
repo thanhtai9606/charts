@@ -65,7 +65,7 @@ podDisruptionBudget:
 # Use ingressClass. Ignored if Traefik version < 2.3 / kubernetes < 1.18.x
 ingressClass:
   # true is not unit-testable yet, pending https://github.com/rancher/helm-unittest/pull/12
-  enabled: false
+  enabled: true
   isDefaultClass: false
   # Use to force a networking.k8s.io API Version for certain CI/CD applications. E.g. "v1beta1"
   fallbackApiVersion: ""
