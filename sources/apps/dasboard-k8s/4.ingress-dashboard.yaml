@@ -1,23 +1,47 @@
-apiVersion: extensions/v1beta1
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: dashboard
+#   annotations:
+#     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+#     nginx.ingress.kubernetes.io/rewrite-target: /$2
+#     nginx.ingress.kubernetes.io/configuration-snippet: |
+#       rewrite ^(/dashboard)$ $1/ redirect;
+#   namespace: kubernetes-dashboard
+# spec:
+#   rules:
+#   - host: dashboard.becamex.com.vn
+#     http:
+#       paths:
+#       - pathType: Prefix
+#       - path: /dashboard(/|$)(.*)
+#         backend:
+#           service:
+#             name: kubernetes-dashboard
+#             port:
+#               number: 443
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: dashboard
+  namespace: kubernetes-dashboard
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
     nginx.ingress.kubernetes.io/configuration-snippet: |
       rewrite ^(/dashboard)$ $1/ redirect;
-  namespace: kubernetes-dashboard
 spec:
   rules:
-<<<<<<< HEAD
   - host: dashboard.becamex.com.vn
-=======
-  - host: dashboarduat.becamex.com.vn
->>>>>>> 0776905f59cabd87557d37fe390d11208e01da79
     http:
       paths:
-      - path: /dashboard(/|$)(.*)
+      - pathType: Prefix
+        path: /dashboard(/|$)(.*)
         backend:
-          serviceName: kubernetes-dashboard
-          servicePort: 443
+          service:
+            name: kubernetes-dashboard
+            port:
+              number: 443
+  tls:
+  - hosts:
+    - dashboard.becamex.com.vn
