@@ -153,6 +153,8 @@ helm install nfs-server -n kubeapps stable/nfs-server-provisioner -f sources/app
 
 # traefik
 helm repo add traefik https://helm.traefik.io/traefik
+# create ssl traefik
+kubectl apply -n kubeapps -f sources/apps/traefik/000-tls-cert.yaml
 helm uninstall traefik -n kubeapps
 helm install traefik -n kubeapps traefik/traefik -f sources/apps/traefik/001.traefik-values.yaml
 

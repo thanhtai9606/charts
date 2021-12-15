@@ -378,7 +378,8 @@ autoscaling:
 # Enable persistence using Persistent Volume Claims
 # ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
 # After the pvc has been mounted, add the configs into traefik by using the `additionalArguments` list below, eg:
-# additionalArguments:
+additionalArguments:
+  default-ssl-certificate: "kubeapps/becamexidc-cert"
 # - "--certificatesresolvers.le.acme.storage=/data/acme.json"
 # It will persist TLS certificates.
 persistence:
