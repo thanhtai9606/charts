@@ -46,7 +46,7 @@ commonAnnotations: {}
 
 ## Kubernetes Cluster Domain
 ##
-clusterDomain: becamex.local
+clusterDomain: cluster.local
 
 ## Extra objects to deploy (value evaluated as a template)
 ##
