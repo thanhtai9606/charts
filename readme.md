@@ -185,8 +185,12 @@ helm uninstall pgadmin -n kubeapps
 helm install pgadmin -n kubeapps cetic/pgadmin -f sources/apps/postgresql/2.pgadmin-values.yaml
 
 # redmine
+# create pvc manual
+kubectl apply -f sources/apps/redmine/000-redmine-pvc.yaml
+
 helm uninstall redmine  -n kubeapps
 helm install redmine -n kubeapps sources/apps/redmine/ -f sources/apps/redmine/1.redmine-values.yaml
+
 
 # wordpress
 helm uninstall wordpress  -n kubeapps

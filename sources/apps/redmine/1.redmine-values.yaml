@@ -307,7 +307,7 @@ persistence:
   ## A manually manage Persistent Volume Claim
   ## Requires persistence.enable: true
   ## If defined, PVC must be created manually before volume will be bound
-  # existingClaim: ""
+  existingClaim: "pvc-redmine"
 
   ## redmine data Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>
@@ -419,7 +419,7 @@ postgresql:
 ## b) postgresql.enabled is set to false and databaseType=postgresql
 externalDatabase:
   ## Database host
-  host: "postgresql.kubeapps.svc"
+  host: "postgres-postgresql.kubeapps.svc"
 
   ## Database name
   name: bitnami_redmine
