@@ -25,9 +25,12 @@ spec:
       http:
         paths:
         - path: /
+          pathType: Prefix
           backend:
-            serviceName: "{{ include "common.names.fullname" . }}"
-            servicePort: http-redmine
+            service:
+              name: "{{ include "common.names.fullname" . }}"
+              port: 
+                number: 80
     {{- end }}
     {{- range .Values.ingress.extraHosts }}
     - host: {{ .name }}
