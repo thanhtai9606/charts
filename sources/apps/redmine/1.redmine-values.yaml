@@ -360,7 +360,7 @@ mariadb:
   ##
   primary:
     persistence:
-      enabled: true
+      enabled: false
       ## mariadb data Persistent Volume Storage Class
       ## If defined, storageClassName: <storageClass>
       ## If set to "-", storageClassName: "", which disables dynamic provisioning
@@ -419,13 +419,13 @@ postgresql:
 ## b) postgresql.enabled is set to false and databaseType=postgresql
 externalDatabase:
   ## Database host
-  host: "postgres-postgresql.kubeapps.svc"
+  host: "postgres-postgresql" #"192.168.103.161"
 
   ## Database name
   name: bitnami_redmine
 
   ## Database User
-  user: postgres
+  user: postgres #becamex
 
   ## Database Password
   password: "admin"
