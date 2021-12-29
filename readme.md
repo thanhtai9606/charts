@@ -55,6 +55,7 @@ kubectl create -n kubeapps secret tls becamexidc-cert --key sources/certs/new-ce
 
 kubectl patch pvc db-pv-claim -p '{"metadata":{"finalizers":null}}'
 kubectl patch pod db-74755f6698-8td72 -p '{"metadata":{"finalizers":null}}'
+kubectl delete pod xx --grace-period=0 --force --namespace dwh
 
 # copt db & share app
 
@@ -263,6 +264,9 @@ helm upgrade fluentbit -n kubeapps fluent/fluent-bit -f sources/apps/fluentbit/f
  kubectl apply -f sources/apps/fluentbit/3.fluent-bit-role-binding.yaml
  kubectl apply -f sources/apps/fluentbit/4.fluent-bit.configmap.yaml
  kubectl apply -f sources/apps/fluentbit/5.fluent-bit-ds.yaml
+ 
+# metric server
+ kubectl apply -f sources/apps/metric-server/metric-server.yaml
 ````
 
 # kibana
@@ -293,13 +297,13 @@ helm upgrade rancher -n kubeapps rancher-latest/rancher -f sources/apps/rancher/
    ```
 
 #delete all pods Failed
-kubectl delete pods --field-selector status.phase=Failed -n becamex-kpi
+kubectl delete pods --field-selector status.phase=Failed -n dwh
 
 # delete namespace is stuck
 
-kubectl get namespace "becamex-kpi" -o json \
+kubectl get namespace "dwh" -o json \
  | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" \
- | kubectl replace --raw /api/v1/namespaces/becamex-kpi/finalize -f -
+ | kubectl replace --raw /api/v1/namespaces/dwh/finalize -f -
 
 ```
 
