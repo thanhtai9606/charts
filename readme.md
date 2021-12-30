@@ -53,7 +53,7 @@ kubectl create -n kubeapps secret tls becamexidc-cert --key sources/certs/new-ce
 
 # remove pv,pvc
 
-kubectl patch pvc db-pv-claim -p '{"metadata":{"finalizers":null}}'
+kubectl patch pvc pvc-pg-backup  -p '{"metadata":{"finalizers":null}}' -n kubeapps
 kubectl patch pod db-74755f6698-8td72 -p '{"metadata":{"finalizers":null}}'
 kubectl delete pod xx --grace-period=0 --force --namespace dwh
 

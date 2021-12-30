@@ -6,15 +6,24 @@ metadata:
 spec:
   # Backup the database every day at 2AM
   schedule: "0 2 * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 2
   jobTemplate:
     spec:
       template:
         spec:
           containers:
           - name: postgres-backup
-            image: postgres:12
-            command: ["/bin/sh"]
-            args: ["-c", 'echo "$PGPASS" > /root/.pgpass && chmod 600 /root/.pgpass && pg_dump -U postgres -h postgres-postgres bitnami_redmine > /var/backups/bitnami_redmine-$(date +"%d-%m-%Y").sql']
+            image: postgres:14
+            command: ["/bin/sh", "-c"]
+            args: 
+              - '
+                echo "$PGPASS" > /root/.pgpass && chmod 600 /root/.pgpass
+                echo start backuping ...
+                pg_dump -U postgres -h postgres-postgresql --format=c bitnami_redmine > /var/backups/bitnami_redmine-$(date +"%d-%m-%Y");
+                pg_dump -U postgres -h postgres-postgresql --format=c reminde_notify  > /var/backups/redmine_notify-$(date +"%d-%m-%Y");
+                find /var/backups -mtime +30 -delete;
+                echo done'
             env:
             - name: PGPASS
               valueFrom:
@@ -29,32 +38,3 @@ spec:
           - name: postgres-backup
             persistentVolumeClaim:
               claimName: pvc-pg-backup
----
-
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: pv-pg-backup
-spec:
-  storageClassName: nfs-storage
-  capacity:
-    storage: 5Gi
-  accessModes:
-    - ReadWriteMany
-  nfs:
-    path: "/srv/nfs/kubedata/kubeapps-postgresql-master/backup"
-    server: "192.168.103.146"
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pvc-pg-backup
-  namespace: kubeapps
-spec:
-  storageClassName: nfs-storage
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 5Gi
