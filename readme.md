@@ -167,6 +167,10 @@ helm install rabbitmq -n kubeapps bitnami/rabbitmq -f sources/apps/rabbitmq/1.ra
 # create pvc first
 kubectl apply -f sources/postgresql/000-postgresql-pvc.yaml
 helm install postgres -n kubeapps bitnami/postgresql -f sources/apps/postgresql/1.postgresql-values.yaml
+# create backup postgresql db
+kubectl apply -f source/app/postgres/001-postgres-backup-secret,yaml
+kubectl apply -f source/app/postgres/002-create-pvc.yaml
+kubectl apply -f source/app/postgres/999-cronjob-backup-pg.yaml
 
 # mariadb sql
 # create pvc first
