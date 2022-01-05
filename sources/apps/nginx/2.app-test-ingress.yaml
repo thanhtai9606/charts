@@ -9,7 +9,7 @@ spec:
   tls:
     - hosts:
       - zzz.becamex.com.vn
-      secretName: becamex-secret-cert
+      # secretName: becamex-secret-cert
   rules:
     # Tên miền truy cập
   - host: zzz.becamex.com.vn

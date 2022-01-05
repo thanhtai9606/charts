@@ -49,7 +49,7 @@ kubectl create -n becamex-xlnt-dev \
  secret generic nginx-ui-config \
  --from-file=./sources/certs/default.conf
 
-kubectl create -n kubeapps secret tls becamexidc-cert --key sources/certs/new-certs/pfx/becamex.com.vn.key --cert sources/certs/new-certs/cert/3.Certificate.cer
+kubectl create -n fast secret tls becamexidc-cert --key sources/certs/new-certs/pfx/becamex.com.vn.key --cert sources/certs/new-certs/cert/3.Certificate.cer 
 
 # remove pv,pvc
 
@@ -227,6 +227,10 @@ helm install kibana -n kubeapps sources/my-apps/kibana -f sources/my-apps/kibana
 helm uninstall fluentd  -n kubeapps
 helm install fluentd -n kubeapps bitnami/fluentd -f sources/apps/elasticsearch/3.fluentd-values.yaml
 
+# kong
+helm uninstall kong  -n kubeapps
+helm install kong -n kubeapps bitnami/kong -f sources/apps/kong/1.kong-values.yaml
+helm install kong -n kubeapps sources/apps/kong/ -f source/apps/kong/values.yaml
 
 #open-distro Have to delete storage in server first
 # first way
