@@ -686,7 +686,7 @@ service:
   ##
   externalIPs: 
     - 192.168.103.152
-    - 192.168.103.154
+    - 192.168.103.150
   ## @param service.loadBalancerIP Kubernetes LoadBalancerIP to request for Controller (optional, cloud specific)
   ## ref: https://kubernetes.io/docs/user-guide/services/#type-loadbalancer
   ##
