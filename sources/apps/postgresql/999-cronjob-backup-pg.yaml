@@ -22,6 +22,7 @@ spec:
                 echo start backuping ...
                 pg_dump -U postgres -h postgres-postgresql --format=c bitnami_redmine > /var/backups/bitnami_redmine-$(date +"%d-%m-%Y");
                 pg_dump -U postgres -h postgres-postgresql --format=c reminde_notify  > /var/backups/redmine_notify-$(date +"%d-%m-%Y");
+                pg_dump -U postgres -h postgres-postgresql --format=c process_engine  > /var/backups/process_engine-$(date +"%d-%m-%Y");
                 find /var/backups -mtime +30 -delete;
                 echo done'
             env:
