@@ -31,8 +31,10 @@ extraEnvs:
 # however, H2 is not supported in a clustered scenario.
 # So for real-world workloads, an external database like PostgreSQL should be used.
 database:
-  driver: com.mysql.cj.jdbc.Driver
-  url: jdbc:mysql://192.168.103.161:3306/camunda_engine
+  # driver: com.mysql.cj.jdbc.Driver
+  # url: jdbc:mysql://192.168.103.161:3306/camunda_engine
+  driver: org.postgresql.Driver
+  url: jdbc:postgresql://postgres-postgresql-headless.kubeapps.svc:5432/process-engine
   credentialsSecretName: camunda-bpm-platform-postgresql-credentials
   credentialsSecretKeys:
     username: DB_USERNAME
@@ -93,7 +95,7 @@ livenessProbe:
     periodSeconds: 60
 
 ingress:
-  enabled: true
+  enabled: false
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
