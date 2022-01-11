@@ -31,10 +31,10 @@ extraEnvs:
 # however, H2 is not supported in a clustered scenario.
 # So for real-world workloads, an external database like PostgreSQL should be used.
 database:
-  # driver: com.mysql.cj.jdbc.Driver
-  # url: jdbc:mysql://192.168.103.161:3306/camunda_engine
-  driver: org.postgresql.Driver
-  url: jdbc:postgresql://postgres-postgresql-headless.kubeapps.svc:5432/process-engine
+  driver: com.mysql.cj.jdbc.driver
+  url: jdbc:mysql://192.168.103.161:3306/camunda_engine
+  # driver: org.postgresql.Driver
+  # url: jdbc:postgresql://postgres-postgresql-headless.kubeapps.svc:5432/process-engine
   credentialsSecretName: camunda-bpm-platform-postgresql-credentials
   credentialsSecretKeys:
     username: DB_USERNAME
@@ -67,7 +67,7 @@ serviceAccount:
 
 # The StartupProbe works with Kubernetes >= 1.6
 startupProbe:
-  enabled: false
+  enabled: true
   config:
     httpGet:
       path: /camunda/
