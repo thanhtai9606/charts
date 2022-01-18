@@ -213,10 +213,8 @@ helm repo add camunda https://helm.camunda.cloud
 kubectl apply -f sources/apps/camunda/2.secret.yaml
 helm uninstall camunda -n kubeapps
 # removed helm install camunda -n kubeapps camunda/camunda-bpm-platform -f sources/apps/camunda/1.camunda-values.yaml
- helm install camunda -n kubeapps sources/apps/camunda/camunda-bpm-platform/ -f sources/apps/camunda/camunda-bpm-platform/values.
-yaml
- helm upgrade camunda -n kubeapps sources/apps/camunda/camunda-bpm-platform/ -f sources/apps/camunda/camunda-bpm-platform/values.
-yaml
+ helm install camunda -n kubeapps sources/apps/camunda/camunda-bpm-platform/ -f sources/apps/camunda/camunda-bpm-platform/values.yaml
+ helm upgrade camunda -n kubeapps sources/apps/camunda/camunda-bpm-platform/ -f sources/apps/camunda/camunda-bpm-platform/values.yaml
 
 # kibana
 helm uninstall kibana  -n kubeapps
