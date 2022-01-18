@@ -29,8 +29,8 @@ extraEnvs:
   value: Becamex@2020
 - name: DB_VALIDATE_ON_BORROW
   value: "true"
-- name: SKIP_DB_CONFIG
-  value: "true"
+# - name: SKIP_DB_CONFIG
+#   value: "false"
 # By default H2 database is used, which is handy for demos and tests,
 # however, H2 is not supported in a clustered scenario.
 # So for real-world workloads, an external database like PostgreSQL should be used.
