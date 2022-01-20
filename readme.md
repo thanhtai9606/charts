@@ -142,6 +142,9 @@ helm repo add traefik https://helm.traefik.io/traefik
 kubectl apply -n kubeapps -f sources/apps/traefik/000-tls-cert.yaml
 helm uninstall traefik -n kubeapps
 helm install traefik -n kubeapps traefik/traefik -f sources/apps/traefik/001.traefik-values.yaml
+# chartmuseum
+helm install chartmuseum -n kubeapps chartmuseum/chartmuseum -f sources/apps/chartmuseum/1.chartmuseum-values.yaml
+helm upgrade chartmuseum -n kubeapps chartmuseum/chartmuseum -f source/app/chartmuseum/1.chartmuseum-values.yaml
 
 # rabbitmq
 helm uninstall rabbitmq -n kubeapps
