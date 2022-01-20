@@ -104,29 +104,11 @@ kubectl apply -f sources/apps/dasboard-k8s/4.ingress-dashboard.yaml
 kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
 ```
 
-- create dynamic volume
-
-```
-add new repo first
-# have been change from nfs-client-provisoner => nfs-subdir-external-provisioner
-helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
-
-helm uninstall nfs-client -n kubeapps
-helm install nfs-client -n kubeapps nfs-subdir-external-provisioner/nfs-subdir-external-provisioner -f sources/apps/nfs-client-provisioner/1.nfs-client-provisioner-values.yaml
-
-helm uninstall nfs-elastic -n kubeapps
-helm install nfs-elastic -n kubeapps nfs-subdir-external-provisioner/nfs-subdir-external-provisioner -f sources/apps/nfs-client-provisioner/2.nfs-elastic-provisioner-values.yaml
-helm upgrade nfs-elastic -n kubeapps  nfs-subdir-external-provisioner/nfs-subdir-external-provisioner -f sources/apps/nfs-client-provisioner/2.nfs-elastic-provisioner-values.yaml
-
-
-```
-
 - create volume for db-storage
 
 ```
 kubectl apply -f sources/volumes/4.db-strorage.yaml
 kubectl apply -f sources/volumes/5.app-share-storage.yaml
-
 ```
 
 - create mssql
@@ -146,11 +128,13 @@ thêm arg sau
 - kubeapps create
 
 ````bash
-# nfs client
+# install nfs dynamic volume
+add new repo first
+# have been change from nfs-client-provisoner => nfs-subdir-external-provisioner
+helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
+
 helm uninstall nfs-client -n kubeapps
-# nfs server
-helm uninstall nfs-server -n kubeapps
-helm install nfs-server -n kubeapps stable/nfs-server-provisioner -f sources/apps/nfs-client-provisioner/1.nfs-server-provisioner.yaml
+helm install nfs-client -n kubeapps nfs-subdir-external-provisioner/nfs-subdir-external-provisioner -f sources/apps/nfs-client-provisioner/1.nfs-client-provisioner-values.yaml
 
 # traefik
 helm repo add traefik https://helm.traefik.io/traefik
@@ -231,14 +215,19 @@ helm install kong -n kubeapps bitnami/kong -f sources/apps/kong/1.kong-values.ya
 helm install kong -n kubeapps sources/apps/kong/ -f source/apps/kong/values.yaml
 
 #open-distro Have to delete storage in server first
-# first way
-helm package sources/apps/opendistro-build/helm/opendistro-es/ #Package open-distro or no need package
-helm install opendistro -n kubeapps opendistro-es-1.13.2.tgz  # if we're package it
+# install nfs-elastic
+helm uninstall nfs-elastic -n kubeapps
+helm install nfs-elastic -n kubeapps nfs-subdir-external-provisioner/nfs-subdir-external-provisioner -f sources/apps/nfs-client-provisioner/2.nfs-elastic-provisioner-values.yaml
+helm upgrade nfs-elastic -n kubeapps  nfs-subdir-external-provisioner/nfs-subdir-external-provisioner -f sources/apps/nfs-client-provisioner/2.nfs-elastic-provisioner-values.yaml
+
+# add repo becamexidc
+ helm repo add becamex-chart https://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@raw.githubusercontent.com/thanhtai9606/helm-chart/master/charts
+ helm repo update
 
 # second way if not package
 helm uninstall opendistro  -n kubeapps
-helm install opendistro -n kubeapps sources/apps/opendistro-build/helm/opendistro-es/ -f sources/apps/opendistro-build/helm/opendistro-es/values.yaml
-helm upgrade opendistro -n kubeapps sources/apps/opendistro-build/helm/opendistro-es/ -f sources/apps/opendistro-build/helm/opendistro-es/values.yaml
+helm install opendistro -n kubeapps becamex-chart/opendistro-es -f sources/apps/opendistro/1.opendistro-values.yaml
+helm upgrade opendistro -n kubeapps becamex-chart/opendistro-es -f sources/apps/opendistro/1.opendistro-values.yaml
 
 
 #fluentbit

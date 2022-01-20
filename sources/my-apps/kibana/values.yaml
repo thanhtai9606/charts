@@ -137,7 +137,7 @@ persistence:
   ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
   ##   GKE, AWS & OpenStack)
   ##
-  # storageClass: "-"
+  storageClass: "nfs-elastic"
   ##
   ## If you want to reuse an existing claim, you can pass the name of the PVC using
   ## the existingClaim variable
@@ -229,7 +229,7 @@ ingress:
       path: /
 
       ## Set this to true in order to enable TLS on the ingress record
-      tls: false
+      tls: true
 
       ## Optionally specify the TLS hosts for the ingress record
       ## Useful when the Ingress controller supports www-redirection
@@ -239,7 +239,7 @@ ingress:
       #   - kibana.local
 
       ## If TLS is set to true, you must declare what secret will store the key/certificate for TLS
-      tlsSecret: kibana.local-tls
+      tlsSecret: "becamexidc-cert" #kibana.local-tls
 
 ## SecurityContext configuration
 ##

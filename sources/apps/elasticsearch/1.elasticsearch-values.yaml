@@ -106,7 +106,7 @@ volumePermissions:
 
 ## Cluster domain
 ##
-clusterDomain: becamex.local
+clusterDomain: cluster.local
 
 ## Elasticsearch cluster name
 ##
@@ -316,7 +316,7 @@ master:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    # storageClass: "-"
+    storageClass: "nfs-elastic"
     ## If persistence is enable, and this value is defined,
     ## then accept the value as an existing Persistent Volume Claim to which
     ## the container should be bound
@@ -690,7 +690,7 @@ data:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    # storageClass: "-"
+    storageClass: "nfs-elastic"
     ## If persistence is enable, and this value is defined,
     ## then accept the value as an existing Persistent Volume Claim to which
     ## the container should be bound

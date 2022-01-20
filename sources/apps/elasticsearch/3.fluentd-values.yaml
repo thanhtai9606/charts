@@ -41,7 +41,7 @@ kubeVersion:
 
 ## Cluster Domain
 ##
-clusterDomain: becamex.local
+clusterDomain: cluster.local
 
 ## Extra objects to deploy (value evaluated as a template)
 ##
@@ -656,7 +656,7 @@ aggregator:
   ingress:
     ## Set to true to enable ingress record generation
     ##
-    enabled: true
+    enabled: false
 
     ## Set this to true in order to add the corresponding annotations for cert-manager
     ##
@@ -880,14 +880,14 @@ aggregator:
   ## Persist data to a persistent volume
   ##
   persistence:
-    enabled: false
+    enabled: true
     ## If defined, storageClassName: <storageClass>
     ## If set to "-", storageClassName: "", which disables dynamic provisioning
     ## If undefined (the default) or set to null, no storageClassName spec is
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    # storageClass: "-"
+    storageClass: "nfs-elastic"
     accessMode: ReadWriteOnce
     size: 10Gi
 
