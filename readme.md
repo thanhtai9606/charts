@@ -229,9 +229,29 @@ helm repo update
 
 # second way if not package
 helm uninstall opendistro  -n kubeapps
-helm install opendistro -n kubeapps becamexopendistro-es -f sources/apps/opendistro/1.opendistro-values.yaml
+helm install opendistro -n kubeapps becamex/opendistro-es -f sources/apps/opendistro/1.opendistro-values.yaml
 helm upgrade opendistro -n kubeapps becamex/opendistro-es -f sources/apps/opendistro/1.opendistro-values.yaml
+# after install opendistro, haveto install fluentbit for logstash in kibana
 
+#install fulentbit
+helm uninstall fluentbit  -n kubeapps
+helm install fluentbit -n kubeapps fluent/fluent-bit -f sources/apps/fluentbit/6.fluent-bit-values.yaml
+helm upgrade fluentbit -n kubeapps fluent/fluent-bit -f sources/apps/fluentbit/6.fluent-bit-values.yaml
+# second ways
+ kubectl create namespace logging
+ kubectl apply -f sources/apps/fluentbit/1.fluent-bit-service-account.yaml
+ kubectl apply -f sources/apps/fluentbit/2.fluent-bit-role.yaml
+ kubectl apply -f sources/apps/fluentbit/3.fluent-bit-role-binding.yaml
+ kubectl apply -f sources/apps/fluentbit/4.fluent-bit.configmap.yaml
+ kubectl apply -f sources/apps/fluentbit/5.fluent-bit-ds.yaml
+ 
+# filebeat
+helm uninstall filebeat  -n kubeapps
+helm install filebeat -n kubeapps elastic/filebeat -f sources/apps/opendistro/2.filebeat-values.yaml
+
+# logstash
+helm uninstall logstash  -n kubeapps
+helm install logstash -n kubeapps elastic/logstash -f sources/apps/opendistro/3.logstash-values.yaml
 
 #fluentbit
 # add helm char
@@ -251,18 +271,6 @@ kubectl create secret generic es-root-ca --from-file=es-root-ca.pem -n kubeapps
 kubectl delete secret es-root-ca -n logging
 kubectl create secret generic es-root-ca --from-file=es-root-ca.pem -n logging
 
-#install fulentbit
-helm uninstall fluentbit  -n kubeapps
-helm install fluentbit -n kubeapps fluent/fluent-bit -f sources/apps/fluentbit/fluentbit-values.yaml
-helm upgrade fluentbit -n kubeapps fluent/fluent-bit -f sources/apps/fluentbit/fluentbit-values.yaml
-# second ways
- kubectl create namespace logging
- kubectl apply -f sources/apps/fluentbit/1.fluent-bit-service-account.yaml
- kubectl apply -f sources/apps/fluentbit/2.fluent-bit-role.yaml
- kubectl apply -f sources/apps/fluentbit/3.fluent-bit-role-binding.yaml
- kubectl apply -f sources/apps/fluentbit/4.fluent-bit.configmap.yaml
- kubectl apply -f sources/apps/fluentbit/5.fluent-bit-ds.yaml
- 
 # metric server
  kubectl apply -f sources/apps/metric-server/metric-server.yaml
 ````
