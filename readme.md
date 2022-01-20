@@ -224,13 +224,13 @@ helm install nfs-elastic -n kubeapps nfs-subdir-external-provisioner/nfs-subdir-
 helm upgrade nfs-elastic -n kubeapps  nfs-subdir-external-provisioner/nfs-subdir-external-provisioner -f sources/apps/nfs-client-provisioner/2.nfs-elastic-provisioner-values.yaml
 
 # add repo becamexidc
- helm repo add becamex-chart https://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@raw.githubusercontent.com/thanhtai9606/helm-chart/master/charts
- helm repo update
+helm repo add becamex https://chart.becamex.com.vn 
+helm repo update
 
 # second way if not package
 helm uninstall opendistro  -n kubeapps
-helm install opendistro -n kubeapps becamex-chart/opendistro-es -f sources/apps/opendistro/1.opendistro-values.yaml
-helm upgrade opendistro -n kubeapps becamex-chart/opendistro-es -f sources/apps/opendistro/1.opendistro-values.yaml
+helm install opendistro -n kubeapps becamexopendistro-es -f sources/apps/opendistro/1.opendistro-values.yaml
+helm upgrade opendistro -n kubeapps becamex/opendistro-es -f sources/apps/opendistro/1.opendistro-values.yaml
 
 
 #fluentbit
