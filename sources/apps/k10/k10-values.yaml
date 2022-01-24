@@ -147,9 +147,10 @@ ingress:
   create: false
   tls:
     enabled: false
-  class: "" #Ingress controller type
-  host: "" #ingress object host name
-  urlPath: "" #url path for k10 gateway
+    secretName: "becamexidc-cert"
+  class: "nginx" #Ingress controller type
+  host: "k10.becamex.com.vn" #ingress object host name
+  urlPath: "#" #url path for k10 gateway
 
 eula:
   accept: false #true value if EULA accepted
@@ -288,7 +289,7 @@ auth:
     secretName: "" #htpasswd based existing secret
     htpasswd: "" #htpasswd string, which will be used for basic auth
   tokenAuth:
-    enabled: false
+    enabled: true
   oidcAuth:
     enabled: false
     providerURL: "" #URL to your OIDC provider
