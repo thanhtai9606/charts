@@ -46,5 +46,5 @@ spec:
                   number: 443
   tls:
   - hosts:
-    - argocduat.becamex.com.vn
+    - argocd.becamex.com.vn
     secretName: argocd-secret # do not change, this is provided by Argo CD
