@@ -274,7 +274,7 @@ kubectl create secret generic es-root-ca --from-file=es-root-ca.pem -n logging
 
 # metric server
  kubectl apply -f sources/apps/metric-server/metric-server.yaml
-
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 #k10
  helm install k10 -n kubeapps kasten/k10 -f sources/apps/k10/k10-values.yaml
  helm upgrade k10 -n kubeapps kasten/k10 -f sources/apps/k10/k10-values.yaml
