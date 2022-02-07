@@ -216,7 +216,7 @@ helm install fluentd -n kubeapps bitnami/fluentd -f sources/apps/elasticsearch/3
 # kong
 helm uninstall kong  -n kubeapps
 helm install kong -n kubeapps bitnami/kong -f sources/apps/kong/1.kong-values.yaml
-helm install kong -n kubeapps sources/apps/kong/ -f source/apps/kong/values.yaml
+helm install kong -n kubeapps sources/apps/kong/ -f sources/apps/kong/values.yaml
 
 #open-distro Have to delete storage in server first
 # install nfs-elastic
