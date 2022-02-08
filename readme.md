@@ -265,8 +265,13 @@ systemctl restart kubelet
 
 # kong
 helm uninstall kong  -n kubeapps 
-helm install kong -n kubeapps bitnami/kong -f sources/apps/kong/1.kong-values.yaml 
+# with bitnami
+helm install kong -n kubeapps sources/apps/kong -f sources/apps/kong/values.yaml 
+helm upgrade kong -n kubeapps sources/apps/kong -f sources/apps/kong/values.yaml 
 
+# with kong
+helm install kong -n kubeapps kong/kong -f sources/apps/kong/1.kong-values.yaml 
+helm upgrade kong -n kubeapps kong/kong -f sources/apps/kong/1.kong-values.yaml 
 
 # delete namespace is stuck
 
