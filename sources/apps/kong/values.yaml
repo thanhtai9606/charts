@@ -250,7 +250,7 @@ service:
   proxyHttpsPort: 443
   ## @param service.exposeAdmin Add the Kong Admin ports to the service
   ##
-  exposeAdmin: false
+  exposeAdmin: true
   ## @param service.adminHttpPort kong admin HTTPS service port (only if service.exposeAdmin=true)
   ##
   adminHttpPort: 8001
@@ -274,7 +274,7 @@ service:
   ## @param service.loadBalancerIP loadBalancerIP if kong service type is `LoadBalancer`
   ## ref: https://kubernetes.io/docs/user-guide/services/#type-loadbalancer
   ##
-  loadBalancerIP: ""
+  loadBalancerIP: "192.168.103.182"
   ## @param service.annotations Annotations for kong service
   ## set the LoadBalancer service type to internal only.
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer
@@ -303,7 +303,7 @@ ingress:
   apiVersion: ""
   ## @param ingress.hostname Default host for the ingress resource
   ##
-  hostname: kong.becamex.com.vn
+  hostname: konguat.becamex.com.vn
   ## @param ingress.path Ingress path
   ## with ALB ingress controllers.
   ##
@@ -682,6 +682,7 @@ postgresql:
   ##
   postgresqlUsername: kong
 
+  postgresqlPassword: "j21uSU1oK3" 
 ## @section Cassandra Parameters
 
 ## Cassandra properties
