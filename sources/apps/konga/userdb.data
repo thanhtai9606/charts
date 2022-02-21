@@ -1,0 +1,22 @@
+module.exports = [
+        {
+            "username": "admin",
+            "email": "myadmin@some.domain",
+            "firstName": "Peter",
+            "lastName": "Administrator",
+            "node_id": "http://kong-kong-admin:8001",
+            "admin": true,
+            "active" : true,
+            "password": "123456789"
+        },
+        {
+            "username": "otheruser",
+            "email": "otheruser@some.domain",
+            "firstName": "Joe",
+            "lastName": "Blogs",
+            "node_id": "http://kong-kong-admin:8001",
+            "admin": false,
+            "active" : true,
+            "password": "anotherpassword"
+        }
+    ]

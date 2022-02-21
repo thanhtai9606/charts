@@ -500,11 +500,11 @@ ingressController:
 # https://github.com/bitnami/charts/blob/master/bitnami/postgresql/README.md
 
 postgresql:
-  enabled: false
-  # postgresqlUsername: kong
-  # postgresqlDatabase: kong
-  # service:
-  #   port: 5432
+  enabled: true
+  postgresqlUsername: kong
+  postgresqlDatabase: kong
+  service:
+    port: 5432
 
 # -----------------------------------------------------------------------------
 # Miscellaneous parameters

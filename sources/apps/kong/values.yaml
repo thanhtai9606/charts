@@ -682,7 +682,7 @@ postgresql:
   ##
   postgresqlUsername: kong
 
-  postgresqlPassword: "j21uSU1oK3" 
+  # postgresqlPassword: "j21uSU1oK3"
 ## @section Cassandra Parameters
 
 ## Cassandra properties
