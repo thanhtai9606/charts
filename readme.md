@@ -208,6 +208,8 @@ helm uninstall camunda -n kubeapps
 helm uninstall kibana  -n kubeapps
 # helm install kibana -n kubeapps bitnami/kibana -f sources/apps/elasticsearch/2.kibana-values.yaml
 helm install kibana -n kubeapps sources/my-apps/kibana -f sources/my-apps/kibana/values.yaml
+# remove by logstash
+kubectl apply -f sources/apps/opendistro/4.job-remove-log.yaml
 
 # fluentd
 helm uninstall fluentd  -n kubeapps
