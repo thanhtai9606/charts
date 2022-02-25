@@ -155,6 +155,7 @@ helm install rabbitmq -n kubeapps bitnami/rabbitmq -f sources/apps/rabbitmq/1.ra
 # create pvc first
 kubectl apply -f sources/postgresql/000-postgresql-pvc.yaml
 helm install postgres -n kubeapps bitnami/postgresql -f sources/apps/postgresql/1.postgresql-values.yaml
+
 # create backup postgresql db
 kubectl apply -f source/app/postgres/001-postgres-backup-secret,yaml
 kubectl apply -f source/app/postgres/002-create-pvc.yaml
@@ -163,6 +164,11 @@ kubectl apply -f source/app/postgres/999-cronjob-backup-pg.yaml
 # mariadb sql
 # create pvc first
 kubectl apply -f sources/apps/mysql/000-mariadb-pvc.yaml
+
+#mongodb
+
+helm install mongodb -n kubeapps bitnami/mongodb -f sources/apps/mongo/1.mongodb-values.yaml
+helm upgrade mongodb -n kubeapps bitnami/mongodb -f sources/apps/mongo/1.mongodb-values.yaml
 
 helm uninstall -n kubeapps mariadb
 helm install mariadb -n kubeapps bitnami/mariadb -f sources/apps/mysql/1.mariadb-values.yaml
@@ -255,6 +261,11 @@ helm install filebeat -n kubeapps elastic/filebeat -f sources/apps/opendistro/2.
 # logstash
 helm uninstall logstash  -n kubeapps
 helm install logstash -n kubeapps elastic/logstash -f sources/apps/opendistro/3.logstash-values.yaml
+
+# minioi
+helm uninstall minio  -n kubeapps
+helm install minio -n kubeapps bitnami/minio -f sources/apps/minio/1.minio-values.yaml
+helm upgrade minio -n kubeapps bitnami/minio -f sources/apps/minio/1.minio-values.yaml
 
 #fluentbit
 # add helm char

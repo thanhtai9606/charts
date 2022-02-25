@@ -1,0 +1,20 @@
+apiVersion: configuration.konghq.com/v1
+kind: KongClusterPlugin
+metadata:
+  name: global-ldap-auth
+  annotations:
+    kubernetes.io/ingress.class: kong
+  labels:
+    global: "true"
+config: 
+  hide_credentials: true
+  ldap_host: 192.168.100.3
+  ldap_port: 389
+  start_tls: false
+  ldaps: false
+  base_dn: dc=becamex,dc=local,dc=com,dc=vn
+  verify_ldap_host: false
+  attribute: sAMAccountName,cn
+  cache_ttl: 60
+  header_type: ldap
+plugin: ldap-auth
