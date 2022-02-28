@@ -264,9 +264,12 @@ helm install logstash -n kubeapps elastic/logstash -f sources/apps/opendistro/3.
 
 # minioi
 helm uninstall minio  -n kubeapps
-helm install minio -n kubeapps bitnami/minio -f sources/apps/minio/1.minio-values.yaml
-helm upgrade minio -n kubeapps bitnami/minio -f sources/apps/minio/1.minio-values.yaml
+helm install minio -n kubeapps bitnami/minio -f sources/apps/minio/1.minio-bitnami-values.yaml
+helm upgrade minio -n kubeapps bitnami/minio -f sources/apps/minio/1.bitnami-minio-values.yaml
 
+
+helm install minio -n kubeapps minio/minio -f sources/apps/minio/2.minio-values.yaml
+helm upgrade minio -n kubeapps minio/minio -f sources/apps/minio/2.minio-values.yaml
 #fluentbit
 # add helm char
 helm repo add fluent https://fluent.github.io/helm-charts
