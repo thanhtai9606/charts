@@ -258,6 +258,12 @@ helm upgrade fluentbit -n kubeapps fluent/fluent-bit -f sources/apps/fluentbit/6
 helm uninstall filebeat  -n kubeapps
 helm install filebeat -n kubeapps elastic/filebeat -f sources/apps/opendistro/2.filebeat-values.yaml
 
+# longhorn
+helm repo add longhorn https://charts.longhorn.io
+helm repo update
+helm install longhorn longhorn/longhorn -f sources/apps/longhorn/1.longhorn-value.yaml --namespace longhorn-system --create-namespace
+helm upgrade longhorn longhorn/longhorn -f sources/apps/longhorn/1.longhorn-value.yaml --namespace longhorn-system --create-namespace
+
 # logstash
 helm uninstall logstash  -n kubeapps
 helm install logstash -n kubeapps elastic/logstash -f sources/apps/opendistro/3.logstash-values.yaml
