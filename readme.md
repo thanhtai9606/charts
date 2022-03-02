@@ -189,6 +189,7 @@ kubectl apply -f sources/apps/redmine/000-redmine-pvc.yaml
 
 helm uninstall redmine  -n kubeapps
 helm install redmine -n kubeapps sources/apps/redmine/ -f sources/apps/redmine/1.redmine-values.yaml
+helm upgrade redmine -n kubeapps sources/apps/redmine/ -f sources/apps/redmine/1.redmine-values.yaml
 
 
 # wordpress
