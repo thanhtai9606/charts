@@ -135,13 +135,13 @@ tls:
 ##
 extraEnvVars: []
   # - name: MINIO_IDENTITY_LDAP_SERVER_ADDR
-  #   value: "ldap://192.168.100.2:389"
+  #   value: "192.168.100.3:389"
   # - name: MINIO_IDENTITY_LDAP_LOOKUP_BIND_DN
   #   value: "DC=becamex,DC=local"
-  # - name: MINIO_IDENTITY_LDAP_LOOKUP_BIND_PASSWORD
-  #   value: "Bcm@123456"
   # - name: MINIO_IDENTITY_LDAP_USER_DN_SEARCH_BASE_DN
   #   value: "dc=becamex,dc=local"
+  # - name: MINIO_IDENTITY_LDAP_LOOKUP_BIND_PASSWORD
+  #   value: "Bcm@123456"
   # - name: MINIO_IDENTITY_LDAP_SERVER_INSECURE
   #   value: "on"
   # - name: MINIO_IDENTITY_LDAP_USER_DN_SEARCH_FILTER
@@ -149,7 +149,7 @@ extraEnvVars: []
   # - name: MINIO_IDENTITY_LDAP_GROUP_SEARCH_FILTER
   #   value: "(&(objectClass=group)(member=%d))"
   # - name: MINIO_IDENTITY_LDAP_GROUP_SEARCH_BASE_DN
-  #   value: "dc=becamex,dc=local"
+  #   value: "ou=MinIO Users,dc=becamex,dc=local"
 ## @param extraEnvVarsCM ConfigMap with extra environment variables
 ##
 extraEnvVarsCM: ""

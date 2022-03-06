@@ -144,12 +144,12 @@ kanisterToolsImage:
   pullPolicy: Always
 
 ingress:
-  create: false
+  create: true
   tls:
-    enabled: false
+    enabled: true
     secretName: "becamexidc-cert"
   class: "nginx" #Ingress controller type
-  host: "k10.becamex.com.vn" #ingress object host name
+  host: "kasten.becamex.com.vn" #ingress object host name
   urlPath: "#" #url path for k10 gateway
 
 eula:
@@ -325,25 +325,25 @@ auth:
     groupnamePrefix: ""
   ldap:
     enabled: false
-    restartPod: false # Enable this value to force a restart of the authentication service pod
-    dashboardURL: "" #The URL for accessing K10's dashboard
-    host: ""
+    restartPod: true # Enable this value to force a restart of the authentication service pod
+    dashboardURL: "kasten.becamex.com.vn" #The URL for accessing K10's dashboard
+    host: "192.168.100.3"
     insecureNoSSL: false
     insecureSkipVerifySSL: false
     startTLS: false
-    bindDN: ""
-    bindPW: ""
+    bindDN: "dc=becamex,dc=local"
+    bindPW: "Bcm@123456"
     bindPWSecretName: ""
     userSearch:
-      baseDN: ""
+      baseDN: "dc=becamex,dc=local"
       filter: ""
-      username: ""
-      idAttr: ""
+      username: "redmine"
+      idAttr: "sAMAccountName"
       emailAttr: ""
       nameAttr: ""
       preferredUsernameAttr: ""
     groupSearch:
-      baseDN: ""
+      baseDN: "dc=local,dc=becamex"
       filter: ""
       userMatchers: []
 #      - userAttr:
