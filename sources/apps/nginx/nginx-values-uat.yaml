@@ -77,7 +77,7 @@ controller:
     ## The value must follow the following format: `<namespace>/<name>`.
     ## Used as an alternative to specifying a certificate and key using `controller.defaultTLS.cert` and `controller.defaultTLS.key` parameters.
     ## Format: <namespace>/<secret_name>
-    secret:
+    secret: kubeapps/becamexidc-cert
 
   wildcardTLS:
     ## The base64-encoded TLS certificate for every Ingress/VirtualServer host that has TLS enabled but no secret specified.

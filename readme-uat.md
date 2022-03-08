@@ -53,19 +53,6 @@ scp -r ~/app/db/ becamex@192.168.103.146:/srv/nfs/kubedata/db
 - share app
   scp -r ~/app/kubernetes-deploy/pv-storage/ becamex@192.168.103.146:/srv/nfs/kubedata
 
-- create ns
-
-
-```bash
-helm install nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/bitnami-nginx-values-uat.yaml -n kubeapps
-helm upgrade nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/bitnami-nginx-values-uat.yaml -n kubeapps
-
-kubectl apply -f sources/nginx/1.app-test.yaml
-kubectl apply -f sources/nginx/2.app-test-ingress.yaml
-```
-
-- install nginx kubeapps
-
 ```bash
  # create secret ssl
 
