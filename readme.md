@@ -37,19 +37,6 @@ mv ~/.kube/config_temp ~/.kube/config
 
 https://github.com/nhtua/charts
 
-# test kube
-
-kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
-
-# create secret certs
-
-kubectl create secret tls becamex-secret-cert --cert=./sources/certs/becamex.com.vn.crt --key=./sources/certs/becamex.com.vn.key
-
-kubectl create -n becamex-xlnt-dev \
- secret generic nginx-ui-config \
- --from-file=./sources/certs/default.conf
-
-kubectl create -n fast secret tls becamexidc-cert --key sources/certs/new-certs/pfx/becamex.com.vn.key --cert sources/certs/new-certs/cert/3.Certificate.cer 
 
 # remove pv,pvc
 
@@ -164,6 +151,12 @@ kubectl apply -f source/app/postgres/999-cronjob-backup-pg.yaml
 # mariadb sql
 # create pvc first
 kubectl apply -f sources/apps/mysql/000-mariadb-pvc.yaml
+
+# metallb
+helm repo add metallb https://metallb.github.io/metallb
+helm install metallb -n kubeapps metallb/metallb -f source/apps/metallb/metallb-values.yaml 
+helm upgrade metallb -n kubeapps metallb/metallb -f source/apps/metallb/metallb-values.yaml 
+helm uninstall metallb -n kubeapps
 
 #mongodb
 
@@ -338,9 +331,9 @@ kubectl delete pods --field-selector status.phase=Failed -n dwh
 
 # delete namespace is stuck
 
-kubectl get namespace "dwh" -o json \
+kubectl get namespace "cattle-system" -o json \
  | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" \
- | kubectl replace --raw /api/v1/namespaces/dwh/finalize -f -
+ | kubectl replace --raw /api/v1/namespaces/cattle-system/finalize -f -
 
 ```
 
