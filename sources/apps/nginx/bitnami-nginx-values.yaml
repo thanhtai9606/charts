@@ -169,7 +169,7 @@ extraArgs:
   default-ssl-certificate: "kubeapps/becamexidc-cert"
   ingress-class: nginx
 ##
-extraArgs: {}
+# extraArgs: {}
 ## @param extraEnvVars Extra environment variables to be set on Nginx Ingress container
 ## E.g:
 ## extraEnvs:
