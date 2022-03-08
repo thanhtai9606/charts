@@ -63,7 +63,7 @@ helm uninstall nginx -n kubeapps
 helm install nginx -n kubeapps nginx-stable/nginx-ingress -f sources/apps/nginx/nginx-values.yaml
 helm upgrade nginx -n kubeapps nginx-stable/nginx-ingress -f sources/apps/nginx/nginx-values.yaml
 
-helm install nginx -n kubeapps nginx/nginx-ingress-controller -f sources/apps/nginx/bitnami-nginx-values.yaml
+helm install nginx -n kubeapps bitnami/nginx-ingress-controller -f sources/apps/nginx/bitnami-nginx-values.yaml
 helm upgrade nginx -n kubeapps bitnami/nginx-ingress-controller -f sources/apps/nginx/bitnami-nginx-values.yaml
 
 helm install kubeapps -n kubeapps bitnami/kubeapps -f sources/apps/dasboard-k8s/3.kube-apps.yaml
@@ -246,8 +246,8 @@ helm install filebeat -n kubeapps elastic/filebeat -f sources/apps/opendistro/2.
 # longhorn
 helm repo add longhorn https://charts.longhorn.io
 helm repo update
-helm install longhorn longhorn/longhorn -f sources/apps/longhorn/1.longhorn-value.yaml --namespace longhorn-system --create-namespace
-helm upgrade longhorn longhorn/longhorn -f sources/apps/longhorn/1.longhorn-value.yaml --namespace longhorn-system --create-namespace
+helm install longhorn longhorn/longhorn -f sources/apps/longhorn/longhorn-value-uat.yaml --namespace longhorn-system --create-namespace
+helm upgrade longhorn longhorn/longhorn -f sources/apps/longhorn/longhorn-value-uat.yaml --namespace longhorn-system --create-namespace
 
 # logstash
 helm uninstall logstash  -n kubeapps
