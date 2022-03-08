@@ -59,7 +59,7 @@ scp -r ~/app/db/ becamex@192.168.103.146:/srv/nfs/kubedata/db
   kubectl create -n kubeapps secret tls becamexidc-cert --key sources/certs/new-certs/pfx/becamex.com.vn.key --cert sources/certs/new-certs/cert/3.Certificate.cer
   kubectl delete -n kubeapps secret becamexidc-cert 
 # old cert 1.19 kubectl apply -f sources/apps/nginx/5.secret-certificate.yaml
- helm uninstall nginx -n kubeapps
+helm uninstall nginx -n kubeapps
 helm install nginx -n kubeapps nginx-stable/nginx-ingress -f sources/apps/nginx/nginx-values.yaml
 helm upgrade nginx -n kubeapps nginx-stable/nginx-ingress -f sources/apps/nginx/nginx-values.yaml
 
@@ -69,6 +69,7 @@ helm upgrade nginx -n kubeapps bitnami/nginx-ingress-controller -f sources/apps/
 helm install kubeapps -n kubeapps bitnami/kubeapps -f sources/apps/dasboard-k8s/3.kube-apps.yaml
 # create admin account
 kubectl apply -f sources/apps/dasboard-k8s/1.admin-user.yaml
+
 # ingress dashboard
 kubectl apply -f sources/apps/dasboard-k8s/4.ingress-dashboard.yaml
 # get token
@@ -120,6 +121,13 @@ helm upgrade chartmuseum -n kubeapps chartmuseum/chartmuseum -f source/app/chart
 # rabbitmq
 helm uninstall rabbitmq -n kubeapps
 helm install rabbitmq -n kubeapps bitnami/rabbitmq -f sources/apps/rabbitmq/1.rabbitmq-values.yaml
+
+# gitlab
+kubectl create ns gitlab-runner
+helm uninstall gitlab-runner -n gitlab-runner
+helm install gitlab-runner -n gitlab-runner gitlab/gitlab-runner -f sources/apps/gitlab/5.gitlab-runner-values.yaml --set gitlabUrl=http://gitlab.becamex.com.vn,runnerRegistrationToken=iQDHAyJPeGDqNDU2F2BQ
+
+helm upgrade gitlab-runner  -n gitlab-runner --set gitlabUrl=https://gitlab.becamex.com.vn,runnerRegistrationToken=iQDHAyJPeGDqNDU2F2BQ gitlab/gitlab-runner 
 
 # postgres sql
 # create pvc first
