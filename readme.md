@@ -249,6 +249,7 @@ helm install redis -n kubeapps bitnami/redis -f sources/apps/redis/1.redis-value
 # phpmyadmin
 helm uninstall myadmin  -n kubeapps 
 helm install phpmyadmin -n kubeapps bitnami/phpmyadmin -f sources/apps/mysql/3.phpmyadmin-values.yaml 
+helm upgrade phpmyadmin -n kubeapps bitnami/phpmyadmin -f sources/apps/mysql/3.phpmyadmin-values.yaml 
 
 # konga
 helm uninstall konga  -n kubeapps 
