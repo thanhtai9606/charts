@@ -58,9 +58,9 @@ scp -r ~/app/db/ becamex@192.168.103.146:/srv/nfs/kubedata/db
 
 ```bash
 helm install nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/bitnami-nginx-values-uat.yaml -n kubeapps
+helm upgrade nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/bitnami-nginx-values-uat.yaml -n kubeapps
 
 kubectl apply -f sources/nginx/1.app-test.yaml
-
 kubectl apply -f sources/nginx/2.app-test-ingress.yaml
 ```
 
@@ -73,9 +73,13 @@ kubectl apply -f sources/nginx/2.app-test-ingress.yaml
   kubectl delete -n kubeapps secret becamexidc-cert 
 # old cert 1.19 kubectl apply -f sources/apps/nginx/5.secret-certificate.yaml
  helm uninstall nginx -n kubeapps
-helm install nginx -n kubeapps bitnami/nginx-ingress-controller -f sources/apps/nginx/4.nginx-values.yaml
-helm upgrade nginx -n kubeapps bitnami/nginx-ingress-controller -f sources/apps/nginx/4.nginx-values.yaml
- helm install kubeapps -n kubeapps bitnami/kubeapps -f sources/apps/dasboard-k8s/3.kube-apps.yaml
+helm install nginx -n kubeapps nginx-stable/nginx-ingress -f sources/apps/nginx/nginx-values.yaml
+helm upgrade nginx -n kubeapps nginx-stable/nginx-ingress -f sources/apps/nginx/nginx-values.yaml
+
+helm install nginx -n kubeapps nginx/nginx-ingress-controller -f sources/apps/nginx/bitnami-nginx-values.yaml
+helm upgrade nginx -n kubeapps bitnami/nginx-ingress-controller -f sources/apps/nginx/bitnami-nginx-values.yaml
+
+helm install kubeapps -n kubeapps bitnami/kubeapps -f sources/apps/dasboard-k8s/3.kube-apps.yaml
 # create admin account
 kubectl apply -f sources/apps/dasboard-k8s/1.admin-user.yaml
 # ingress dashboard
