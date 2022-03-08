@@ -154,8 +154,8 @@ kubectl apply -f sources/apps/mysql/000-mariadb-pvc.yaml
 
 # metallb
 helm repo add metallb https://metallb.github.io/metallb
-helm install metallb -n kubeapps metallb/metallb -f source/apps/metallb/metallb-values.yaml 
-helm upgrade metallb -n kubeapps metallb/metallb -f source/apps/metallb/metallb-values.yaml 
+helm install metallb -n kubeapps metallb/metallb -f sources/apps/metallb/metallb-values.yaml
+helm upgrade metallb -n kubeapps metallb/metallb -f sources/apps/metallb/metallb-values.yaml
 helm uninstall metallb -n kubeapps
 
 #mongodb

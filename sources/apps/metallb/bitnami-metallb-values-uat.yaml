@@ -54,7 +54,7 @@ configInline:
    - name: default
      protocol: layer2
      addresses:
-     - 192.168.103.150-192.168.103.155
+     - 192.168.103.180-192.168.103.185
 ## RBAC creation for controller and speaker
 ##
 rbac:
