@@ -55,17 +55,9 @@ scp -r ~/app/db/ becamex@192.168.103.146:/srv/nfs/kubedata/db
 
 - create ns
 
-```
-kubectl create ns xlnt
-kubectl create ns nginx-ingress
-kubectl create ns db-storage
-kubectl create ns kubeapps
-```
-
-- test ingress
 
 ```bash
-helm install nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/bitnami-nginx-values.yaml -n kubeapps
+helm install nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/bitnami-nginx-values-uat.yaml -n kubeapps
 
 kubectl apply -f sources/nginx/1.app-test.yaml
 
@@ -154,8 +146,8 @@ kubectl apply -f sources/apps/mysql/000-mariadb-pvc.yaml
 
 # metallb
 helm repo add metallb https://metallb.github.io/metallb
-helm install metallb -n kubeapps metallb/metallb -f sources/apps/metallb/metallb-values.yaml
-helm upgrade metallb -n kubeapps metallb/metallb -f sources/apps/metallb/metallb-values.yaml
+helm install metallb -n kubeapps metallb/metallb -f sources/apps/metallb/metallb-values-uat.yaml
+helm upgrade metallb -n kubeapps metallb/metallb -f sources/apps/metallb/metallb-values-uat.yaml
 helm uninstall metallb -n kubeapps
 
 #mongodb
