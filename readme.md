@@ -1,4 +1,4 @@
-# create temaplte
+xxx # create temaplte
 helm create < create-name >
 
 # check syntax template
