@@ -63,8 +63,8 @@ helm uninstall nginx -n kubeapps
 helm install nginx -n kubeapps nginx-stable/nginx-ingress -f sources/apps/nginx/nginx-values.yaml
 helm upgrade nginx -n kubeapps nginx-stable/nginx-ingress -f sources/apps/nginx/nginx-values.yaml
 
-helm install nginx -n kubeapps bitnami/nginx-ingress-controller -f sources/apps/nginx/bitnami-nginx-values.yaml
-helm upgrade nginx -n kubeapps bitnami/nginx-ingress-controller -f sources/apps/nginx/bitnami-nginx-values.yaml
+helm install nginx -n kubeapps bitnami/nginx-ingress-controller -f sources/apps/nginx/bitnami-nginx-values-uat.yaml
+helm upgrade nginx -n kubeapps bitnami/nginx-ingress-controller -f sources/apps/nginx/bitnami-nginx-values-uat.yaml
 
 helm install kubeapps -n kubeapps bitnami/kubeapps -f sources/apps/dasboard-k8s/3.kube-apps.yaml
 # create admin account
