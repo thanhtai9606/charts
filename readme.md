@@ -159,6 +159,13 @@ helm install metallb -n kubeapps metallb/metallb -f sources/apps/metallb/metallb
 helm upgrade metallb -n kubeapps metallb/metallb -f sources/apps/metallb/metallb-values.yaml
 helm uninstall metallb -n kubeapps
 
+# gitlab
+helm repo add gitlab https://charts.gitlab.io
+helm repo update
+helm install metallb -n kubeapps metallb/metallb -f sources/apps/metallb/metallb-values.yaml
+helm upgrade metallb -n kubeapps metallb/metallb -f sources/apps/metallb/metallb-values.yaml
+helm uninstall metallb -n kubeapps
+
 #mongodb
 
 helm install mongodb -n kubeapps bitnami/mongodb -f sources/apps/mongo/1.mongodb-values.yaml
