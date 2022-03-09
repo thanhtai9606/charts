@@ -173,8 +173,7 @@ rbac:
   ##
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account
   ##
-  imagePullSecrets:
-    - name: private-secret
+  imagePullSecrets: [private-secret]
 
 ## Configure integrated Prometheus metrics exporter
 ##
