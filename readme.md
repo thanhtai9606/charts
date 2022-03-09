@@ -162,9 +162,10 @@ helm uninstall metallb -n kubeapps
 # gitlab
 helm repo add gitlab https://charts.gitlab.io
 helm repo update
-helm install metallb -n kubeapps metallb/metallb -f sources/apps/metallb/metallb-values.yaml
-helm upgrade metallb -n kubeapps metallb/metallb -f sources/apps/metallb/metallb-values.yaml
-helm uninstall metallb -n kubeapps
+kubectl apply -f sources/apps/gitlab/gitlab-runner-role.yaml
+helm install gitlab-runner -n gitlab-runner gitlab/gitlab-runner -f sources/apps/gitlab/5.gitlab-runner-values.yaml
+helm upgrade gitlab-runner -n gitlab-runner gitlab/gitlab-runner -f sources/apps/gitlab/5.gitlab-runner-values.yaml
+helm uninstall gitlab-runner -n gitlab-runner
 
 #mongodb
 
