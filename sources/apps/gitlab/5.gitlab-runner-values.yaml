@@ -49,7 +49,7 @@ gitlabUrl: https://gitlab.becamex.com.vn/
 ## be retrieved from your GitLab Instance.
 ## ref: https://docs.gitlab.com/ce/ci/runners/README.html
 ##
-runnerRegistrationToken: "iQDHAyJPeGDqNDU2F2BQ"
+runnerRegistrationToken: "nDB-Qj4puGzyMzxtd_Cs"
 
 ## The Runner Token for adding new Runners to the GitLab Server. This must
 ## be retrieved from your GitLab Instance. It is token of already registered runner.
@@ -303,13 +303,25 @@ runners:
   # runner configuration: https://docs.gitlab.com/runner/configuration/advanced-configuration.html
   config: |
     [[runners]]
+      environment = ["DOCKER_TLS_CERTDIR="]
       [runners.kubernetes]
         namespace = "{{.Release.Namespace}}"
-        image = "ubuntu:16.04"
-
+        image = "ubuntu:20.04"
+        privileged = true      
+     [runners.docker]
+        tls_verify = false
+        image = "docker:19.03.12"
+        privileged = true
+        disable_entrypoint_overwrite = false
+        oom_kill_disable = false
+        disable_cache = false
+        volumes = ["/certs/client", "/cache"]                      
+        shm_size = 0
+      [runners.cache]
+        Insecure = false
   ## Which executor should be used
   ##
-  # executor: kubernetes
+  executor: kubernetes
 
   ## Default container image to use for builds when none is specified
   ##
