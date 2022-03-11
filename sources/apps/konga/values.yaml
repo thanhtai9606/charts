@@ -42,7 +42,7 @@ config:  {}
 ldap: 
 # ldap:
   auth_provider: local
-  host: 192.168.100.2
+  host: 192.168.100.3
   bind_dn: redmine
   bind_pass: Bcm@123456
   user_search_base: dc=becamex,dc=local
@@ -59,7 +59,7 @@ ldap:
 
 # Ingress Configuration for Konga
 ingress:
-  enabled: false
+  enabled: true
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
