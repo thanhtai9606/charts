@@ -1,6 +1,6 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "konga.fullname" . -}}
-apiVersion: extensions/v1beta1
+apiVersion: k8s.networking.io/v1beta1
 kind: Ingress
 metadata:
   name: {{ $fullName }}

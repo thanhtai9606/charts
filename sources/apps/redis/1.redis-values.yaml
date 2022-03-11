@@ -94,7 +94,7 @@ auth:
   ## @param auth.password Redis(TM) password
   ## Defaults to a random 10-character alphanumeric string if not set
   ##
-  password: ""
+  password: "admin"
   ## @param auth.existingSecret The name of an existing secret with Redis(TM) credentials
   ## NOTE: When it's set, the previous `auth.password` parameter is ignored
   ##
@@ -381,7 +381,7 @@ master:
   service:
     ## @param master.service.type Redis(TM) master service type
     ##
-    type: ClusterIP
+    type: LoadBalancer
     ## @param master.service.port Redis(TM) master service port
     ##
     port: 6379
@@ -400,7 +400,7 @@ master:
     ## @param master.service.loadBalancerIP Redis(TM) master service Load Balancer IP
     ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer
     ##
-    loadBalancerIP: 192.168.103.181
+    loadBalancerIP: 192.168.103.183
     ## @param master.service.loadBalancerSourceRanges Redis(TM) master service Load Balancer sources
     ## https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
     ## e.g.
