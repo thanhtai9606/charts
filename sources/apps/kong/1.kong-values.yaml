@@ -502,6 +502,7 @@ ingressController:
 postgresql:
   enabled: true
   postgresqlUsername: kong
+  postgresqlPassword: admin
   postgresqlDatabase: kong
   service:
     port: 5432
