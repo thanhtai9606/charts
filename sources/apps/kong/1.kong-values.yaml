@@ -107,7 +107,7 @@ admin:
   # Disabling this is recommended for most ingress controller configurations
   # Enterprise users that wish to use Kong Manager with the controller should enable this
   enabled: true
-  type: NodePort
+  type: ClusterIP
   # To specify annotations or labels for the admin service, add them to the respective
   # "annotations" or "labels" dictionaries below.
   annotations: {}
@@ -706,7 +706,7 @@ serviceMonitor:
 # RBAC and SMTP configuration have additional options that must all be set together
 # Other settings should be added to the "env" settings below
 enterprise:
-  enabled: true
+  enabled: false
   # Kong Enterprise license secret name
   # This secret must contain a single 'license' key, containing your base64-encoded license data
   # The license secret is required to unlock all Enterprise features. If you omit it,
@@ -787,7 +787,7 @@ manager:
     # TLS secret name.
     # tls: kong-proxy.example.com-tls
     # Ingress hostname
-    hostname: proxy.becamex.com.vn
+    hostname: kong-proxy.becamex.com.vn
     # Map of ingress annotations.
     annotations: {}
     # Ingress path.
@@ -795,7 +795,7 @@ manager:
 
 portal:
   # Enable creating a Kubernetes service for the Developer Portal
-  enabled: true
+  enabled: false
   type: NodePort
   # To specify annotations or labels for the Portal service, add them to the respective
   # "annotations" or "labels" dictionaries below.
@@ -839,7 +839,7 @@ portal:
 
 portalapi:
   # Enable creating a Kubernetes service for the Developer Portal API
-  enabled: true
+  enabled: false
   type: NodePort
   # To specify annotations or labels for the Portal API service, add them to the respective
   # "annotations" or "labels" dictionaries below.
