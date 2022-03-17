@@ -1,5 +1,6 @@
 # create temaplte
 
+xx
 helm create < create-name >
 
 # check syntax template
