@@ -605,8 +605,8 @@ ingress:
   ##   kubernetes.io/ingress.class: nginx
   ##   cert-manager.io/cluster-issuer: cluster-issuer-name
   ##
-  annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: 200m
+  annotations: {}
+    # nginx.ingress.kubernetes.io/proxy-body-size: 200m
   ## @param ingress.tls Enable TLS configuration for the hostname defined at `ingress.hostname` parameter
   ## TLS certificates will be retrieved from a TLS secret with name: `{{- printf "%s-tls" .Values.ingress.hostname }}`
   ## You can:
@@ -702,7 +702,7 @@ apiIngress:
   ##   cert-manager.io/cluster-issuer: cluster-issuer-name
   ##
   annotations: 
-    nginx.ingress.kubernetes.io/proxy-body-size: 200m
+    nginx.ingress.kubernetes.io/proxy-body-size: 2000m
   ## @param apiIngress.tls Enable TLS configuration for the hostname defined at `apiIngress.hostname` parameter
   ## TLS certificates will be retrieved from a TLS secret with name: `{{- printf "%s-tls" .Values.apiIngress.hostname }}`
   ## You can:
