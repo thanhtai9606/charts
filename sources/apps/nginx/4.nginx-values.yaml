@@ -419,7 +419,7 @@ service:
   ## List of IP addresses at which the controller services are available
   ## Ref: https://kubernetes.io/docs/user-guide/services/#external-ips
   ##
-  externalIPs: [ 192.168.103.184 ] #sử dụng cái này nếu ko có MetaLB LoadBalancer
+  externalIPs: [ 192.168.103.184,  192.168.103.180 ] #sử dụng cái này nếu ko có MetaLB LoadBalancer
 
   ## loadBalancerIP (optional, cloud specific)
   ## ref: http://kubernetes.io/docs/user-guide/services/#type-loadbalancer
