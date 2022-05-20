@@ -133,7 +133,7 @@ tls:
 ##   - name: FOO
 ##     value: "bar"
 ##
-extraEnvVars: []
+extraEnvVars:
   # - name: MINIO_IDENTITY_LDAP_SERVER_ADDR
   #   value: "192.168.100.3:389"
   # - name: MINIO_IDENTITY_LDAP_LOOKUP_BIND_DN
@@ -150,6 +150,11 @@ extraEnvVars: []
   #   value: "(&(objectClass=group)(member=%d))"
   # - name: MINIO_IDENTITY_LDAP_GROUP_SEARCH_BASE_DN
   #   value: "ou=MinIO Users,dc=becamex,dc=local"
+  
+  - name: MINIO_BROWSER_REDIRECT_URL
+    value: "https://console.becamex.com.vn"
+  - name: MINIO_SERVER_URL
+    value: "https://minio.becamex.com.vn"
 ## @param extraEnvVarsCM ConfigMap with extra environment variables
 ##
 extraEnvVarsCM: ""
