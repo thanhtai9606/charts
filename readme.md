@@ -88,6 +88,7 @@ kubectl apply -f sources/nginx/2.app-test-ingress.yaml
 # add repo stable and bitnami
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo add stable https://charts.helm.sh/stable
+
  # create secret ssl
  kubectl apply -f sources/apps/nginx/5.secret-certificate.yaml 
  helm upgrade nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/4.nginx-values.yaml -n kubeapps
@@ -160,6 +161,12 @@ helm uninstall nfs-client -n kubeapps
 # rabbitmq
 helm uninstall rabbitmq -n kubeapps 
 helm install rabbitmq -n kubeapps bitnami/rabbitmq -f sources/apps/rabbitmq/1.rabbitmq-values.yaml 
+
+
+# rabbitmq
+helm uninstall keycloak -n kubeapps 
+helm install keycloak -n kubeapps bitnami/keycloak -f sources/apps/keycloak/1.keycloak-values.yaml 
+
 # postgres sql
 helm uninstall postgres -n kubeapps 
 helm install postgres -n kubeapps bitnami/postgresql -f sources/apps/postgresql/1.postgresql-values.yaml 
