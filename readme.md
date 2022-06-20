@@ -165,7 +165,7 @@ helm uninstall postgres -n kubeapps
 helm install postgres -n kubeapps bitnami/postgresql -f sources/apps/postgresql/1.postgresql-values.yaml 
 # pgadmin
 helm uninstall pgadmin -n kubeapps 
-helm install pgadmin -n kubeapps stable/pgadmin -f sources/apps/postgresql/2.pgadmin-values.yaml
+helm install pgadmin -n kubeapps cetic/pgadmin -f sources/apps/postgresql/2.pgadmin-values.yaml
 
 # camunda
 kubectl apply -f sources/apps/camunda/2.secret.yaml
@@ -280,9 +280,9 @@ helm upgrade kong -n kubeapps kong/kong -f sources/apps/kong/1.kong-values.yaml
 
 # delete namespace is stuck
 
-kubectl get namespace "esgin-dev" -o json \
+kubectl get namespace "esign-dev" -o json \
   | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" \
-  | kubectl replace --raw /api/v1/namespaces/esgin-dev/finalize -f -
+  | kubectl replace --raw /api/v1/namespaces/esign-dev/finalize -f -
 ```
 
 ```

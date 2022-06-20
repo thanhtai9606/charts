@@ -1,157 +1,130 @@
-# Default values for pgadmin.
-
-replicaCount: 1
-
-## pgAdmin container image
+---
+## Set default image, imageTag, and imagePullPolicy. mode is used to indicate the
 ##
 image:
   repository: dpage/pgadmin4
-  tag: latest
+  tag: 4.13
   pullPolicy: IfNotPresent
-
-service:
-  type: ClusterIP
-  port: 80
-
-## Strategy used to replace old Pods by new ones
-## Ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
-##
-strategy: {}
-  # type: RollingUpdate
-  # rollingUpdate:
-  #   maxSurge: 0
-  #   maxUnavailable: 1
-
-## Server definitions will be loaded at launch time. This allows connection
-## information to be pre-loaded into the instance of pgAdmin in the container.
-## Ref: https://www.pgadmin.org/docs/pgadmin4/4.13/import_export_servers.html
-##
-serverDefinitions:
-  ## If true, server definitions will be created
-  ##
-  enabled: false
-
-  servers: |-
-  #  "1": {
-  #    "Name": "Minimally Defined Server",
-  #    "Group": "Servers",
-  #    "Port": 5432,
-  #    "Username": "postgres",
-  #    "Host": "localhost",
-  #    "SSLMode": "prefer",
-  #    "MaintenanceDB": "postgres"
-  #  }
-
-ingress:
-  ## If true, pgAdmin Ingress will be created
-  ##
-  enabled: true
-
-  ## pgAdmin Ingress annotations
-  ##
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-
-  ## pgAdmin Ingress hostnames with optional path
-  ## Must be provided if Ingress is enabled
-  hosts:
-    - host: pgadminuat.becamex.com.vn
-      paths: 
-        - /
-
-  ## pgAdmin Ingress TLS configuration
-  ## Secrets must be manually created in the namespace
-  tls: {}
-  #  - secretName: becamex-idc-cert
-  #    hosts:
-  #      - pgadminuat.becamex.com.vn
-
-
-## pgAdmin startup configuration
-## Values in here get injected as environment variables
-##
-env:
-  email: thanhtai42@gmail.com
+ 
+pgadmin:
+  ## pgadmin admin user
+  username: thanhtai42@gmail.com
+  ## pgadmin admin password
+  # existingPasswordSecret: ""
   password: admin
+  tls: true
+  ## See https://www.pgadmin.org/docs/pgadmin4/latest/container_deployment.html
+  # scriptname: /pgadmin
 
-  ## If True, allows pgAdmin to create session cookies based on IP address
-  ## Ref: https://www.pgadmin.org/docs/pgadmin4/4.18/config_py.html
-  #
-  enhanced_cookie_protection: "False"
-
-persistentVolume:
-  ## If true, pgAdmin will create/use a Persistent Volume Claim
-  ## If false, use emptyDir
-  ##
+  ## pgadmin config, Any custom environment variabls. Settings in config.py can be overriden with an environment variable using the prefix: PGADMIN_CONFIG_
+  ## eg turn off enhanced cookie protection for default AKS, loadbalancer installation
+  #config:
+  #  - name: "PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION"
+  #    value: "False"
+  
+## Enable persistence using Persistent Volume Claims
+## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+##
+persistence:
   enabled: true
 
-  ## pgAdmin Persistent Volume Claim annotations
-  ##
-  annotations: {}
+  ## A manually managed Persistent Volume and Claim
+  ## Requires persistence.enabled: true
+  ## If defined, PVC must be created manually before volume will be bound
+  # existingClaim:
 
-  ## pgAdmin Persistent Volume access modes
-  ## Must match those of existing PV or dynamic provisioner
-  ## Ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
-  accessModes:
-    - ReadWriteOnce
-
-  ## pgAdmin Persistent Volume Size
-  ##
-  size: 10Gi
-
-  ## pgAdmin Persistent Volume Storage Class
+  ## pgAdmin data Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>
   ## If set to "-", storageClassName: "", which disables dynamic provisioning
   ## If undefined (the default) or set to null, no storageClassName spec is
   ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
   ##   GKE, AWS & OpenStack)
   ##
-  # storageClass: "-"
-  # existingClaim: ""
+  ## Storage class of PV to bind. By default it looks for standard storage class.
+  ## If the PV uses a different storage class, specify that here.
+  # storageClass: standard
+  # VolumeName: ""
+  accessMode: ReadWriteOnce
+  size: 4Gi
 
-## Security context to be added to pgAdmin pods
+## Expose the pgAdmin service to be accessed from outside the cluster (LoadBalancer service).
+## or access it from within the cluster (ClusterIP service). Set the service type and the port to serve it.
+## ref: http://kubernetes.io/docs/user-guide/services/
 ##
-securityContext:
-  runAsUser: 5050
-  runAsGroup: 5050
-  fsGroup: 5050
+service:
+  name: pgadmin
+  type: LoadBalancer
+  port: 80
+  tlsport: 443
+  annotations: {}
 
+  ## Set the LoadBalancer service type to internal only.
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer
+  ##
+  # loadBalancerIP:
+
+  ## Load Balancer sources
+  ## https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
+  ##
+  # loadBalancerSourceRanges:
+  # - 10.10.10.0/24
+
+## Configure Ingress based on the documentation here: https://kubernetes.io/docs/concepts/services-networking/ingress/
+##
+ingress:
+  enabled: false
+  annotations: {}
+  path: /
+  hosts: 
+    - host: pgadminuat.becamex.com.vn
+      paths: [/]
+  tls: []
+
+## Configure servers.json: https://www.pgadmin.org/docs/pgadmin4/latest/import_export_servers.html
+##
+servers:
+  enabled: false
+  config:
+    Servers:
+      1:
+        Name: "Test"
+        Group: "Server Group 1"
+        Port: 5432
+        Username: "postgres"
+        Host: "postgres"
+        SSLMode: "prefer"
+        MaintenanceDB: "postgres"
+
+## Configure liveness and readiness probes
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
+##
+#readinessProbe:
+#  httpGet:
+#    path: /
+#    port: http
+#  initialDelaySeconds: 60
+#  periodSeconds: 15
+#  timeoutSeconds: 10
+#livenessProbe:
+#   httpGet:
+#     path: /
+#     port: http
+#   initialDelaySeconds: 60
+#   periodSeconds: 30
+#   timeoutSeconds: 10
+
+## Configure resource requests and limits
+## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+##
 resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
+  #  cpu: 100m
+  #  memory: 128Mi
   # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+  #  cpu: 100m
+  #  memory: 128Mi
 
-## pgAdmin readiness and liveness probe initial delay and timeout
-## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-##
-livenessProbe:
-  initialDelaySeconds: 30
-  periodSeconds: 60
-  timeoutSeconds: 15
-  successThreshold: 1
-  failureThreshold: 3
-
-readinessProbe:
-  initialDelaySeconds: 30
-  periodSeconds: 60
-  timeoutSeconds: 15
-  successThreshold: 1
-  failureThreshold: 3
-
-## Node labels for pgAdmin pod assignment
-## Ref: https://kubernetes.io/docs/user-guide/node-selection/
-##
-nodeSelector: {}
-
-## Node tolerations for server scheduling to nodes with taints
-## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
-##
-tolerations: []
-
-## Pod affinity
-##
-affinity: {}
