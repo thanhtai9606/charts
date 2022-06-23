@@ -96,7 +96,7 @@ auth:
   createAdminUser: true
   ## @param auth.adminUser Keycloak administrator user
   ##
-  adminUser: user
+  adminUser: admin
   ## @param auth.adminPassword Keycloak administrator password for the new user
   ##
   adminPassword: "admin"
@@ -105,7 +105,7 @@ auth:
   managementUser: manager
   ## @param auth.managementPassword Wildfly management password
   ##
-  managementPassword: ""
+  managementPassword: "becamex@123"
   ## @param auth.existingSecret An already existing secret containing auth info
   ## e.g:
   ## existingSecret:
