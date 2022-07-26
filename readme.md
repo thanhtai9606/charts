@@ -167,6 +167,11 @@ helm install rabbitmq -n kubeapps bitnami/rabbitmq -f sources/apps/rabbitmq/1.ra
 helm uninstall keycloak -n kubeapps 
 helm install keycloak -n kubeapps bitnami/keycloak -f sources/apps/keycloak/1.keycloak-values.yaml 
 
+# argo-workflows
+helm uninstall argo-workflows -n kubeapps 
+helm install argo-workflows -n kubeapps bitnami/argo-workflows -f sources/apps/argo-workflows/1.argo-workflows-values.yaml 
+helm upgrade argo-workflows -n kubeapps bitnami/argo-workflows -f sources/apps/argo-workflows/1.argo-workflows-values.yaml 
+
 # postgres sql
 helm uninstall postgres -n kubeapps 
 helm install postgres -n kubeapps bitnami/postgresql -f sources/apps/postgresql/1.postgresql-values.yaml 
