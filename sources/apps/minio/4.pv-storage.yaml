@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+   name: pv-minio-1
+spec:
+   capacity:
+      storage: 1Gi
+   volumeMode: Filesystem
+   accessModes:
+   - ReadWriteOnce
+   persistentVolumeReclaimPolicy: Retain
+   storageClassName: local-storage
+   local:
+      path: /home/becamex/data-1
+   nodeAffinity:
+      required:
+         nodeSelectorTerms:
+         - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+              - k8s-minio-1
+              - k8s-minio-2
