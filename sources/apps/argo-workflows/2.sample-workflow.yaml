@@ -1,0 +1,11 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: wf-container-template- # Name of this workflow
+spec:
+  entrypoint: container-template # defines "whalesay" as the "main" template
+  templates:
+  - name: container-template      #defining the "whalesay" template
+    container:
+      image: python:3.8-slim
+      command: [echo, "Nimtechnology"]
