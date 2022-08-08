@@ -225,7 +225,7 @@ ingress:
   ## The list of hostnames to be covered with this ingress record.
   ## Most likely this will be just one host, but in the event more hosts are needed, this is an array
   hosts:
-    - name: kibana.becamex.com.vn
+    - name: kibana-uat.becamex.com.vn
       path: /
 
       ## Set this to true in order to enable TLS on the ingress record
@@ -239,7 +239,7 @@ ingress:
       #   - kibana.local
 
       ## If TLS is set to true, you must declare what secret will store the key/certificate for TLS
-      tlsSecret: kibana.local-tls
+      # tlsSecret: kibana.local-tls
 
 ## SecurityContext configuration
 ##
@@ -383,6 +383,6 @@ metrics:
 ##
 elasticsearch:
   hosts:
-  - elasticsearch-elasticsearch-coordinating-only.kubeapps.svc.becamex.local
+  - elasticsearch.kubeapps.svc.cluster.local
   # - elasticsearch-2
   port: 9200
