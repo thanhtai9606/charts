@@ -226,7 +226,7 @@ persistence:
   ## @param persistence.accessModes Persistent Volume access modes
   ##
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   ## @param persistence.size Size for the PV
   ##
   size: 10Gi

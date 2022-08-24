@@ -340,7 +340,7 @@ master:
   persistence:
     ## @param master.persistence.enabled Enable persistence on Redis(TM) master nodes using Persistent Volume Claims
     ##
-    enabled: true
+    enabled: false
     ## @param master.persistence.path The path the volume will be mounted at on Redis(TM) master containers
     ## NOTE: Useful when using different Redis(TM) images
     ##

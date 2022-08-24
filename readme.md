@@ -205,6 +205,10 @@ helm uninstall kibana  -n kubeapps
 helm install kibana -n kubeapps bitnami/kibana -f sources/apps/elasticsearch/2.kibana-values.yaml 
 # helm install kibana -n kubeapps sources/my-apps/kibana -f sources/my-apps/kibana/values.yaml
 
+# logstash 
+helm uninstall logstash  -n kubeapps 
+helm install logstash -n kubeapps bitnami/logstash -f sources/apps/elasticsearch/4.logstash-values.yaml
+
 #fluentd 
 helm uninstall fluentd  -n kubeapps 
 helm install fluentd -n kubeapps bitnami/fluentd -f sources/apps/elasticsearch/3.fluentd-values.yaml 
