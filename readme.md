@@ -186,6 +186,10 @@ helm repo update
 helm uninstall pgadmin -n kubeapps
 helm install pgadmin -n kubeapps cetic/pgadmin -f sources/apps/postgresql/2.pgadmin-values.yaml
 
+# keycloak
+helm uninstall keycloak -n kubeapps 
+helm install keycloak -n kubeapps bitnami/keycloak -f sources/apps/keycloak/1.keycloak-values.yaml 
+
 # redmine
 # create pvc manual
 kubectl apply -f sources/apps/redmine/000-redmine-pvc.yaml
