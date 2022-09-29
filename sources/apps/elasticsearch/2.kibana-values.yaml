@@ -690,7 +690,8 @@ elasticsearch:
   ##   - elasticsearch-2
   ##
   hosts: 
-    - elasticsearch.kubeapps.svc.cluster.local
+    - elasticsearch.kubeapps.svc
+    - elasticsearch-master-hl.kubeapps.svc
   ## @param elasticsearch.port Elasticsearch port
   ##
   port: "9200"
