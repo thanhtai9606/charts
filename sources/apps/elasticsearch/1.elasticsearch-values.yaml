@@ -1597,7 +1597,7 @@ ingest:
     ## @param ingest.service.loadBalancerIP Elasticsearch ingest-only service Load Balancer IP
     ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer
     ##
-    loadBalancerIP: "192.168.103.181"
+    loadBalancerIP: ""
     ## @param ingest.service.loadBalancerSourceRanges Elasticsearch ingest-only service Load Balancer sources
     ## ref: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
     ## e.g:
@@ -1632,7 +1632,7 @@ ingest:
   ingress:
     ## @param ingest.ingress.enabled Enable ingress record generation for Elasticsearch
     ##
-    enabled: true
+    enabled: false
     ## @param ingest.ingress.pathType Ingress path type
     ##
     pathType: ImplementationSpecific
@@ -1641,7 +1641,7 @@ ingest:
     apiVersion: ""
     ## @param ingest.ingress.hostname Default host for the ingress record
     ##
-    hostname: elasticsearch-uat.becamex.com.vn
+    hostname: ingest-elasticsearch-uat.becamex.com.vn
     ## @param ingest.ingress.path Default path for the ingress record
     ## NOTE: You may need to set this to '/*' in order to use this with ALB ingress controllers
     ##
