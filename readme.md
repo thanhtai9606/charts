@@ -364,3 +364,4 @@ https://programmer.help/blogs/how-to-use-kubeadm-to-manage-certificates.html
 ```
 
 ```
+-*elastic-cloud-logs-*,.alerts-security.alerts-default,apm-*-transaction*,auditbeat-*,endgame-*,filebeat-*,logs-*,packetbeat-*,traces-apm*,winlogbeat-*

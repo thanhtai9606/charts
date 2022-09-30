@@ -7,7 +7,7 @@ kind: DaemonSet
 replicaCount: 1
 
 image:
-  repository: fluent/fluent-bit
+  repository: cr.fluentbit.io/fluent/fluent-bit
   # Overrides the image tag whose default is {{ .Chart.AppVersion }}
   tag: ""
   pullPolicy: Always
@@ -34,6 +34,14 @@ rbac:
 podSecurityPolicy:
   create: false
   annotations: {}
+
+openShift:
+  # Sets Openshift support
+  enabled: false
+  # Creates SCC for Fluent-bit when Openshift support is enabled
+  securityContextConstraints:
+    create: true
+    annotations: {}
 
 podSecurityContext: {}
 #   fsGroup: 2000
@@ -71,6 +79,7 @@ service:
   port: 2020
   labels: {}
   # nodePort: 30020
+  # clusterIP: 172.16.10.1
   annotations: {}
 #   prometheus.io/path: "/api/v1/metrics/prometheus"
 #   prometheus.io/port: "2020"
@@ -101,6 +110,8 @@ serviceMonitor:
 #      targetLabel: nodename
 #      replacement: $1
 #      action: replace
+#  scheme: ""
+#  tlsConfig: {}
 
 prometheusRule:
   enabled: false
@@ -154,8 +165,8 @@ ingress:
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-  hosts: []
-  # - host: fluent-bit.example.tld
+  hosts:
+  - host: fluent-bit.becamex.com.vn
   extraHosts: []
   # - host: fluent-bit-extra.example.tld
       ## specify extraPort number
@@ -216,13 +227,14 @@ priorityClassName: ""
 
 env: 
   - name: FLUENT_ELASTICSEARCH_HOST
-    value: "opendistro-opendistro-es-client-service.kubeapps"
+    value: "elasticsearch-uat.becamex.com.vn"
   - name: FLUENT_ELASTICSEARCH_PORT
-    value: "9200"
+    value: "443"
   - name: FLUENT_ELASTICSEARCH_USER
-    value: "admin"
+    value:  "" #"admin"
   - name: FLUENT_ELASTICSEARCH_PASSWORD
-    value: "admin"
+    value: "" #"admin"
+
 # The envWithTpl array below has the same usage as "env", but is using the tpl function to support templatable string.
 # This can be useful when you want to pass dynamic values to the Chart using the helm argument "--set <variable>=<value>"
 # https://helm.sh/docs/howto/charts_tips_and_tricks/#using-the-tpl-function
@@ -239,6 +251,8 @@ extraContainers: []
 #     image: busybox
 #     command: ['do', 'something']
 
+flush: 1
+
 metricsPort: 2020
 
 extraPorts: []
@@ -248,16 +262,14 @@ extraPorts: []
 #     name: tcp
 #     nodePort: 30517
 
-extraVolumes: 
-  - name: certs
-    secret:  
-      secretName: es-root-ca 
+extraVolumes: []
+  # - name: certs
+  #   secret:
+  #     secretName: es-root-ca
 
-extraVolumeMounts: 
-  - name: certs
-    mountPath: /fluent-bit/etc/certs
-
-
+extraVolumeMounts: []
+  # - name: certs
+  #   mountPath: /fluent-bit/etc/certs
 
 updateStrategy: {}
 #   type: RollingUpdate
@@ -279,7 +291,7 @@ config:
   service: |
     [SERVICE]
         Daemon Off
-        Flush 1
+        Flush {{ .Values.flush }}
         Log_Level {{ .Values.logLevel }}
         Parsers_File parsers.conf
         Parsers_File custom_parsers.conf
@@ -317,34 +329,37 @@ config:
   ## https://docs.fluentbit.io/manual/pipeline/outputs
   outputs: |
     [OUTPUT]
-        Name            es
-        Match           *
+        Name es
+        Match kube.*
+        Logstash_Format On
+        Retry_Limit False
+
+    [OUTPUT]
+        Name es
+        Match host.*
         Host            ${FLUENT_ELASTICSEARCH_HOST}
         Port            ${FLUENT_ELASTICSEARCH_PORT}
-        HTTP_User       ${FLUENT_ELASTICSEARCH_USER}
-        HTTP_Passwd     ${FLUENT_ELASTICSEARCH_PASSWORD}
+        #HTTP_User       ${FLUENT_ELASTICSEARCH_USER}
+        #HTTP_Passwd     ${FLUENT_ELASTICSEARCH_PASSWORD}
         Logstash_Format On
         Replace_Dots    On
         tls             On
         tls.verify      Off
-        tls.ca_file     /fluent-bit/etc/certs/es-root-ca.pem
+        #tls.ca_file     /fluent-bit/etc/certs/es-root-ca.pem
+        Suppress_Type_Name On
         Index           efk_logging
         Retry_Limit     False
 
-    [OUTPUT]
-        Name            es
-        Match           *
-        Host            ${FLUENT_ELASTICSEARCH_HOST}
-        Port            ${FLUENT_ELASTICSEARCH_PORT}
-        HTTP_User       ${FLUENT_ELASTICSEARCH_USER}
-        HTTP_Passwd     ${FLUENT_ELASTICSEARCH_PASSWORD}
-        Logstash_Format On
-        Replace_Dots    On
-        tls             On
-        tls.verify      Off
-        tls.ca_file     /fluent-bit/etc/certs/es-root-ca.pem
-        Index           efk_logging
-        Retry_Limit     False
+  ## https://docs.fluentbit.io/manual/administration/configuring-fluent-bit/classic-mode/upstream-servers
+  upstream: {}
+#      upstream.conf: |
+#        [UPSTREAM]
+#            upstream1
+#
+#        [NODE]
+#            name       node-1
+#            host       127.0.0.1
+#            port       43000
 
   ## https://docs.fluentbit.io/manual/pipeline/parsers
   customParsers: |
