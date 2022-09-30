@@ -62,6 +62,7 @@ diagnosticMode:
 ## @param image.registry Logstash image registry
 ## @param image.repository Logstash image repository
 ## @param image.tag Logstash image tag (immutable tags are recommended)
+## @param image.digest Logstash image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag
 ## @param image.pullPolicy Logstash image pull policy
 ## @param image.pullSecrets Specify docker-registry secret names as an array
 ## @param image.debug Specify if debug logs should be enabled
@@ -69,7 +70,8 @@ diagnosticMode:
 image:
   registry: docker.io
   repository: bitnami/logstash
-  tag: 8.2.3-debian-11-r0
+  tag: 8.4.2-debian-11-r0
+  digest: ""
   ## Specify a imagePullPolicy. Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   ##
@@ -101,7 +103,7 @@ monitoringAPIPort: 9600
 ## For example:
 extraEnvVars:
  - name: ELASTICSEARCH_HOST
-   value: "elasticsearch.kubeapps.svc.cluster.local"
+   value: "elasticsearch.kubeapps"
  - name: ELASTICSEARCH_PORT
    value: "9200"
 ##
@@ -124,22 +126,19 @@ input: |-
   #   port => 1514
   #   type => syslog
   # }
-  beats {
-    port => 5044
-  }
   http { port => 8080 }
- ## @param filter Filter Plugins configuration
+## @param filter Filter Plugins configuration
 ## ref: https://www.elastic.co/guide/en/logstash/current/filter-plugins.html
 ## e.g:
-filter: |-
-  grok {
-    match => { "message" => "%{COMBINEDAPACHELOG}" }
-  }
-  date {
-    match => [ "timestamp" , "dd/MMM/yyyy:HH:mm:ss Z" ]
-  }
+## filter: |-
+##   grok {
+##     match => { "message" => "%{COMBINEDAPACHELOG}" }
+##   }
+##   date {
+##     match => [ "timestamp" , "dd/MMM/yyyy:HH:mm:ss Z" ]
+##   }
 ##
-# filter: ""
+filter: ""
 ## @param output [string] Output Plugins configuration
 ## ref: https://www.elastic.co/guide/en/logstash/current/output-plugins.html
 ##
@@ -149,10 +148,10 @@ output: |-
     manage_template => false
     index => "%{[@metadata][beat]}-%{+YYYY.MM.dd}"
   }
-  gelf {
-    host => "${GRAYLOG_HOST}"
-    port => ${GRAYLOG_PORT}
-  }
+  # gelf {
+  #   host => "${GRAYLOG_HOST}"
+  #   port => ${GRAYLOG_PORT}
+  # }
   stdout {}
 ## @param existingConfiguration Name of existing ConfigMap object with the Logstash configuration (`input`, `filter`, and `output` will be ignored).
 ##
@@ -248,7 +247,7 @@ podManagementPolicy: OrderedReady
 ## Ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 ##
 podAnnotations: {}
-## @param podLabels Extra labels for Logstash pods
+## @param podLabels Extra labels for Logstash pods/host
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 ##
 podLabels: {}
@@ -472,7 +471,7 @@ service:
 persistence:
   ## @param persistence.enabled Enable Logstash data persistence using PVC
   ##
-  enabled: true
+  enabled: false
   ## @param persistence.existingClaim A manually managed Persistent Volume and Claim
   ## If defined, PVC must be created manually before volume will be bound
   ## The value is evaluated as a template
@@ -522,13 +521,15 @@ volumePermissions:
   ## @param volumePermissions.image.registry Init container volume-permissions image registry
   ## @param volumePermissions.image.repository Init container volume-permissions image repository
   ## @param volumePermissions.image.tag Init container volume-permissions image tag (immutable tags are recommended)
+  ## @param volumePermissions.image.digest Init container volume-permissions image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag
   ## @param volumePermissions.image.pullPolicy Init container volume-permissions image pull policy
   ## @param volumePermissions.image.pullSecrets Specify docker-registry secret names as an array
   ##
   image:
     registry: docker.io
     repository: bitnami/bitnami-shell
-    tag: 11-debian-11-r4
+    tag: 11-debian-11-r37
+    digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
     ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
