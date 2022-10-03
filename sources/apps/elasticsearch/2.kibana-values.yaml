@@ -691,7 +691,7 @@ elasticsearch:
   ##
   hosts: 
     - elasticsearch.kubeapps.svc
-    - elasticsearch-master-hl.kubeapps.svc
+    # - elasticsearch-master-hl.kubeapps.svc
   ## @param elasticsearch.port Elasticsearch port
   ##
   port: "9200"
@@ -700,20 +700,20 @@ elasticsearch:
     auth:
       ## @param elasticsearch.security.auth.enabled Set to 'true' if Elasticsearch has authentication enabled
       ##
-      enabled: false
+      enabled: true
       ## @param elasticsearch.security.auth.kibanaPassword Password of the 'kibana_system' user, used to authenticate Kibana connection with Elasticsearch.
       ##
-      kibanaPassword: ""
+      kibanaPassword: "Becamex@1234"
       ## @param elasticsearch.security.auth.existingSecret Name of the existing secret containing the password for the 'kibana_system' user.
       ##
       existingSecret: ""
       ## @param elasticsearch.security.auth.createSystemUser If enabled, Kibana will use Elasticsearch API to create the 'kibana_system' user at startup.
       ##
-      createSystemUser: false
+      createSystemUser: true
       ## @param elasticsearch.security.auth.elasticsearchPasswordSecret Name of the existing secret containing the password for the 'elastic' user.
       ## Required if createSystemUser=true. The secret must containt the key 'elasticsearch-password'.
       ##
-      elasticsearchPasswordSecret: ""
+      elasticsearchPasswordSecret: "elasticsearch"
     tls:
       ## @param elasticsearch.security.tls.enabled Set to 'true' if Elasticsearch API uses TLS/SSL (HTTPS)
       ##
