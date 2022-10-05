@@ -328,30 +328,30 @@ config:
 
   ## https://docs.fluentbit.io/manual/pipeline/outputs
   outputs: |
-    # [OUTPUT]
-    #     Name es
-    #     Match kube.*
-    #     Logstash_Format On
-    #     Host            ${FLUENT_ELASTICSEARCH_HOST}
-    #     Port            ${FLUENT_ELASTICSEARCH_PORT}
-    #     HTTP_User       ${FLUENT_ELASTICSEARCH_USER}
-    #     HTTP_Passwd     ${FLUENT_ELASTICSEARCH_PASSWORD}
-    #     tls             On
-    #     tls.verify      Off
-    #     Suppress_Type_Name On
-    #     Index           efk_logging
-    #     Retry_Limit False
     [OUTPUT]
-        Name                  http
-        Match                 kube.*
-        Host                  elasticsearch-uat.becamex.com.vn
-        Port                  443
-        URI                   /logs/rest/singles
-        Format                json_lines
-        TLS                   On
-        Header                private_key XXX
-        compress              gzip
-        Retry_Limit           10
+        Name es
+        Match kube.*
+        Logstash_Format On
+        Host            ${FLUENT_ELASTICSEARCH_HOST}
+        Port            ${FLUENT_ELASTICSEARCH_PORT}
+        HTTP_User       ${FLUENT_ELASTICSEARCH_USER}
+        HTTP_Passwd     ${FLUENT_ELASTICSEARCH_PASSWORD}
+        tls             On
+        tls.verify      Off
+        Suppress_Type_Name On
+        Index           efk_logging
+        Retry_Limit False
+    # [OUTPUT]
+    #     Name                  http
+    #     Match                 kube.*
+    #     Host                  elasticsearch-uat.becamex.com.vn
+    #     Port                  443
+    #     URI                   /logs/rest/singles
+    #     Format                json_lines
+    #     TLS                   On
+    #     Header                private_key XXX
+    #     compress              gzip
+    #     Retry_Limit           10
     [OUTPUT]
         Name es
         Match host.*
