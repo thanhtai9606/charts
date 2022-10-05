@@ -240,9 +240,9 @@ kubectl create secret generic es-root-ca --from-file=es-root-ca.pem -n kubeapps
 #install fulentbit
 # add helm char
 helm repo add fluent https://fluent.github.io/helm-charts
-helm uninstall fluent-bit  -n kubeapps 
-helm install fluent-bit -n kubeapps fluent/fluent-bit -f sources/apps/fluentbit/fluentbit-values.yaml
-helm upgrade fluent-bit -n kubeapps fluent/fluent-bit -f sources/apps/fluentbit/fluentbit-values.yaml
+helm uninstall fluentbit  -n kubeapps 
+helm install fluentbit -n kubeapps fluent/fluent-bit -f sources/apps/fluentbit/fluentbit-values.yaml
+helm upgrade fluentbit -n kubeapps fluent/fluent-bit -f sources/apps/fluentbit/fluentbit-values.yaml
 # second ways
  kubectl create namespace logging
  kubectl apply -f sources/apps/fluentbit/1.fluent-bit-service-account.yaml
