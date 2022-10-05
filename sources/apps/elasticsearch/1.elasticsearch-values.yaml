@@ -220,7 +220,7 @@ security:
   ## @param security.fipsMode Configure elasticsearch with FIPS 140 compliant mode
   ## Ref: https://www.elastic.co/guide/en/elasticsearch/reference/current/fips-140-compliance.html
   ##
-  fipsMode: true
+  fipsMode: false
   ## TLS configuration
   ##
   tls:
@@ -292,7 +292,7 @@ security:
 service:
   ## @param service.type Elasticsearch service type
   ##
-  type: ClusterIP
+  type: LoadBalancer
   ## @param service.ports.restAPI Elasticsearch service REST API port
   ## @param service.ports.transport Elasticsearch service transport port
   ##
@@ -315,7 +315,7 @@ service:
   ## @param service.loadBalancerIP Elasticsearch service Load Balancer IP
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer
   ##
-  loadBalancerIP: "192.168.103.181"
+  loadBalancerIP: "192.168.103.183"
   ## @param service.loadBalancerSourceRanges Elasticsearch service Load Balancer sources
   ## ref: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
   ## e.g:
