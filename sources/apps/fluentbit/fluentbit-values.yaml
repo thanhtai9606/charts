@@ -227,9 +227,9 @@ priorityClassName: ""
 
 env: 
   - name: FLUENT_ELASTICSEARCH_HOST
-    value: "elasticsearch-uat.becamex.com.vn"
+    value: "192.168.103.184"
   - name: FLUENT_ELASTICSEARCH_PORT
-    value: "443"
+    value: "9200"
   - name: FLUENT_ELASTICSEARCH_USER
     value:  "elastic"
   - name: FLUENT_ELASTICSEARCH_PASSWORD
