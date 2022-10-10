@@ -915,7 +915,7 @@ keycloakConfigCli:
 ## @param postgresql.architecture PostgreSQL architecture (`standalone` or `replication`)
 ##
 postgresql:
-  enabled: true
+  enabled: false
   auth:
     username: bn_keycloak
     password: "admin"
@@ -933,11 +933,11 @@ postgresql:
 ## @param externalDatabase.existingSecretPasswordKey Name of an existing secret key containing the database credentials
 ##
 externalDatabase:
-  host: ""
+  host: "postgres-postgresql"
   port: 5432
-  user: bn_keycloak
+  user: postgres
   database: bitnami_keycloak
-  password: ""
+  password: "admin"
   existingSecret: ""
   existingSecretPasswordKey: ""
 
