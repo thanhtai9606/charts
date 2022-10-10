@@ -371,7 +371,7 @@ service:
   type: ClusterIP
   ## @param service.exposeAdmin Add the Kong Admin ports to the service
   ##
-  exposeAdmin: false
+  exposeAdmin: true
   ## @param service.disableHttpPort Disable Kong proxy HTTP and Kong admin HTTP ports
   ##
   disableHttpPort: false
