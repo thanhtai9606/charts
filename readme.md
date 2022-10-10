@@ -274,6 +274,7 @@ helm upgrade phpmyadmin -n kubeapps bitnami/phpmyadmin -f sources/apps/mysql/3.p
 # konga
 helm uninstall konga  -n kubeapps 
 helm install konga -n kubeapps sources/apps/konga/ -f sources/apps/konga/values.yaml 
+helm upgrade konga -n kubeapps sources/apps/konga/ -f sources/apps/konga/values.yaml 
 
 # racher
 ```
@@ -287,11 +288,10 @@ systemctl restart kubelet
 # kong
 helm uninstall kong  -n kubeapps 
 # with bitnami
-helm install kong -n kubeapps sources/apps/kong -f sources/apps/kong/values.yaml 
-helm upgrade kong -n kubeapps sources/apps/kong -f sources/apps/kong/values.yaml 
+helm install kong -n kubeapps bitnami/kong -f sources/apps/kong/kong-values.yaml 
+helm upgrade kong -n kubeapps bitnami/kong -f sources/apps/kong/kong-values.yaml 
 
 # with kong
-
 helm repo add kong https://charts.konghq.com
 helm repo update
 helm install kong -n kubeapps kong/kong -f sources/apps/kong/1.kong-values.yaml 
