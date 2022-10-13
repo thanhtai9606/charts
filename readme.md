@@ -37,7 +37,7 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 
 # create secret certs
 
-kubectl create secret tls becamex-secret-cert --cert=./sources/certs/becamex.com.vn.crt --key=./sources/certs/becamex.com.vn.key
+kubectl create secret tls becamex-secret-cert --cert=./sources/certs/becamex.crt --key=./sources/certs/becamex.key
 
 kubectl create -n becamex-xlnt-dev \
    secret generic nginx-ui-config \
