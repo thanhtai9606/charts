@@ -78,8 +78,8 @@ kubectl apply -f sources/nginx/2.app-test-ingress.yaml
 ```bash
  # create secret ssl
 
-  kubectl apply -n kubeapps secret tls becamexidc-cert --key sources/certs/becamex.key --cert sources/certs/becamex.cer
-  kubectl delete -n kubeapps secret becamexidc-cert 
+kubectl create secret tls becamex-secret-cert --cert=./sources/certs/becamex.crt --key=./sources/certs/becamex.key
+kubectl delete -n kubeapps secret becamexidc-cert 
 # old cert 1.19 kubectl apply -f sources/apps/nginx/5.secret-certificate.yaml
  helm uninstall nginx -n kubeapps
 helm install nginx -n kubeapps bitnami/nginx-ingress-controller -f sources/apps/nginx/4.nginx-values.yaml
