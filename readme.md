@@ -252,8 +252,8 @@ helm upgrade opendistro -n kubeapps becamex/opendistro-es -f sources/apps/opendi
 
 #install fulentbit
 helm uninstall fluentbit  -n kubeapps
-helm install fluentbit -n kubeapps fluent/fluent-bit -f sources/apps/fluentbit/6.fluent-bit-values.yaml
-helm upgrade fluentbit -n kubeapps fluent/fluent-bit -f sources/apps/fluentbit/6.fluent-bit-values.yaml
+helm install fluentbit -n kubeapps fluent/fluent-bit -f sources/apps/fluentbit/fluentbit-values.yaml
+helm upgrade fluentbit -n kubeapps fluent/fluent-bit -f sources/apps/fluentbit/fluentbit-values.yaml
 # second ways
  kubectl create namespace logging
  kubectl apply -f sources/apps/fluentbit/1.fluent-bit-service-account.yaml

@@ -227,13 +227,13 @@ priorityClassName: ""
 
 env: 
   - name: FLUENT_ELASTICSEARCH_HOST
-    value: "elasticsearch-uat.becamex.com.vn"
+    value: "192.168.103.184"
   - name: FLUENT_ELASTICSEARCH_PORT
-    value: "443"
+    value: "9200"
   - name: FLUENT_ELASTICSEARCH_USER
-    value:  "" #"admin"
+    value:  "elastic"
   - name: FLUENT_ELASTICSEARCH_PASSWORD
-    value: "" #"admin"
+    value: "Becamex@1234"
 
 # The envWithTpl array below has the same usage as "env", but is using the tpl function to support templatable string.
 # This can be useful when you want to pass dynamic values to the Chart using the helm argument "--set <variable>=<value>"
@@ -332,19 +332,37 @@ config:
         Name es
         Match kube.*
         Logstash_Format On
+        Host            ${FLUENT_ELASTICSEARCH_HOST}
+        Port            ${FLUENT_ELASTICSEARCH_PORT}
+        HTTP_User       ${FLUENT_ELASTICSEARCH_USER}
+        HTTP_Passwd     ${FLUENT_ELASTICSEARCH_PASSWORD}
+        tls             Off # set Off when use Ip
+        tls.verify      Off
+        Suppress_Type_Name On
+        Index           efk_logging
         Retry_Limit False
-
+    # [OUTPUT]
+    #     Name                  http
+    #     Match                 kube.*
+    #     Host                  elasticsearch-uat.becamex.com.vn
+    #     Port                  443
+    #     URI                   /logs/rest/singles
+    #     Format                json_lines
+    #     TLS                   On
+    #     Header                private_key XXX
+    #     compress              gzip
+    #     Retry_Limit           10
     [OUTPUT]
         Name es
         Match host.*
         Host            ${FLUENT_ELASTICSEARCH_HOST}
         Port            ${FLUENT_ELASTICSEARCH_PORT}
-        #HTTP_User       ${FLUENT_ELASTICSEARCH_USER}
-        #HTTP_Passwd     ${FLUENT_ELASTICSEARCH_PASSWORD}
+        HTTP_User       ${FLUENT_ELASTICSEARCH_USER}
+        HTTP_Passwd     ${FLUENT_ELASTICSEARCH_PASSWORD}
         Logstash_Format On
         Replace_Dots    On
-        tls             On
-        tls.verify      Off
+        #tls             On 
+        #tls.verify      Off
         #tls.ca_file     /fluent-bit/etc/certs/es-root-ca.pem
         Suppress_Type_Name On
         Index           efk_logging
@@ -430,4 +448,3 @@ initContainers: []
 #     command: ['kubectl', 'version']
 
 logLevel: info
-
