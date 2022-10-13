@@ -35,9 +35,6 @@ https://github.com/nhtua/charts
 kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 
 
-# create secret certs
-
-kubectl create secret tls becamex-secret-cert --cert=./sources/certs/becamex.crt --key=./sources/certs/becamex.key
 
 kubectl create -n becamex-xlnt-dev \
    secret generic nginx-ui-config \
@@ -75,6 +72,9 @@ kubectl create ns kubeapps
 
 * test ingress
 ```bash
+# create secret certs
+
+kubectl create -n kubeapps secret tls becamexidc-cert --cert=./sources/certs/becamex.crt --key=./sources/certs/becamex.key
 helm install nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/4.nginx-values.yaml -n kubeapps
 
 kubectl apply -f sources/nginx/1.app-test.yaml 
@@ -90,7 +90,6 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo add stable https://charts.helm.sh/stable
 
  # create secret ssl
- kubectl apply -f sources/apps/nginx/5.secret-certificate.yaml 
  helm upgrade nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/4.nginx-values.yaml -n kubeapps
  helm install kubeapps -n kubeapps bitnami/kubeapps -f sources/apps/dasboard-k8s/3.kube-apps.yaml
 
