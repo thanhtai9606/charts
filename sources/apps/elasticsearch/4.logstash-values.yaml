@@ -69,8 +69,8 @@ diagnosticMode:
 ##
 image:
   registry: docker.io
-  repository: bitnami/logstash
-  tag: 8.4.2-debian-11-r0
+  repository: becamexidc2020/logstash
+  tag: latest
   digest: ""
   ## Specify a imagePullPolicy. Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -103,9 +103,14 @@ monitoringAPIPort: 9600
 ## For example:
 extraEnvVars:
  - name: ELASTICSEARCH_HOST
-   value: "elasticsearch.kubeapps"
+   value: "lasticsearch.kubeapps"
  - name: ELASTICSEARCH_PORT
    value: "9200"
+ - name: LOGSTASH_ELASTICSEARCH_USER
+   value:  "elastic" 
+ - name: LOGSTASH_ELASTICSEARCH_PASSWORD
+   value: "Becamex@1234"
+
 ##
 # extraEnvVars: []
 ## @param extraEnvVarsSecret To add secrets to environment
@@ -118,25 +123,28 @@ extraEnvVarsCM: ""
 ## ref: https://www.elastic.co/guide/en/logstash/current/input-plugins.html
 ##
 input: |-
-  # udp {
-  #   port => 1514
-  #   type => syslog
-  # }
-  # tcp {
-  #   port => 1514
-  #   type => syslog
-  # }
-  http { port => 8080 }
+  jdbc {
+        jdbc_driver_library => "${LOGSTASH_JDBC_DRIVER_JAR_LOCATION}"
+        jdbc_driver_class => "${LOGSTASH_JDBC_DRIVER}"
+        jdbc_connection_string => "${LOGSTASH_JDBC_URL}"
+        jdbc_user => "${LOGSTASH_JDBC_USERNAME}"
+        jdbc_password => "${LOGSTASH_JDBC_PASSWORD}"
+        schedule => "* * * * *"
+        lowercase_column_names => false
+        jdbc_paging_enabled => true
+        jdbc_paging_mode => "explicit"
+        jdbc_page_size => 500
+        statement => "EXEC ElasticSearchDocumentsWithPaging @skip = :offset, @take = :size, @sql_last_value = 0"
+        tracking_column => "unix_ts_in_secs"
+        use_column_value => true
+    }
 ## @param filter Filter Plugins configuration
 ## ref: https://www.elastic.co/guide/en/logstash/current/filter-plugins.html
 ## e.g:
-## filter: |-
-##   grok {
-##     match => { "message" => "%{COMBINEDAPACHELOG}" }
-##   }
-##   date {
-##     match => [ "timestamp" , "dd/MMM/yyyy:HH:mm:ss Z" ]
-##   }
+filter: |-
+ mutate {
+    remove_field => ["unix_ts_in_secs"]
+  }
 ##
 filter: ""
 ## @param output [string] Output Plugins configuration
@@ -145,14 +153,18 @@ filter: ""
 output: |-
   elasticsearch {
     hosts => ["${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}"]
-    manage_template => false
-    index => "%{[@metadata][beat]}-%{+YYYY.MM.dd}"
+    index => "archivecenter-documents"
+    document_id => "%{Id}"
+    ssl => false
+    ssl_certificate_verification => false
+    user => "${LOGSTASH_ELASTICSEARCH_USER}"
+    password => "${LOGSTASH_ELASTICSEARCH_PASSWORD}"
   }
   # gelf {
   #   host => "${GRAYLOG_HOST}"
   #   port => ${GRAYLOG_PORT}
   # }
-  stdout {}
+  stdout { codec => json_lines }
 ## @param existingConfiguration Name of existing ConfigMap object with the Logstash configuration (`input`, `filter`, and `output` will be ignored).
 ##
 existingConfiguration: ""
