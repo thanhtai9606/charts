@@ -107,7 +107,7 @@ monitoringAPIPort: 9600
 ##
 extraEnvVars:
  - name: LOGSTASH_JDBC_URL
-   value: "jdbc:sqlserver://192.168.100.83:1433;databaseName=BCM_ArchiveCenter;integratedSecurity=false;"
+   value: "jdbc:sqlserver://192.168.103.96:1433;databaseName=UAT_Becamex_ArchiveCenter;integratedSecurity=false;"
  - name: LOGSTASH_JDBC_DRIVER
    value: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
  - name: LOGSTASH_JDBC_DRIVER_JAR_LOCATION
@@ -115,9 +115,9 @@ extraEnvVars:
  - name: LOGSTASH_ELASTICSEARCH_HOST
    value: "https://elasticsearch-uat.becamex.com.vn:443"
  - name: LOGSTASH_JDBC_USERNAME
-   value: "becamexarchivecenter"
+   value: "sa"
  - name: LOGSTASH_JDBC_PASSWORD
-   value: "@rchiveBecamex123"
+   value: "Becamex@1234"
 
 ## @param extraEnvVarsSecret To add secrets to environment
 ##
