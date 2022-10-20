@@ -194,7 +194,7 @@ output: |-
   if "records" in [tags] {
     elasticsearch {
         hosts => ["${LOGSTASH_ELASTICSEARCH_HOST}"]
-        index => "archivecenter-recodrs"
+        index => "archivecenter-records"
         document_id => "%{Id}"
         ssl => false
         ssl_certificate_verification => false
