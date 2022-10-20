@@ -70,12 +70,12 @@ diagnosticMode:
 image:
   registry: docker.io
   repository: becamexidc2020/logstash
-  tag: latest
+  tag: "latest" #8.4.2-debian-11-r0
   digest: ""
   ## Specify a imagePullPolicy. Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   ##
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   ## Optionally specify an array of imagePullSecrets (secrets must be manually created in the namespace)
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
   ## Example:
@@ -101,18 +101,24 @@ enableMonitoringAPI: true
 monitoringAPIPort: 9600
 ## @param extraEnvVars Array containing extra env vars to configure Logstash
 ## For example:
-extraEnvVars:
- - name: ELASTICSEARCH_HOST
-   value: "lasticsearch.kubeapps"
- - name: ELASTICSEARCH_PORT
-   value: "9200"
- - name: LOGSTASH_ELASTICSEARCH_USER
-   value:  "elastic" 
- - name: LOGSTASH_ELASTICSEARCH_PASSWORD
-   value: "Becamex@1234"
-
+## extraEnvVars:
+##  - name: ELASTICSEARCH_HOST
+##    value: "x.y.z"
 ##
-# extraEnvVars: []
+extraEnvVars:
+ - name: LOGSTASH_JDBC_URL
+   value: "jdbc:sqlserver://192.168.100.83:1433;databaseName=BCM_ArchiveCenter;integratedSecurity=false;"
+ - name: LOGSTASH_JDBC_DRIVER
+   value: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+ - name: LOGSTASH_JDBC_DRIVER_JAR_LOCATION
+   value: "/opt/bitnami/logstash/logstash-core/lib/jars/mssql-jdbc.jar"
+ - name: LOGSTASH_ELASTICSEARCH_HOST
+   value: "https://elasticsearch-uat.becamex.com.vn:443"
+ - name: LOGSTASH_JDBC_USERNAME
+   value: "becamexarchivecenter"
+ - name: LOGSTASH_JDBC_PASSWORD
+   value: "@rchiveBecamex123"
+
 ## @param extraEnvVarsSecret To add secrets to environment
 ##
 extraEnvVarsSecret: ""
@@ -141,30 +147,32 @@ input: |-
 ## @param filter Filter Plugins configuration
 ## ref: https://www.elastic.co/guide/en/logstash/current/filter-plugins.html
 ## e.g:
-filter: |-
- mutate {
-    remove_field => ["unix_ts_in_secs"]
-  }
+## filter: |-
+##   grok {
+##     match => { "message" => "%{COMBINEDAPACHELOG}" }
+##   }
+##   date {
+##     match => [ "timestamp" , "dd/MMM/yyyy:HH:mm:ss Z" ]
+##   }
 ##
-filter: ""
+filter: |-
+   mutate {
+      remove_field => ["unix_ts_in_secs"]
+   }
 ## @param output [string] Output Plugins configuration
 ## ref: https://www.elastic.co/guide/en/logstash/current/output-plugins.html
 ##
 output: |-
   elasticsearch {
-    hosts => ["${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}"]
-    index => "archivecenter-documents"
-    document_id => "%{Id}"
-    ssl => false
-    ssl_certificate_verification => false
-    user => "${LOGSTASH_ELASTICSEARCH_USER}"
-    password => "${LOGSTASH_ELASTICSEARCH_PASSWORD}"
-  }
-  # gelf {
-  #   host => "${GRAYLOG_HOST}"
-  #   port => ${GRAYLOG_PORT}
-  # }
-  stdout { codec => json_lines }
+        hosts => ["${LOGSTASH_ELASTICSEARCH_HOST}"]
+        index => "archivecenter-documents"
+        document_id => "%{Id}"
+        ssl => false
+        ssl_certificate_verification => false
+        user => "elastic"
+        password => "Becamex@1234"
+    }
+    stdout { codec => json_lines }
 ## @param existingConfiguration Name of existing ConfigMap object with the Logstash configuration (`input`, `filter`, and `output` will be ignored).
 ##
 existingConfiguration: ""
@@ -193,7 +201,7 @@ extraVolumeMounts: []
 serviceAccount:
   ## @param serviceAccount.create Enable creation of ServiceAccount for Logstash pods
   ##
-  create: true
+  create: false
   ## @param serviceAccount.name The name of the service account to use. If not set and `create` is `true`, a name is generated
   ## If not set and create is true, a name is generated using the logstash.serviceAccountName template
   ##
@@ -259,7 +267,7 @@ podManagementPolicy: OrderedReady
 ## Ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 ##
 podAnnotations: {}
-## @param podLabels Extra labels for Logstash pods/host
+## @param podLabels Extra labels for Logstash pods
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 ##
 podLabels: {}
