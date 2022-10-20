@@ -318,6 +318,9 @@ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/late
 helm uninstall sws -n kubeapps
 helm install sws -n kubeapps bitnami/odoo -f sources/apps/odoo/1.odoo-values.yaml
 
+# logstash 
+helm uninstall logstash  -n kubeapps 
+helm install logstash -n kubeapps bitnami/logstash -f sources/apps/elasticsearch/4.logstash-values.yaml
 # rancher
 
 helm uninstall rancher -n kubeapps
