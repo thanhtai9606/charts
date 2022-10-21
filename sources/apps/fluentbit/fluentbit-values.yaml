@@ -341,7 +341,7 @@ config:
         tls.verify      Off
         Suppress_Type_Name On
         Index           efk_logging
-        Retry_Limit False
+        # Retry_Limit False
     # [OUTPUT]
     #     Name                  http
     #     Match                 kube.*
