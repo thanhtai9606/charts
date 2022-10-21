@@ -296,7 +296,8 @@ podManagementPolicy: OrderedReady
 ## @param podAnnotations Pod annotations
 ## Ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 ##
-podAnnotations: {}
+podAnnotations:
+  fluentbit.io/exclude: "true"
 ## @param podLabels Extra labels for Logstash pods
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 ##

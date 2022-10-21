@@ -219,7 +219,8 @@ labels: {}
 
 annotations: {}
 
-podAnnotations: {}
+podAnnotations:
+  fluentbit.io/exclude: "true"
 
 podLabels: {}
 
