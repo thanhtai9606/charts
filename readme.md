@@ -198,8 +198,7 @@ helm install discourse -n kubeapps bitnami/discourse -f sources/apps/discourse/1
 # elasticsearch bitnami/elasticsearch
 helm uninstall elasticsearch  -n kubeapps 
 helm install elasticsearch -n kubeapps bitnami/elasticsearch -f sources/apps/elasticsearch/1.elasticsearch-values.yaml 
-
-helm install elasticsearch -n kubeapps bitnami/elasticsearch -f sources/apps/elasticsearch/6.elasticsearch-elastic-values.yaml 
+helm upgrade elasticsearch -n kubeapps bitnami/elasticsearch -f sources/apps/elasticsearch/1.elasticsearch-values.yaml 
 
 # kibana 
 helm uninstall kibana  -n kubeapps 
@@ -208,6 +207,10 @@ helm install kibana -n kubeapps bitnami/kibana -f sources/apps/elasticsearch/2.k
 
 # logstash 
 helm uninstall logstash  -n kubeapps 
+helm install logstash -n kubeapps bitnami/logstash -f sources/apps/elasticsearch/4.logstash-values.yaml
+# sync db from archive-center dev
+helm install logstash-archive-center-dev -n kubeapps bitnami/logstash -f sources/apps/elasticsearch/4.logstash-archive-center-dev-values.yaml
+# sync db from archive-center uat
 helm install logstash -n kubeapps bitnami/logstash -f sources/apps/elasticsearch/4.logstash-values.yaml
 
 #fluentd 

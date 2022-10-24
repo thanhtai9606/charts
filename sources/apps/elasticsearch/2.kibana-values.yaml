@@ -472,7 +472,7 @@ ingress:
 ## @param serviceAccount.annotations Annotations for service account. Evaluated as a template. Only used if `create` is `true`.
 ##
 serviceAccount:
-  create: true
+  create: false
   name: ""
   automountServiceAccountToken: true
   annotations: {}
@@ -710,7 +710,7 @@ elasticsearch:
       existingSecret: ""
       ## @param elasticsearch.security.auth.createSystemUser If enabled, Kibana will use Elasticsearch API to create the 'kibana_system' user at startup.
       ##
-      createSystemUser: false
+      createSystemUser: true
       ## @param elasticsearch.security.auth.elasticsearchPasswordSecret Name of the existing secret containing the password for the 'elastic' user.
       ## Required if createSystemUser=true. The secret must containt the key 'elasticsearch-password'.
       ##
@@ -718,17 +718,17 @@ elasticsearch:
     tls:
       ## @param elasticsearch.security.tls.enabled Set to 'true' if Elasticsearch API uses TLS/SSL (HTTPS)
       ##
-      enabled: false
+      enabled: true
       ## @param elasticsearch.security.tls.verificationMode Verification mode for SSL communications.
       ## Supported values: full, certificate, none.
       ## Ref: https://www.elastic.co/guide/en/kibana/7.x/settings.html#elasticsearch-ssl-verificationmode
       verificationMode: "full"
       ## @param elasticsearch.security.tls.existingSecret Name of the existing secret containing Elasticsearch Truststore or CA certificate. Required unless verificationMode=none
       ##
-      existingSecret: ""
+      existingSecret: "elasticsearch-coordinating-crt"
       ## @param elasticsearch.security.tls.usePemCerts Set to 'true' to use PEM certificates instead of PKCS12.
       ##
-      usePemCerts: false
+      usePemCerts: true
       ## @param elasticsearch.security.tls.truststorePassword Password to access the PKCS12 trustore in case it is password-protected.
       ##
       truststorePassword: ""
