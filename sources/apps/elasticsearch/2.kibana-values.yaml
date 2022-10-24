@@ -594,7 +594,7 @@ configuration:
     basePath: ""
     rewriteBasePath: false
 ## Prometheus metrics (requires the kibana-prometheus-exporter plugin)
-##
+##Waiting for Elasticsearch to be ready.
 metrics:
   ## @param metrics.enabled Start a side-car prometheus exporter
   ##
@@ -691,7 +691,8 @@ elasticsearch:
   ##
   hosts: 
     - elasticsearch.kubeapps.svc
-    # - elasticsearch-master-hl.kubeapps.svc
+    - elasticsearch-coordinating-hl.kubeapps.svc
+    - elasticsearch-master-hl.kubeapps.svc
   ## @param elasticsearch.port Elasticsearch port
   ##
   port: "9200"
@@ -709,7 +710,7 @@ elasticsearch:
       existingSecret: ""
       ## @param elasticsearch.security.auth.createSystemUser If enabled, Kibana will use Elasticsearch API to create the 'kibana_system' user at startup.
       ##
-      createSystemUser: true
+      createSystemUser: false
       ## @param elasticsearch.security.auth.elasticsearchPasswordSecret Name of the existing secret containing the password for the 'elastic' user.
       ## Required if createSystemUser=true. The secret must containt the key 'elasticsearch-password'.
       ##
