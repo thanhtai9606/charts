@@ -208,10 +208,16 @@ helm install kibana -n kubeapps bitnami/kibana -f sources/apps/elasticsearch/2.k
 # logstash 
 helm uninstall logstash  -n kubeapps 
 helm install logstash -n kubeapps bitnami/logstash -f sources/apps/elasticsearch/4.logstash-values.yaml
+
 # sync db from archive-center dev
+helm uninstall logstash-archive-center-dev  -n kubeapps 
 helm install logstash-archive-center-dev -n kubeapps bitnami/logstash -f sources/apps/elasticsearch/4.logstash-archive-center-dev-values.yaml
+helm upgrade logstash-archive-center-dev -n kubeapps bitnami/logstash -f sources/apps/elasticsearch/4.logstash-archive-center-dev-values.yaml
+
 # sync db from archive-center uat
-helm install logstash -n kubeapps bitnami/logstash -f sources/apps/elasticsearch/4.logstash-values.yaml
+helm uninstall logstash-archive-center-uat  -n kubeapps 
+helm install logstash-archive-center-uat -n kubeapps bitnami/logstash -f sources/apps/elasticsearch/4.logstash-archive-center-uat-values.yaml
+helm upgrade logstash-archive-center-uat -n kubeapps bitnami/logstash -f sources/apps/elasticsearch/4.logstash-archive-center-dev-values.yaml
 
 #fluentd 
 helm uninstall fluentd  -n kubeapps 
