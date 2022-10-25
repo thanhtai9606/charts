@@ -14,8 +14,8 @@ spec: # CronJob
           containers:
           - image: alpine
             command: ["/bin/sh","-c"]
-            args: ["apk add curl && apk add coreutils && curl -XDELETE https://opendistro-opendistro-es-data-svc:9200/logstash-`date -d'60 days ago' +'%Y.%m.%d'` -k -u admin:admin
-              && curl -XDELETE https://opendistro-opendistro-es-data-svc:9200/security-auditlog-`date -d'60 days ago' +'%Y.%m.%d'` -k -u admin:admin"]
+            args: ["apk add curl && apk add coreutils && curl -XDELETE https://elasticsearch-uat.becamex.com.vn:443/logstash-`date -d'40 days ago' +'%Y.%m.%d'` -k -u elastic:Becamex@1234
+              && curl -XDELETE https://elasticsearch-uat.becamex.com.vn:443/security-auditlog-`date -d'40 days ago' +'%Y.%m.%d'` -k -u elastic:Becamex@1234"]
             # args: ['apk add curl && apk add coreutils && curl -XGET "https://opendistro-opendistro-es-data-svc:9200/_cluster/health?wait_for_status=yellow&timeout=50s&pretty"  -k -u admin:admin']
             name: logging-purger
           restartPolicy: Never
