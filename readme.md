@@ -219,6 +219,11 @@ helm uninstall logstash-archive-center-uat  -n kubeapps
 helm install logstash-archive-center-uat -n kubeapps bitnami/logstash -f sources/apps/elasticsearch/4.logstash-archive-center-uat-values.yaml
 helm upgrade logstash-archive-center-uat -n kubeapps bitnami/logstash -f sources/apps/elasticsearch/4.logstash-archive-center-uat-values.yaml
 
+# cronjob remove logstash
+
+kubectl delete -f sources/apps/elasticsearch/6.cron-job-remove-logstash.yaml  -n kubeapps 
+kubectl apply -f sources/apps/elasticsearch/6.cron-job-remove-logstash.yaml  -n kubeapps 
+
 #fluentd 
 helm uninstall fluentd  -n kubeapps 
 helm install fluentd -n kubeapps bitnami/fluentd -f sources/apps/elasticsearch/3.fluentd-values.yaml 
