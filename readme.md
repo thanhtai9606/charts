@@ -217,7 +217,7 @@ helm upgrade logstash-archive-center-dev -n kubeapps bitnami/logstash -f sources
 # sync db from archive-center uat
 helm uninstall logstash-archive-center-uat  -n kubeapps 
 helm install logstash-archive-center-uat -n kubeapps bitnami/logstash -f sources/apps/elasticsearch/4.logstash-archive-center-uat-values.yaml
-helm upgrade logstash-archive-center-uat -n kubeapps bitnami/logstash -f sources/apps/elasticsearch/4.logstash-archive-center-dev-values.yaml
+helm upgrade logstash-archive-center-uat -n kubeapps bitnami/logstash -f sources/apps/elasticsearch/4.logstash-archive-center-uat-values.yaml
 
 #fluentd 
 helm uninstall fluentd  -n kubeapps 
