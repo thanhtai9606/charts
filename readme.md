@@ -169,7 +169,6 @@ helm upgrade gitlab-runner -n gitlab-runner gitlab/gitlab-runner -f sources/apps
 helm uninstall gitlab-runner -n gitlab-runner
 
 #mongodb
-
 helm install mongodb -n kubeapps bitnami/mongodb -f sources/apps/mongo/1.mongodb-values.yaml
 helm upgrade mongodb -n kubeapps bitnami/mongodb -f sources/apps/mongo/1.mongodb-values.yaml
 
@@ -189,6 +188,11 @@ helm install pgadmin -n kubeapps cetic/pgadmin -f sources/apps/postgresql/2.pgad
 # keycloak
 helm uninstall keycloak -n kubeapps 
 helm install keycloak -n kubeapps bitnami/keycloak -f sources/apps/keycloak/1.keycloak-values.yaml 
+
+# argo-workflow
+helm uninstall argo-workflows -n argocd 
+helm install argo-workflows -n argocd bitnami/argo-workflows -f sources/apps/argo-workflows/1.argo-workflows-values.yaml
+helm upgrade argo-workflows -n argocd bitnami/argo-workflows -f sources/apps/argo-workflows/1.argo-workflows-values.yaml
 
 # redmine
 # create pvc manual

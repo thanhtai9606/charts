@@ -58,13 +58,15 @@ server:
   ## @param server.image.registry server image registry
   ## @param server.image.repository server image repository
   ## @param server.image.tag server image tag (immutable tags are recommended)
+  ## @param server.image.digest server image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag
   ## @param server.image.pullPolicy server image pull policy
   ## @param server.image.pullSecrets server image pull secrets
   ##
   image:
     registry: docker.io
     repository: bitnami/argo-workflow-cli
-    tag: 3.3.8-scratch-r0
+    tag: 3.4.1-scratch-r0
+    digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
     ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -464,13 +466,15 @@ controller:
   ## @param controller.image.registry controller image registry
   ## @param controller.image.repository controller image repository
   ## @param controller.image.tag controller image tag (immutable tags are recommended)
+  ## @param controller.image.digest controller image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag
   ## @param controller.image.pullPolicy controller image pull policy
   ## @param controller.image.pullSecrets controller image pull secrets
   ##
   image:
     registry: docker.io
     repository: bitnami/argo-workflow-controller
-    tag: 3.3.7-scratch-r0
+    tag: 3.4.0-scratch-r0
+    digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
     ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -606,12 +610,6 @@ controller:
     instanceID: {{ .Values.controller.instanceID.explicitID }}
     {{- end }}
     {{- end }}
-    ## Ref: https://argoproj.github.io/argo-workflows/workflow-executors/
-    ##
-    containerRuntimeExecutor: {{ .Values.controller.containerRuntimeExecutor }}
-    ## Uncomment to create containerRuntimeExecutors
-    ## Ref: https://argoproj.github.io/argo-workflows/workflow-executors/
-    ## containerRuntimeExecutors: {}
     ## How many workflows can be running at the same time
     ##
     parallelism:
@@ -628,11 +626,6 @@ controller:
       {{- end }}
       {{- if .Values.executor.podSecurityContext }}
       securityContext: {{- include "common.tplvalues.render" (dict "value" .Values.executor.containerSecurityContext "context" $) | nindent 4 }}
-        {{- if not (eq .Values.controller.containerRuntimeExecutor "docker") }}
-        ## Docker executor requires to run executor as root
-        ##
-        runAsNonRoot: true
-        {{- end }}
       {{- end }}
     {{- end }}
     ## Uncomment to enable Artofact repository with the provided configuration
@@ -697,14 +690,7 @@ controller:
     useReleaseName: false
     explicitID: ""
 
-  ## Default container runtime that the executor will use.
-  ## Set as `k8sapi` because `docker` requires privileged access. Also, `k8sapi` allows to runAsNonRoot
-  ## Ref: https://argoproj.github.io/argo-workflows/workflow-executors/
-  ## @param controller.containerRuntimeExecutor Specifies the container runtime for the executor
-  ##
-  containerRuntimeExecutor: k8sapi
-
-  ## @param controller.clusterWorkflowTemplates.enabled Whether to create a ClusterRole and Cluster Role Binding to access ClusterWokflowTemplates resources
+   ## @param controller.clusterWorkflowTemplates.enabled Whether to create a ClusterRole and Cluster Role Binding to access ClusterWokflowTemplates resources
   ##
   clusterWorkflowTemplates:
     enabled: true
@@ -953,13 +939,15 @@ executor:
   ## @param executor.image.registry executor image registry
   ## @param executor.image.repository executor image repository
   ## @param executor.image.tag executor image tag (immutable tags are recommended)
+  ## @param executor.image.digest executor image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag
   ## @param executor.image.pullPolicy executor image pull policy
   ## @param executor.image.pullSecrets executor image pull secrets
   ##
   image:
     registry: docker.io
     repository: bitnami/argo-workflow-exec
-    tag: 3.3.7-debian-11-r0
+    tag: 3.4.0-debian-11-r2
+    digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
     ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -1017,7 +1005,7 @@ ingress:
   apiVersion: ""
   ## @param ingress.hostname Default host for the ingress record
   ##
-  hostname: argo-workflow-uat.becamex.com.vn
+  hostname: argo-workflows.becamex.com.vn
   ## @param ingress.path Default path for the ingress record
   ## NOTE: You may need to set this to '/*' in order to use this with ALB ingress controllers
   ##
@@ -1193,12 +1181,12 @@ externalDatabase:
   enabled: true
   ## Either "postgres" or  "mysql"
   ##
-  type: ""
-  host: localhost
+  type: "mysql"
+  host: "192.168.103.161"
   port: 3306
-  username: bn_wordpress
-  password: ""
-  database: bitnami_wordpress
+  username: root
+  password: "kpi@123456"
+  database: bitnami_argo_workflow
   ## NOTE: Must contain key `database-password`
   ## NOTE: When it's set, the `externalDatabase.password` parameter is ignored
   ##
