@@ -86,10 +86,12 @@ env:
   pg_timeout: 5000
   pg_user: "postgres"
   pg_password: "admin"
-  pg_database: kong_kong_db
+  pg_database: "kong_kong_db"
   pg_schema: "public"
   pg_ssl: "off"
   pg_ssl_verify: "off"
+  lua_package_path: "/opt/?.lua;/opt/?/init.lua;;"
+  plugins: "bundled,oidc"
   # the chart uses the traditional router (for Kong 3.x+) because the ingress
   # controller generates traditional routes. if you do not use the controller,
   # you may set this to "traditional_compatible" or "expression" to use the new
@@ -126,13 +128,13 @@ extraLabels: {}
 
 # Specify Kong's Docker image and repository details here
 image:
-  # repository: kong
-  # tag: "3.0"
+  repository: becamexidc2020/kong-oidc
+  tag: "3.0.0"
   # Kong Enterprise
-  repository: kong/kong-gateway
-  tag: "3.0"
+  # repository: kong/kong-gateway
+  # tag: "3.0"
 
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/

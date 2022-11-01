@@ -307,9 +307,9 @@ helm upgrade kong -n kubeapps bitnami/kong -f sources/apps/kong/kong-values.yaml
 # with kong
 helm repo add kong https://charts.konghq.com
 helm repo update
-helm install kong -n kubeapps kong/kong -f sources/apps/kong/1.kong-values.yaml 
+helm install kong -n kubeapps kong/kong -f sources/apps/kong/2.kong-values.yaml 
 helm uninstall kong -n kubeapps
-helm upgrade kong -n kubeapps kong/kong -f sources/apps/kong/1.kong-values.yaml 
+helm upgrade kong -n kubeapps kong/kong -f sources/apps/kong/2.kong-values.yaml 
 
 # delete namespace is stuck
 
