@@ -134,7 +134,7 @@ image:
   # repository: kong/kong-gateway
   # tag: "3.0"
 
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -148,7 +148,7 @@ admin:
   # Disabling this is recommended for most ingress controller configurations
   # Enterprise users that wish to use Kong Manager with the controller should enable this
   enabled: true
-  type: NodePort
+  type: ClusterIP
   # To specify annotations or labels for the admin service, add them to the respective
   # "annotations" or "labels" dictionaries below.
   annotations: {}
@@ -331,7 +331,7 @@ proxy:
     ingressClassName:
     # Ingress hostname
     # TLS secret name.
-    # tls: kong-proxy.example.com-tls
+    tls: becamexidc-cert
     hostname: kong-uat.becamex.com.vn
     # Map of ingress annotations.
     annotations: {}
@@ -341,7 +341,7 @@ proxy:
     pathType: ImplementationSpecific
 
   # Optionally specify a static load balancer IP.
-  # loadBalancerIP:
+  loadBalancerIP: 192.168.103.185
 
 # Specify Kong UDP proxy service configuration
 # Currently, LoadBalancer type Services are generally limited to a single transport protocol
