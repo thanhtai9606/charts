@@ -188,6 +188,7 @@ helm install pgadmin -n kubeapps cetic/pgadmin -f sources/apps/postgresql/2.pgad
 # keycloak
 helm uninstall keycloak -n kubeapps 
 helm install keycloak -n kubeapps bitnami/keycloak -f sources/apps/keycloak/1.keycloak-values.yaml 
+helm upgrade keycloak -n kubeapps bitnami/keycloak -f sources/apps/keycloak/1.keycloak-values.yaml 
 
 # argo-workflow
 helm uninstall argo-workflows -n argocd 

@@ -208,20 +208,20 @@ server:
       ## E.g.
       ## issuer: "https://accounts.google.com"
       ##
-      issuer: ""
+      issuer: "https://keycloak.becamex.com.vn/realms/argo"
       ## Name of a secret and a key in it to retrieve the app OIDC client ID from.
       ##
       clientId:
-        name: ""
-        key: ""
+        name: "argo"
+        key: "argo-workflows"
       ## Name of a secret and a key in it to retrieve the app OIDC client secret from.
       ##
       clientSecret:
-        name: ""
-        key: ""
+        name: "argo-server-sso"
+        key: "1FuQ6lGjbfwSXz14aKeB5QZJFksRKxob"
       ## The OIDC redirect URL. Should be in the form <argo-root-url>/oauth2/callback.
       ##
-      redirectUrl: ""
+      redirectUrl: "https://argo-workflows.becamex.com.vn/argo/oauth2/callback"
       ## Create RBAC resources for SSO
       ##
       rbac:

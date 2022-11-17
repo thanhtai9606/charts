@@ -540,7 +540,7 @@ ingress:
   apiVersion: ""
   ## @param ingress.hostname Default host for the ingress record
   ##
-  hostname: auth-sso.becamex.com.vn
+  hostname: keycloak.becamex.com.vn
   ## @param ingress.path Default path for the ingress record
   ##
   path: /
