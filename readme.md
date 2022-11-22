@@ -177,6 +177,7 @@ helm install mariadb -n kubeapps bitnami/mariadb -f sources/apps/mysql/1.mariadb
 
 # phpmyadmin
 helm install phpmyadmin -n kubeapps bitnami/phpmyadmin -f sources/apps/mysql/3.phpmyadmin-values.yaml
+helm upgrade phpmyadmin -n kubeapps bitnami/phpmyadmin -f sources/apps/mysql/3.phpmyadmin-values.yaml
 helm uninstall phpmyadmin -n kubeapps
 # pgadmin
 helm repo add cetic https://cetic.github.io/helm-charts
