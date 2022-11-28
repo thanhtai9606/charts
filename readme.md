@@ -157,9 +157,21 @@ helm uninstall nfs-client -n kubeapps
 # helm uninstall nfs-server -n kubeapps
 # helm install nfs-server -n kubeapps stable/nfs-server-provisioner -f sources/apps/nfs-client-provisioner/3.nfs-server-provisioner.yaml 
 
+# k10
+helm repo add kasten https://charts.kasten.io/
+kubectl create namespace kasten-io
+helm uninstall k10 -n kasten-io 
+helm install k10 -n kasten-io kasten/k10 -f sources/apps/k10/1.k10-values.yaml
+helm upgrade k10 -n kasten-io kasten/k10 -f sources/apps/k10/1.k10-values.yaml
+
+helm uninstall k10restore -n kasten-io 
+helm install k10restore -n kasten-io kasten/k10restore -f sources/apps/k10/2.k10-restore-values.yaml
+helm upgrade k10restore -n kasten-io kasten/k10restore -f sources/apps/k10/2.k10-restore-values.yaml
+
 # rabbitmq
 helm uninstall rabbitmq -n kubeapps 
 helm install rabbitmq -n kubeapps bitnami/rabbitmq -f sources/apps/rabbitmq/1.rabbitmq-values.yaml 
+helm upgrate rabbitmq -n kubeapps bitnami/rabbitmq -f sources/apps/rabbitmq/1.rabbitmq-values.yaml 
 
 
 # rabbitmq
