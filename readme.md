@@ -168,6 +168,34 @@ helm uninstall k10restore -n kasten-io
 helm install k10restore -n kasten-io kasten/k10restore -f sources/apps/k10/2.k10-restore-values.yaml
 helm upgrade k10restore -n kasten-io kasten/k10restore -f sources/apps/k10/2.k10-restore-values.yaml
 
+# velero
+wget https://github.com/vmware-tanzu/velero/releases/download/v1.10.0-rc.2/velero-v1.10.0-rc.2-linux-amd64.tar.gz
+tar zxf velero-v1.10.0-rc.2-linux-amd64.tar.gz
+sudo mv velero-v1.10.0-rc.2-linux-amd64/velero /usr/local/bin/
+rm -rf velero*
+*have to create bucket first in minio
+velero install \
+   --provider aws \
+   --plugins velero/velero-plugin-for-aws:v1.3.0 \
+   --bucket kubedemo \
+   --secret-file sources/apps/velero/minio.credentials \
+   --backup-location-config region=minio,s3ForcePathStyle="true",s3Url=http://192.168.103.167:9000
+
+# auto complete command zsh velero
+   source <(velero completion zsh)
+ # chart
+   helm repo add vmware-tanzu https://vmware-tanzu.github.io/helm-charts
+ # check backup location velero
+velero backup-location get
+velero backup get
+velero backup describe first-backup | less
+ # create backup with ns
+velero backup create firstbackup --include-namespaces microservice
+velero backup create firstbackup --include-namespaces becamex-apps-dev
+ # uninstall
+velero uninstall
+
+
 # rabbitmq
 helm uninstall rabbitmq -n kubeapps 
 helm install rabbitmq -n kubeapps bitnami/rabbitmq -f sources/apps/rabbitmq/1.rabbitmq-values.yaml 
