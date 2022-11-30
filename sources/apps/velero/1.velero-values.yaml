@@ -58,12 +58,12 @@ initContainers:
   #   volumeMounts:
   #     - mountPath: /target
   #       name: plugins
-  # - name: velero-plugin-for-aws
-  #   image: velero/velero-plugin-for-aws:v1.5.2
-  #   imagePullPolicy: IfNotPresent
-  #   volumeMounts:
-  #     - mountPath: /target
-  #       name: plugins
+  - name: velero-plugin-for-aws
+    image: velero/velero-plugin-for-aws:v1.5.2
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+      - mountPath: /target
+        name: plugins
 
 # SecurityContext to use for the Velero deployment. Optional.
 # Set fsGroup for `AWS IAM Roles for Service Accounts`
@@ -221,19 +221,19 @@ cleanUpCRDs: false
 ##
 configuration:
   # Cloud provider being used (e.g. aws, azure, gcp).
-  provider:
+  provider: aws
 
   # Parameters for the `default` BackupStorageLocation. See
   # https://velero.io/docs/v1.6/api-types/backupstoragelocation/
-  backupStorageLocation:
+  backupStorageLocation: 
     # name is the name of the backup storage location where backups should be stored. If a name is not provided,
     # a backup storage location will be created with the name "default". Optional.
-    name:
+    name: default
     # provider is the name for the backup storage location provider. If omitted
     # `configuration.provider` will be used instead.
-    provider:
+    provider:  
     # bucket is the name of the bucket to store backups in. Required.
-    bucket:
+    bucket: velero-uat
     # caCert defines a base64 encoded CA bundle to use when verifying TLS connections to the provider. Optional.
     caCert:
     # prefix is the directory under which all Velero data should be stored within the bucket. Optional.
@@ -245,10 +245,10 @@ configuration:
     accessMode: ReadWrite
     # Additional provider-specific configuration. See link above
     # for details of required/optional fields for your provider.
-    config: {}
-    #  region:
-    #  s3ForcePathStyle:
-    #  s3Url:
+    config: 
+     region: minio
+     s3ForcePathStyle: "true"
+     s3Url: http://192.168.103.167:9000
     #  kmsKeyId:
     #  resourceGroup:
     #  The ID of the subscription containing the storage account, if different from the cluster’s subscription. (Azure only)
@@ -285,7 +285,7 @@ configuration:
   # comments below.
   # --------------------
   # `velero server` default: 1m
-  backupSyncPeriod:
+  backupSyncPeriod: 1m
   # `velero server` default: 1h
   resticTimeout:
   # `velero server` default: namespaces,persistentvolumes,persistentvolumeclaims,secrets,configmaps,serviceaccounts,limitranges,pods
@@ -305,7 +305,7 @@ configuration:
   # `velero server` default: 1h
   garbageCollectionFrequency:
   # `velero server` default: velero
-  namespace:
+  namespace: microservice
   #
 
   # additional key/value pairs to be used as environment variables such as "AWS_CLUSTER_NAME: 'yourcluster.domain.tld'"
@@ -373,11 +373,11 @@ credentials:
   # [AWS] https://github.com/vmware-tanzu/velero-plugin-for-aws/blob/main/README.md
   # [GCP] https://github.com/vmware-tanzu/velero-plugin-for-gcp/blob/main/README.md
   # [Azure] https://github.com/vmware-tanzu/velero-plugin-for-microsoft-azure/blob/main/README.md
-  secretContents: {}
-  #  cloud: |
-  #    [default]
-  #    aws_access_key_id=<REDACTED>
-  #    aws_secret_access_key=<REDACTED>
+  secretContents:
+   cloud: |
+     [default]
+     aws_access_key_id=becamexidc
+     aws_secret_access_key=Becamex@1234
   # additional key/value pairs to be used as environment variables such as "DIGITALOCEAN_TOKEN: <your-key>". Values will be stored in the secret.
   extraEnvVars: {}
   # Name of a pre-existing secret (if any) in the Velero namespace

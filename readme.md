@@ -176,8 +176,9 @@ rm -rf velero*
 *have to create bucket first in minio
 velero install \
    --provider aws \
-   --plugins velero/velero-plugin-for-aws:v1.3.0 \
-   --bucket kubedemo \
+   --plugins velero/velero-plugin-for-aws:v1.5.2 \
+   --bucket velero-uat \
+   --use-volume-snapshots=false \
    --secret-file sources/apps/velero/minio.credentials \
    --backup-location-config region=minio,s3ForcePathStyle="true",s3Url=http://192.168.103.167:9000
 
@@ -185,13 +186,19 @@ velero install \
    source <(velero completion zsh)
  # chart
    helm repo add vmware-tanzu https://vmware-tanzu.github.io/helm-charts
+   helm install velero -n velero vmware-tanzu/velero -f sources/apps/velero/1.velero-values.yaml
+   helm uninstall velero -n velero
+
  # check backup location velero
 velero backup-location get
 velero backup get
 velero backup describe first-backup | less
  # create backup with ns
-velero backup create firstbackup --include-namespaces microservice
+velero backup create mic-backup --include-namespaces microservice
 velero backup create firstbackup --include-namespaces becamex-apps-dev
+ # create restore with ns
+velero create restore fx  --from-backup firstbackup
+velero create restore fx2  --from-backup second-backup
  # uninstall
 velero uninstall
 
