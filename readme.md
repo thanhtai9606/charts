@@ -317,6 +317,49 @@ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/late
  helm install k10 -n kasten-io kasten/k10 -f sources/apps/k10/k10-values.yaml
  helm upgrade k10 -n kasten-io kasten/k10 -f sources/apps/k10/k10-values.yaml
  helm uninstall k10 -n kasten-io
+
+# velero
+wget https://github.com/vmware-tanzu/velero/releases/download/v1.10.0-rc.2/velero-v1.10.0-rc.2-linux-amd64.tar.gz
+tar zxf velero-v1.10.0-rc.2-linux-amd64.tar.gz
+sudo mv velero-v1.10.0-rc.2-linux-amd64/velero /usr/local/bin/
+rm -rf velero*
+*have to create bucket first in minio
+velero install \
+   --provider aws \
+   --plugins velero/velero-plugin-for-aws:v1.5.2 \
+   --bucket velero-uat \
+   --use-volume-snapshots=false \
+   --secret-file sources/apps/velero/scripts/minio.credentials \
+   --backup-location-config region=minio,s3ForcePathStyle="true",s3Url=http://192.168.103.167:9000
+
+# all scripts
+# create velero apps
+  ./sources/apps/velero/scripts/0.create-velero.sh
+# create auto schedule
+  ./sources/apps/velero/scripts/1.schedule.sh
+# delete schedule
+  ./sources/apps/velero/scripts/2.schedule-remove.sh
+
+# auto complete command zsh velero
+   source <(velero completion zsh)
+ # chart
+   helm repo add vmware-tanzu https://vmware-tanzu.github.io/helm-charts
+   helm install velero -n velero vmware-tanzu/velero -f sources/apps/velero/1.velero-values.yaml
+   helm upgrade velero -n velero vmware-tanzu/velero -f sources/apps/velero/1.velero-values.yaml
+   helm uninstall velero -n velero
+
+ # check backup location velero
+velero backup-location get
+velero backup get
+velero backup describe first-backup | less
+ # create backup with ns
+velero backup create mic-backup --include-namespaces microservice
+velero backup create firstbackup --include-namespaces becamex-apps-dev
+ # create restore with ns
+velero create restore fx  --from-backup firstbackup
+velero create restore fx2  --from-backup second-backup
+ # uninstall
+velero uninstall
 ````
 
 # kibana
