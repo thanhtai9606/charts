@@ -1,8 +1,8 @@
 #!/bin/sh
 # revemo velero
 # velero uninstall
-bucket="velero-uat"
-tenant="becamex"
+bucket="velero"
+tenant="uat"
 base_dir=$(dirname $0)
 velero install \
    --provider aws \
