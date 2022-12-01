@@ -8,7 +8,7 @@ GREEN='\033[0;32m'
 NC='\033[0m'
 
 namespace_array=(argocd becamex-apps becamex-crm-prod becamex-digimaps becamex-eiu becamex-hospital becamex-xlnt customer-portal dwh esign gis kubeapps)
-cron_job="@every 1d"
+cron_job="0 1 * * *" #Every day at 1am
 echo -e "${YELLOW}===== Begin make Schedule =====${NC}"
 for i in ${namespace_array[@]}
 do
