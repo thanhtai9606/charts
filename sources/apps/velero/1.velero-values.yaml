@@ -109,7 +109,6 @@ extraVolumeMounts: []
 
 # Extra K8s manifests to deploy
 extraObjects: []
-  # - apiVersion: secrets-store.csi.x-k8s.io/v1
   #   kind: SecretProviderClass
   #   metadata:
   #     name: velero-secrets-store
@@ -135,7 +134,7 @@ extraObjects: []
 
 # Settings for Velero's prometheus metrics. Enabled by default.
 metrics:
-  enabled: true
+  enabled: false
   scrapeInterval: 30s
   scrapeTimeout: 10s
 
@@ -231,7 +230,7 @@ configuration:
     name: default
     # provider is the name for the backup storage location provider. If omitted
     # `configuration.provider` will be used instead.
-    provider:  
+    provider: 
     # bucket is the name of the bucket to store backups in. Required.
     bucket: velero-uat
     # caCert defines a base64 encoded CA bundle to use when verifying TLS connections to the provider. Optional.

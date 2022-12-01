@@ -179,14 +179,23 @@ velero install \
    --plugins velero/velero-plugin-for-aws:v1.5.2 \
    --bucket velero-uat \
    --use-volume-snapshots=false \
-   --secret-file sources/apps/velero/minio.credentials \
+   --secret-file sources/apps/velero/scripts/minio.credentials \
    --backup-location-config region=minio,s3ForcePathStyle="true",s3Url=http://192.168.103.167:9000
+
+# all scripts
+# create velero apps
+  ./sources/apps/velero/scripts/0.create-velero.sh
+# create auto schedule
+  ./sources/apps/velero/scripts/1.schedule.sh
+# delete schedule
+  ./sources/apps/velero/scripts/2.schedule-remove.sh
 
 # auto complete command zsh velero
    source <(velero completion zsh)
  # chart
    helm repo add vmware-tanzu https://vmware-tanzu.github.io/helm-charts
    helm install velero -n velero vmware-tanzu/velero -f sources/apps/velero/1.velero-values.yaml
+   helm upgrade velero -n velero vmware-tanzu/velero -f sources/apps/velero/1.velero-values.yaml
    helm uninstall velero -n velero
 
  # check backup location velero
