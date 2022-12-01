@@ -7,8 +7,8 @@ YELLOW='\033[1;33m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 
-namespace_array=(microservice becamex-apps-dev)
-cron_job="@every 1m"
+namespace_array=(argocd becamex-apps becamex-crm-prod becamex-digimaps becamex-eiu becamex-hospital becamex-xlnt customer-portal dwh esign gis kubeapps)
+cron_job="@every 1d"
 echo -e "${YELLOW}===== Begin make Schedule =====${NC}"
 for i in ${namespace_array[@]}
 do
