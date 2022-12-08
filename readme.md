@@ -246,6 +246,10 @@ helm uninstall nfs-elastic -n kubeapps
 helm install nfs-elastic -n kubeapps nfs-subdir-external-provisioner/nfs-subdir-external-provisioner -f sources/apps/nfs-client-provisioner/2.nfs-elastic-provisioner-values.yaml
 helm upgrade nfs-elastic -n kubeapps  nfs-subdir-external-provisioner/nfs-subdir-external-provisioner -f sources/apps/nfs-client-provisioner/2.nfs-elastic-provisioner-values.yaml
 
+# redis
+helm uninstall redis  -n kubeapps 
+helm install redis -n kubeapps bitnami/redis -f sources/apps/redis/1.redis-values.yaml 
+
 # add repo becamexidc
 helm repo add becamex https://chart.becamex.com.vn 
 helm repo update
