@@ -335,6 +335,7 @@ helm install mariadb -n kubeapps bitnami/mariadb -f sources/apps/mysql/1.mariadb
 # redis
 helm uninstall redis  -n kubeapps 
 helm install redis -n kubeapps bitnami/redis -f sources/apps/redis/1.redis-values.yaml 
+helm upgrade redis -n kubeapps bitnami/redis -f sources/apps/redis/1.redis-values.yaml 
 
 # phpmyadmin
 helm uninstall myadmin  -n kubeapps 

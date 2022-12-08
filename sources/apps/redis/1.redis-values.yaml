@@ -80,7 +80,7 @@ image:
 
 ## @param architecture Redis(TM) architecture. Allowed values: `standalone` or `replication`
 ##
-architecture: replication
+architecture: standalone
 ## Redis(TM) Authentication parameters
 ## ref: https://github.com/bitnami/bitnami-docker-redis#setting-the-server-password-on-first-run
 ##
