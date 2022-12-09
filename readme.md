@@ -66,7 +66,7 @@ kubectl create ns kubeapps
 - test ingress
 
 ```bash
-helm install nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/bitnami-nginx-values.yaml -n kubeapps
+helm install nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/4.bitnami-nginx-values.yaml -n kubeapps
 
 kubectl apply -f sources/nginx/1.app-test.yaml
 
