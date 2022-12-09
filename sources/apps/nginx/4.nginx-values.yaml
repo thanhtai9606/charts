@@ -754,8 +754,8 @@ autoscaling:
   enabled: true
   minReplicas: 1
   maxReplicas: 5
-  targetCPU: "200m"
-  targetMemory: "512Mi"
+  targetCPU: "200"
+  targetMemory: "512"
 
 ## @section Metrics parameters
 
