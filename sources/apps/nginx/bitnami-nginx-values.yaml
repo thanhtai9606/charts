@@ -205,7 +205,7 @@ daemonset:
     https: 443
 ## @param replicaCount Desired number of Controller pods
 ##
-replicaCount: 1
+replicaCount: 2
 ## @param updateStrategy Strategy to use to update Pods
 ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies
 ##
@@ -764,7 +764,7 @@ autoscaling:
 metrics:
   ## @param metrics.enabled Enable exposing Controller statistics
   ##
-  enabled: false
+  enabled: true
   ## Prometheus exporter service parameters
   ##
   service:
@@ -784,10 +784,10 @@ metrics:
   serviceMonitor:
     ## @param metrics.serviceMonitor.enabled Create ServiceMonitor resource for scraping metrics using PrometheusOperator
     ##
-    enabled: false
+    enabled: true
     ## @param metrics.serviceMonitor.namespace Namespace in which Prometheus is running
     ##
-    namespace: ""
+    namespace: "cattle-monitoring-system"
     ## @param metrics.serviceMonitor.interval Interval at which metrics should be scraped
     ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint
     ##
