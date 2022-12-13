@@ -250,10 +250,10 @@ minReadySeconds: 0
 ##
 resources:
   ## Example:
-  ## limits:
-  ##    cpu: 250m
-  ##    memory: 256Mi
-  limits: {}
+  limits:
+     cpu: 250m
+     memory: 256Mi
+  # limits: {}
   ## Examples:
   ## requests:
   ##    cpu: 250m
@@ -514,10 +514,10 @@ defaultBackend:
   ##
   resources:
     ## Example:
-    ## limits:
-    ##    cpu: 250m
-    ##    memory: 256Mi
-    limits: {}
+    limits:
+       cpu: 250m
+       memory: 256Mi
+    # limits: {}
     ## Examples:
     ## requests:
     ##    cpu: 250m
@@ -753,9 +753,9 @@ pdb:
 autoscaling:
   enabled: true
   minReplicas: 1
-  maxReplicas: 5
-  targetCPU: "200"
-  targetMemory: "512"
+  maxReplicas: 3
+  targetCPU: "75"
+  targetMemory: "75"
 
 ## @section Metrics parameters
 
@@ -797,7 +797,7 @@ metrics:
     ## e.g:
     ## scrapeTimeout: 10s
     ##
-    scrapeTimeout: ""
+    scrapeTimeout: "10s"
     ## @param metrics.serviceMonitor.selector ServiceMonitor selector labels
     ## ref: https://github.com/bitnami/charts/tree/master/bitnami/prometheus-operator#prometheus-configuration
     ## e.g:
