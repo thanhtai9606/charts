@@ -76,6 +76,7 @@ kubectl create ns kubeapps
 
 kubectl create -n kubeapps secret tls becamexidc-cert --cert=./sources/certs/becamex.crt --key=./sources/certs/becamex.key
 helm install nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/4.nginx-values.yaml -n kubeapps
+helm upgrade nginx bitnami/nginx-ingress-controller -f sources/apps/nginx/4.nginx-values.yaml -n kubeapps
 
 kubectl apply -f sources/nginx/1.app-test.yaml 
 
