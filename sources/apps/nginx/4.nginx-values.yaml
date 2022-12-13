@@ -801,8 +801,8 @@ metrics:
     ## @param metrics.serviceMonitor.selector ServiceMonitor selector labels
     ## ref: https://github.com/bitnami/charts/tree/master/bitnami/prometheus-operator#prometheus-configuration
     ## e.g:
-    ## selector:
-    ##   prometheus: my-prometheus
+    # selector:
+    #   prometheus: my-prometheus
     ##
     selector: {}
   ## @param metrics.prometheusRule.enabled Create PrometheusRules resource for scraping metrics using PrometheusOperator
