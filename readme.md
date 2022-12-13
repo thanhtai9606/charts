@@ -74,6 +74,10 @@ kubectl apply -f sources/nginx/2.app-test-ingress.yaml
 ```
 
 - install nginx kubeapps
+### Grafana nginx ingress controller
+```
+id 9614
+```
 
 ```bash
 # create secret certs
