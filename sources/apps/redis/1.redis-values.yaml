@@ -1050,7 +1050,7 @@ tls:
 metrics:
   ## @param metrics.enabled Start a sidecar prometheus exporter to expose Redis(TM) metrics
   ##
-  enabled: false
+  enabled: true
   ## Bitnami Redis(TM) Exporter image
   ## ref: https://hub.docker.com/r/bitnami/redis-exporter/tags/
   ## @param metrics.image.registry Redis(TM) Exporter image registry
@@ -1218,16 +1218,16 @@ metrics:
   serviceMonitor:
     ## @param metrics.serviceMonitor.enabled Create ServiceMonitor resource(s) for scraping metrics using PrometheusOperator
     ##
-    enabled: false
+    enabled: true
     ## @param metrics.serviceMonitor.namespace The namespace in which the ServiceMonitor will be created
     ##
-    namespace:
+    namespace: cattle-monitoring-system
     ## @param metrics.serviceMonitor.interval The interval at which metrics should be scraped
     ##
     interval: 30s
     ## @param metrics.serviceMonitor.scrapeTimeout The timeout after which the scrape is ended
     ##
-    scrapeTimeout:
+    scrapeTimeout: 20s
     ## @param metrics.serviceMonitor.relabellings Metrics relabellings to add to the scrape endpoint
     ##
     relabellings: []
@@ -1243,7 +1243,7 @@ metrics:
   prometheusRule:
     ## @param metrics.prometheusRule.enabled Create a custom prometheusRule Resource for scraping metrics using PrometheusOperator
     ##
-    enabled: false
+    enabled: true
     ## @param metrics.prometheusRule.namespace The namespace in which the prometheusRule will be created
     ##
     namespace:
@@ -1252,40 +1252,40 @@ metrics:
     additionalLabels: {}
     ## @param metrics.prometheusRule.rules Custom Prometheus rules
     ## e.g:
-    ## rules:
-    ##   - alert: RedisDown
-    ##     expr: redis_up{service="{{ template "common.names.fullname" . }}-metrics"} == 0
-    ##     for: 2m
-    ##     labels:
-    ##       severity: error
-    ##     annotations:
-    ##       summary: Redis(TM) instance {{ "{{ $labels.instance }}" }} down
-    ##       description: Redis(TM) instance {{ "{{ $labels.instance }}" }} is down
-    ##    - alert: RedisMemoryHigh
-    ##      expr: >
-    ##        redis_memory_used_bytes{service="{{ template "common.names.fullname" . }}-metrics"} * 100
-    ##        /
-    ##        redis_memory_max_bytes{service="{{ template "common.names.fullname" . }}-metrics"}
-    ##        > 90
-    ##      for: 2m
-    ##      labels:
-    ##        severity: error
-    ##      annotations:
-    ##        summary: Redis(TM) instance {{ "{{ $labels.instance }}" }} is using too much memory
-    ##        description: |
-    ##          Redis(TM) instance {{ "{{ $labels.instance }}" }} is using {{ "{{ $value }}" }}% of its available memory.
-    ##    - alert: RedisKeyEviction
-    ##      expr: |
-    ##        increase(redis_evicted_keys_total{service="{{ template "common.names.fullname" . }}-metrics"}[5m]) > 0
-    ##      for: 1s
-    ##      labels:
-    ##        severity: error
-    ##      annotations:
-    ##        summary: Redis(TM) instance {{ "{{ $labels.instance }}" }} has evicted keys
-    ##        description: |
-    ##          Redis(TM) instance {{ "{{ $labels.instance }}" }} has evicted {{ "{{ $value }}" }} keys in the last 5 minutes.
-    ##
-    rules: []
+    rules:
+      - alert: RedisDown
+        expr: redis_up{service="{{ template "common.names.fullname" . }}-metrics"} == 0
+        for: 2m
+        labels:
+          severity: error
+        annotations:
+          summary: Redis(TM) instance {{ "{{ $labels.instance }}" }} down
+          description: Redis(TM) instance {{ "{{ $labels.instance }}" }} is down
+      - alert: RedisMemoryHigh
+        expr: >
+          redis_memory_used_bytes{service="{{ template "common.names.fullname" . }}-metrics"} * 100
+          /
+          redis_memory_max_bytes{service="{{ template "common.names.fullname" . }}-metrics"}
+          > 90
+        for: 2m
+        labels:
+          severity: error
+        annotations:
+          summary: Redis(TM) instance {{ "{{ $labels.instance }}" }} is using too much memory
+          description: |
+            Redis(TM) instance {{ "{{ $labels.instance }}" }} is using {{ "{{ $value }}" }}% of its available memory.
+      - alert: RedisKeyEviction
+        expr: |
+          increase(redis_evicted_keys_total{service="{{ template "common.names.fullname" . }}-metrics"}[5m]) > 0
+        for: 1s
+        labels:
+          severity: error
+        annotations:
+          summary: Redis(TM) instance {{ "{{ $labels.instance }}" }} has evicted keys
+          description: |
+            Redis(TM) instance {{ "{{ $labels.instance }}" }} has evicted {{ "{{ $value }}" }} keys in the last 5 minutes.
+
+    # rules: []
 
 ## @section Init Container Parameters
 
