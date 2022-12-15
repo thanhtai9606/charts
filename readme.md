@@ -108,6 +108,11 @@ kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboar
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo add stable https://charts.helm.sh/stable
 ```
+# add prom2teams for alert-manager
+```
+helm install prom2teams -n cattle-monitoring-system sources/my-apps/prom2teams/ -f sources/my-apps/prom2teams/values.yaml
+helm upgrade prom2teams -n cattle-monitoring-system sources/my-apps/prom2teams/ -f sources/my-apps/prom2teams/values.yaml
+```
 * create dynamic volume
 ```
 helm uninstall nfs-client -n kubeapps
