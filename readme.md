@@ -389,4 +389,7 @@ kubeadm alpha  certs renew all
 
 kubeadm alpha certs check-expiration
 https://programmer.help/blogs/how-to-use-kubeadm-to-manage-certificates.html
+## github token
+```
+token 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
 ```
