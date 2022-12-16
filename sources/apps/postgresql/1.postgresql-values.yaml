@@ -5,9 +5,9 @@
 global:
   postgresql:
     auth:
-      database:
-        username: "postgresql"
-        password: "admin"
+      database: "postgres"
+      username: "postgres"
+      password: "admin"
 #   imageRegistry: myRegistryName
 #   imagePullSecrets:
 #     - myRegistryKeySecretName
