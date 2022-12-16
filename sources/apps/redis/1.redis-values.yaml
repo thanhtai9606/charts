@@ -80,7 +80,7 @@ image:
 
 ## @param architecture Redis(TM) architecture. Allowed values: `standalone` or `replication`
 ##
-architecture: standalone
+architecture: replication
 ## Redis(TM) Authentication parameters
 ## ref: https://github.com/bitnami/bitnami-docker-redis#setting-the-server-password-on-first-run
 ##
@@ -734,7 +734,7 @@ sentinel:
   ## IMPORTANT: this will disable the master and replicas services and
   ## create a single Redis(TM) service exposing both the Redis and Sentinel ports
   ##
-  enabled: false
+  enabled: true
   ## Bitnami Redis(TM) Sentinel image version
   ## ref: https://hub.docker.com/r/bitnami/redis-sentinel/tags/
   ## @param sentinel.image.registry Redis(TM) Sentinel image registry
@@ -789,7 +789,7 @@ sentinel:
   ## @param sentinel.configuration Configuration for Redis(TM) Sentinel nodes
   ## ref: https://redis.io/topics/sentinel
   ##
-  configuration:
+  configuration: ""
   ## @param sentinel.command Override default container command (useful when using custom images)
   ##
   command: []
@@ -1050,7 +1050,7 @@ tls:
 metrics:
   ## @param metrics.enabled Start a sidecar prometheus exporter to expose Redis(TM) metrics
   ##
-  enabled: false
+  enabled: true
   ## Bitnami Redis(TM) Exporter image
   ## ref: https://hub.docker.com/r/bitnami/redis-exporter/tags/
   ## @param metrics.image.registry Redis(TM) Exporter image registry
