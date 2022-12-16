@@ -236,6 +236,7 @@ helm upgrade argo-workflows -n kubeapps bitnami/argo-workflows -f sources/apps/a
 # postgres sql
 helm uninstall postgres -n kubeapps 
 helm install postgres -n kubeapps bitnami/postgresql -f sources/apps/postgresql/1.postgresql-values.yaml 
+helm upgrade postgres -n kubeapps bitnami/postgresql -f sources/apps/postgresql/1.postgresql-values.yaml 
 # pgadmin
 helm uninstall pgadmin -n kubeapps 
 helm install pgadmin -n kubeapps cetic/pgadmin -f sources/apps/postgresql/2.pgadmin-values.yaml

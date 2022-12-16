@@ -3,7 +3,11 @@
 ## Current available global Docker image parameters: imageRegistry and imagePullSecrets
 ##
 global:
-  postgresql: {}
+  postgresql:
+    auth:
+      database:
+        username: "postgresql"
+        password: "admin"
 #   imageRegistry: myRegistryName
 #   imagePullSecrets:
 #     - myRegistryKeySecretName
@@ -625,7 +629,7 @@ tls:
 ## Configure metrics exporter
 ##
 metrics:
-  enabled: false
+  enabled: true
   # resources: {}
   service:
     type: ClusterIP
@@ -634,7 +638,7 @@ metrics:
       prometheus.io/port: '9187'
     loadBalancerIP:
   serviceMonitor:
-    enabled: false
+    enabled: true
     additionalLabels: {}
     # namespace: monitoring
     # interval: 30s
@@ -644,20 +648,20 @@ metrics:
   ## ref: https://github.com/coreos/prometheus-operator#customresourcedefinitions
   ##
   prometheusRule:
-    enabled: false
+    enabled: true
     additionalLabels: {}
-    namespace: ''
+    namespace: 'cattle-monitoring-system'
     ## These are just examples rules, please adapt them to your needs.
     ## Make sure to constraint the rules to the current postgresql service.
-    ## rules:
-    ##   - alert: HugeReplicationLag
-    ##     expr: pg_replication_lag{service="{{ template "postgresql.fullname" . }}-metrics"} / 3600 > 1
-    ##     for: 1m
-    ##     labels:
-    ##       severity: critical
-    ##     annotations:
-    ##       description: replication for {{ template "postgresql.fullname" . }} PostgreSQL is lagging by {{ "{{ $value }}" }} hour(s).
-    ##       summary: PostgreSQL replication is lagging by {{ "{{ $value }}" }} hour(s).
+    # # rules:
+    # #   - alert: HugeReplicationLag
+    # #     expr: pg_replication_lag{service="{{ template "postgresql.fullname" . }}-metrics"} / 3600 > 1
+    # #     for: 1m
+    # #     labels:
+    # #       severity: critical
+    # #     annotations:
+    # #       description: replication for {{ template "postgresql.fullname" . }} PostgreSQL is lagging by {{ "{{ $value }}" }} hour(s).
+    # #       summary: PostgreSQL replication is lagging by {{ "{{ $value }}" }} hour(s).
     ##
     rules: []
 
