@@ -42,7 +42,9 @@ kubectl create -n becamex-xlnt-dev \
 
 # remove pv,pvc
 
-kubectl patch pvc db-pv-claim -p '{"metadata":{"finalizers":null}}'
+kubectl patch pvc pvc-digimaps-2d  -p '{"metadata":{"finalizers":null}}' -n becamex-digimaps
+kubectl patch pv pvc-digimaps-2d  -p '{"metadata":{"finalizers":null}}' -n becamex-digimaps
+kubectl patch pvc pvc-gis-longhorn  -p '{"metadata":{"finalizers":null}}' -n gis
 kubectl patch pod db-74755f6698-8td72 -p '{"metadata":{"finalizers":null}}'
 
 # lưu ý ingress
