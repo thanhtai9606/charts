@@ -281,7 +281,7 @@ ingress:
   ## Must be provided if Ingress is enabled
   ##
   hosts: 
-    - name: chart.becamex.com.vn
+    - name: charts.becamex.com.vn
       path: /
     #   tls: false
     # - name: chartmuseum.domain2.com
